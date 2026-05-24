@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Root Domain Homepage (from 'home' repo) -->
   <url>
-    <loc>https://YOUR_ORG_NAME.github.io/</loc>
+    <loc>https://vancouver-island-regional-database.github.io/</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
@@ -10,7 +10,7 @@
   
   <!-- Water Systems Landing Page (from 'water-systems' repo) -->
   <url>
-    <loc>https://YOUR_ORG_NAME.github.io/water-systems/</loc>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -18,7 +18,7 @@
 
   <!-- Individual HTML Log Entry Inside Water Systems Repo -->
   <url>
-    <loc>https://YOUR_ORG_NAME.github.io/water-systems/harbour-001.html</loc>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/harbour-001.html</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
