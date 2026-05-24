@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Root Domain Homepage (from 'home' repo) -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.00</priority>
-  </url>
-  
-  <!-- Water Systems Landing Page (from 'water-systems' repo) -->
-  <url>
+  <!-- Root Domain Homepage (from 'home' repo) --> <!-- 1. The visible HTML Category Sub-Index Page -->
+ <url>
     <loc>https://vancouver-island-regional-database.github.io/water-systems/</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
+  </url>
+
+  <!-- 2. The physical, sanitized PDF Document Asset -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/lsm-wastewater-audit-2022.pdf</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
   </url>
 
   <!-- Individual HTML Log Entry Inside Water Systems Repo -->
@@ -24,3 +24,4 @@
     <priority>0.80</priority>
   </url>
 </urlset>
+
