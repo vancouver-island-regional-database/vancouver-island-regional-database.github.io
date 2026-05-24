@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Vancouver Island Regional Database (VIRD)</title>
-    <meta name="description" content="Multi-jurisdictional cross-reference index for public sector records, environmental utility ledgers, and institutional governance assets across Vancouver Island.">
     
-    <!-- Open Graph Protocol (Spoon-feeds Context to Search Spiders) -->
+    <!-- INVISIBLE CRAWLER METADATA LAYER (Spoon-feeds search engines and AI) -->
+    <meta name="description" content="Multi-jurisdictional cross-reference index for public sector records, local governance datasets, and environmental utility disclosures across Vancouver Island.">
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph Optimization -->
     <meta property="og:title" content="Vancouver Island Regional Database" />
     <meta property="og:description" content="Open-access portal mapping regional district disclosures and environmental compliance tracking logs." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://vancouver-island-regional-database.github.io/" />
-    
-    <!-- Directs bots to crawl deep into your sub-repository directories -->
-    <meta name="robots" content="index, follow" />
 </head>
 <body style="margin: 0; padding: 0; font-family: 'BCSans', 'Helvetica Neue', Arial, sans-serif; color: #313132; background-color: #FAFAFA;">
 
@@ -35,12 +34,12 @@
     <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
 
         <!-- INSTITUTIONAL DESCRIPTION -->
-<section style="background-color: #FFFFFF; border: 1px solid #D1D1D4; border-top: 4px solid #003366; padding: 30px; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-    <h1 style="color: #003366; margin-top: 0; font-size: 26px; font-weight: 600;">Vancouver Island Regional Database</h1>
-    <p style="font-size: 15px; line-height: 1.6; color: #47474A; margin-bottom: 0;">
-        The Vancouver Island Regional Database is an open-access portal of public sector and local governance records. The catalogue is organized by theme to promote public access, use, integration, and preservation across overlapping jurisdictions in the Mid-Island area. 
-    </p>
-</section>
+        <section style="background-color: #FFFFFF; border: 1px solid #D1D1D4; border-top: 4px solid #003366; padding: 30px; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <h1 style="color: #003366; margin-top: 0; font-size: 26px; font-weight: 600;">Vancouver Island Regional Database</h1>
+            <p style="font-size: 15px; line-height: 1.6; color: #47474A; margin-bottom: 0;">
+                The Vancouver Island Regional Database is an open-access portal of public sector and local governance records. The catalogue is organized by theme to promote public access, use, integration, and preservation across overlapping jurisdictions in the Mid-Island area. 
+            </p>
+        </section>
 
         <!-- THEMATIC NAVIGATION SECTIONS -->
         <h2 style="color: #003366; font-size: 18px; font-weight: 600; border-bottom: 2px solid #D1D1D4; padding-bottom: 8px; margin-bottom: 25px;">
@@ -49,40 +48,38 @@
 
         <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
             
-            <!-- DIRECTORY LINK 1: WATER SYSTEMS -->
+            <!-- DIRECTORY LINK 1: WATER SYSTEMS (CROSS-REPOSITORY PIPELINE) -->
             <div style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
                 <div>
                     <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Water Systems | Mid-Island</h3>
                     <p style="margin: 0; font-size: 13px; color: #606062;">Records regarding management and operation of sewer systems, water systems, protected watersheds and the coastline.</p>
                 </div>
-                <a href="./water-systems/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Open Registry</a>
+                <!-- The forward slash forces search bots to cross into your separate 'water-systems' repository -->
+                <a href="/water-systems/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Open Registry</a>
             </div>
 
-<!-- DIRECTORY LINK 2: OPENDATA -->
-<div style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
-    <div>
-        <!-- External Resource Tag -->
-        <div style="font-size: 10px; font-weight: bold; color: #606062; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
-            External Resource ↗
-        </div>
-        <!-- Title -->
-        <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Released FOI Requests | B.C. Government</h3>
-        <!-- Body -->
-        <p style="margin: 0; font-size: 13px; color: #606062;">Non-personal records that have been requested through a freedom of information request are posted on the B.C. government website after they're released to the person who requested them.</p>
-    </div> <!-- Button -->
-     <a href="./water-systems/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Search the Catalogue</a>
+            <!-- DIRECTORY LINK 2: EXTERNAL OPENDATA -->
+            <div style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
+                <div>
+                    <div style="font-size: 10px; font-weight: bold; color: #606062; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+                        External Resource ↗
+                    </div>
+                    <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Released FOI Requests | B.C. Government</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">Non-personal records that have been requested through a freedom of information request are posted on the B.C. government website after they're released to the person who requested them.</p>
+                </div>
+                <a href="https://www2.gov.bc.ca/gov/content/governments/about-the-bc-government/open-government/open-information" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Search the Catalogue</a>
             </div>
             
-            <!-- DIRECTORY LINK (PLACEHOLDER) -->
+            <!-- DIRECTORY LINK 3: PLACEHOLDER (DISABLED) -->
             <div style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7;">
-                <div><!-- Title (placeholder) -->
+                <div>
                     <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">2.0 Regional Facilities, Land Use & Zoning Allocations</h3>
-                    <!-- Body (placeholder) -->
                     <p style="margin: 0; font-size: 13px; color: #606062;">Consolidates cross-agency municipal development records and school district facility safety tracking.</p>
-                </div> <!-- Dead Button (placeholder) -->
+                </div>
                 <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
             </div>   
-       </div>       
+            
+        </div>        
     </main>
 
     <!-- FOOTER -->
