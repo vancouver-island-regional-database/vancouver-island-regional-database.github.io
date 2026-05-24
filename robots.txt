@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Directs all search engines to your global directory map
+Sitemap: https://vancouver-island-regional-database.github.io/sitemap.xml
