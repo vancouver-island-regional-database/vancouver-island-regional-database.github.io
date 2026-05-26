@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Root Domain Homepage (from 'home' repo) --> <!-- 1. The visible HTML Category Sub-Index Page -->
+  <!-- Root Domain Homepage (from 'home' repo) --> 
+  <!-- WATER SYSTEMS CATALOGUE -->
  <url>
     <loc>https://vancouver-island-regional-database.github.io/water-systems/</loc>
     <lastmod>2026-05-24</lastmod>
@@ -23,7 +24,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
-
+  
+  <!-- NATURAL RESOURCES CATALOGUE -->
     <url>
     <loc>https://vancouver-island-regional-database.github.io/natural-resources/</loc>
     <lastmod>2026-05-25</lastmod>
@@ -31,5 +33,21 @@
     <priority>0.90</priority>
   </url>
   
+  <!-- LAND USE PLANNING CATALOGUE -->
+    <url>
+    <loc>https://vancouver-island-regional-database.github.io/land-use-planning/</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+    <!-- PUBLIC OFFICIALS CATALOGUE -->
+    <url>
+    <loc>https://vancouver-island-regional-database.github.io/public-officials/</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
 </urlset>
 
