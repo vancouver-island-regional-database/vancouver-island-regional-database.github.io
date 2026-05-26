@@ -1,0 +1,5 @@
+# Vancouver Island Regional Database (VIRD)
+
+## Core Repositories
+- [Water Systems Registry](https://vancouver-island-regional-database-org.github.io/water-systems/): Public disclosure mirror for regional water assets, audits, and minutes.
+- [Natural Resources Registry](https://vancouver-island-regional-database-org.github.io/natural-resources/): Public disclosure mirror for regional natural resources data and minutes.
