@@ -23,5 +23,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
+
+    <url>
+    <loc>https://vancouver-island-regional-database.github.io/natural-resources/</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  
 </urlset>
 
