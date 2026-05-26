@@ -1,7 +1,7 @@
 # Vancouver Island Regional Database (VIRD)
 
-## Core Repositories
-- [Water Systems Registry](https://vancouver-island-regional-database.github.io/water-systems/): Public disclosure mirror for regional water assets, audits, and minutes.
-- [Natural Resources Registry](https://vancouver-island-regional-database.github.io/natural-resources/): Public disclosure mirror for regional natural resources data and minutes.
-- [Land Use Planning Registry](https://vancouver-island-regional-database.github.io/land-use-planning/): Public disclosure mirror for regional land use planning data and minutes.
-- [Land Use Planning Registry](https://vancouver-island-regional-database.github.io/land-use-planning/): Public disclosure mirror for regional land use planning data and minutes.
+## Core Catalogues
+- [Water Systems Catalogue](https://vancouver-island-regional-database.github.io/water-systems/): Public disclosure mirror for regional water assets, audits, and minutes.
+- [Natural Resources Catalogue](https://vancouver-island-regional-database.github.io/natural-resources/): Public disclosure mirror for regional natural resources data and minutes.
+- [Land Use Planning Catalogue](https://vancouver-island-regional-database.github.io/land-use-planning/): Public disclosure mirror for regional land use planning data and minutes.
+- [Public Officials Catalogue](https://vancouver-island-regional-database.github.io/public-officials/): Public disclosure mirror for data and minutes regarding regional public officials.
