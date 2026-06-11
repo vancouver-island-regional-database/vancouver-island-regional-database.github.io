@@ -4,12 +4,61 @@
     <meta charset="UTF-8">
     <title>Vancouver Island Regional Database (VIRD)</title>
     
-    <meta name="description" content="Multi-jurisdictional cross-reference index for public sector records, local governance datasets, and environmental utility disclosures across Vancouver Island.">
+    <meta name="description" content="Open-access mirror centralizing public records, local government information packages, and environmental datasets across the east coast of central Vancouver Island.">
     <meta name="robots" content="index, follow" />
     
     <meta property="og:title" content="Vancouver Island Regional Database" />
-    <meta property="og:description" content="Open-access portal mapping regional district disclosures and environmental compliance tracking logs." />
+    <meta property="og:description" content="A decentralized open data archive mirroring local government public records and regional public body releases." />
     <meta property="og:type" content="website" />
+    <style>
+        .tag-pill {
+            display: inline-block;
+            background-color: #E2E8F0;
+            color: #4A5568;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-top: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tag-pill:hover {
+            background-color: #CBD5E0;
+            color: #2D3748;
+        }
+        /* Custom branded type-tags mapped to core project palette */
+        .tag-pill.type-tag {
+            background-color: rgba(0, 51, 102, 0.08);
+            color: #003366;
+            border: 1px solid rgba(0, 51, 102, 0.15);
+        }
+        .tag-pill.type-tag:hover {
+            background-color: rgba(0, 51, 102, 0.15);
+            color: #002244;
+        }
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: #D1D1D4;
+            margin: 40px 0;
+        }
+        .dataset-card {
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .dataset-card:hover {
+            border-color: #003366 !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+        }
+        .btn-action {
+            transition: background-color 0.15s;
+        }
+        .btn-action:hover {
+            background-color: #002244 !important;
+        }
+    </style>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'BCSans', 'Helvetica Neue', Arial, sans-serif; color: #313132; background-color: #FAFAFA;">
 
@@ -33,77 +82,131 @@
     <section style="background-color: #FFFFFF; border: 1px solid #D1D1D4; border-top: 4px solid #003366; padding: 30px; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
         <h1 style="color: #003366; margin-top: 0; font-size: 26px; font-weight: 600;">Vancouver Island Regional Database</h1>
         <p style="font-size: 15px; line-height: 1.6; color: #47474A; margin-bottom: 0;">
-            The Vancouver Island Regional Database is an open-access portal of public sector and local governance records. Individual catalogues are organized by theme to promote public access, use, integration, and preservation across overlapping jurisdictions in the Mid-Island area. 
+            The Vancouver Island Regional Database is an open data mirror centralizing public records and local government information. Individual collections are organized by sector to ensure immediate transparency, public access, and cross-agency tracking across overlapping administrative boundaries on the east coast of Mid Vancouver Island. 
         </p>
     </section>
 
-    <h2 style="color: #003366; font-size: 18px; font-weight: 600; border-bottom: 2px solid #D1D1D4; padding-bottom: 8px; margin-bottom: 25px;">
-        Available Datasets
-    </h2>
+    <div id="datasetGrid" style="display: flex; flex-direction: column;">
+        
+        <!-- SECTION 1: TOPICAL CATALOGUES -->
+        <h2 style="color: #003366; font-size: 18px; font-weight: 600; border-bottom: 0px solid #D1D1D4; padding-bottom: 8px; margin-top: 0; margin-bottom: 25px;">
+            Topical Catalogues
+        </h2>
+        <div id="sectionCatalogues" style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- WATER SYSTEMS CATALOGUE (live) -->        
+            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); border-left: 4px solid #003366; border-radius: 0 4px 4px 0;">
+                <div>
+                    <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Water Systems | Mid-Island</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">Regional information on water systems, infrastructure, and environmental data on local watersheds and coastal ecosystems.
+                    </p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
+                        <span class="tag-pill" onclick="setSearchValue('water systems')">water systems</span>
+                    </div>
+                </div>
+                <a class="btn-action" href="/water-systems/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap; border-radius: 4px;">Open Catalogue</a>
+            </div>
+            
+            <!-- NATURAL RESOURCES CATALOGUE (live) -->        
+            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); border-left: 4px solid #003366; border-radius: 0 4px 4px 0;">
+                <div>
+                    <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Natural Resources | Mid-Island</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">A collection of documents related to regional resource extraction, forestry management, and subsurface rights.</p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
+                        <span class="tag-pill" onclick="setSearchValue('natural resources')">natural resources</span>
+                    </div>
+                </div>
+                <a class="btn-action" href="/natural-resources/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap; border-radius: 4px;">Open Catalogue</a>
+            </div>
 
-    <div id="datasetGrid" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
-        
-<!-- WATER SYSTEMS CATALOGUE (live) -->        
-        <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
-            <div>
-                <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Water Systems | Mid-Island</h3>
-                <p style="margin: 0; font-size: 13px; color: #606062;">Records regarding management and operation of sewer systems, water systems, protected watersheds, wastewater treatment, and the coastline.</p>
-            </div>
-            <a href="/water-systems/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Open Catalogue</a>
-        </div>
-        
-<!-- NATURAL RESOURCES CATALOGUE (live) -->        
-        <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
-            <div>
-                <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Natural Resources | Mid-Island</h3>
-                <p style="margin: 0; font-size: 13px; color: #606062;">Consolidates cross-agency municipal development records and academic resources.</p>
-            </div>
-            <a href="/natural-resources/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Open Catalogue</a>
-        </div>
-        
-<!-- RELEASED FOIS (external) -->    
-        <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
-            <div>
-                <div style="font-size: 10px; font-weight: bold; color: #606062; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
-                    External Resource ↗
+            <!-- LAND USE PLANNING CATALOGUE (under compilation) -->
+            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7; border-left: 4px solid #47474A; border-radius: 0 4px 4px 0;">
+                <div>
+                    <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Land Use Planning | Mid-Island</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">Multi-jurisdictional records on regional community planning, zoning regulations, and local development services.</p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
+                        <span class="tag-pill" onclick="setSearchValue('land use planning')">land use planning</span>
+                    </div>
                 </div>
-                <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Released FOI Requests | B.C. Government</h3>
-                <p style="margin: 0; font-size: 13px; color: #606062;">Non-personal records that have been requested through a freedom of information request are posted on the B.C. government website after they're released to the person who requested them.</p>
-            </div>
-            <a href="https://www2.gov.bc.ca/gov/search?q=foi+request%2Binmeta%3Ahigh_level_subject%3DFOI+Request&id=9199E7BC9682482EB9EA0B6D6B8D386C&tab=1" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Search the Catalogue</a>
-        </div>
-        
-<!-- CIVICINFO BC (external) -->        
-        <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
-            <div>
-                <div style="font-size: 10px; font-weight: bold; color: #606062; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
-                    External Resource ↗
+                <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
+            </div>  
+            
+            <!-- PUBLIC OFFICIALS CATALOGUE (under compilation) -->
+            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7; border-left: 4px solid #47474A; border-radius: 0 4px 4px 0;">
+                <div>
+                    <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Public Officials | Mid-Island</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">Public information packages, news articles, press releases, committee appointments, and candidate disclosures for local officials and regional bodies.</p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
+                        <span class="tag-pill" onclick="setSearchValue('public officials')">public officials</span>
+                    </div>
                 </div>
-                <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Election Results | CivicInfo BC</h3>
-                <p style="margin: 0; font-size: 13px; color: #606062;">CivicInfo BC provides a central repository for current and historical local election information in British Columbia.</p>
+                <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
             </div>
-            <a href="https://www.civicinfo.bc.ca/elections" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap;">Search Results</a>
-        </div> 
-        
-<!-- LAND USE PLANNING CATALOGUE (under compilation) -->
-        <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7;">
-            <div>
-                <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Land Use Planning | Mid-Island</h3>
-                <p style="margin: 0; font-size: 13px; color: #606062;">Consolidates cross-agency municipal development records and school district facility safety tracking.</p>
-            </div>
-            <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
-        </div>  
-        
-<!-- PUBLIC OFFICIALS CATALOGUE (under compilation) -->
-         <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7;">
-            <div>
-                <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Public Officials | Mid-Island</h3>
-                <p style="margin: 0; font-size: 13px; color: #606062;">Consolidates cross-agency municipal development records and school district facility safety tracking.</p>
-            </div>
-            <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
         </div>
 
-<!-- End of list -->                
+        <hr class="section-divider">
+
+        <!-- SECTION 2: SEARCHABLE DOCUMENT INDEX -->
+        <h2 style="color: #003366; font-size: 18px; font-weight: 600; border-bottom: 0px solid #D1D1D4; padding-bottom: 8px; margin-top: 0; margin-bottom: 25px;">
+            Online Directories
+        </h2>
+        <div id="sectionIndex">
+            <div class="dataset-card" style="background-color: #003366; border: 1px solid #002244; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 6px; border-left: 4px solid #001A33;">
+                <div>
+                    <h3 style="margin: 0 0 6px 0; color: #FFFFFF; font-size: 17px; font-weight: 700; letter-spacing: -0.2px;">Mid-Island Document Index</h3>
+                    <p style="margin: 0 0 4px 0; font-size: 13.5px; color: #E2E8F0; line-height: 1.5; opacity: 0.9;">A centralized document lookup for online records hosted across various jurisdictional bodies in the Mid-Island Region.</p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" style="background-color: rgba(255, 255, 255, 0.15); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2);" onclick="setSearchValue('online directory')">online directory</span>
+                        <span class="tag-pill" style="background-color: rgba(0, 0, 0, 0.2); color: #E2E8F0;" onclick="setSearchValue('document index')">document index</span>
+                    </div>
+                </div>
+                <a href="/vird-document-index/" style="background-color: #FFFFFF; color: #003366; text-decoration: none; padding: 12px 22px; font-size: 13px; font-weight: bold; border: 1px solid #FFFFFF; border-bottom: 3px solid #E2E8F0; white-space: nowrap; border-radius: 4px; transition: background 0.15s, color 0.15s;" onmouseover="this.style.backgroundColor='#EBF8FF'; this.style.color='#002244';" onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#003366';">Locate  Documents</a>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- SECTION 3: EXTERNAL RESOURCES -->
+        <h2 style="color: #003366; font-size: 18px; font-weight: 600; border-bottom: 0px solid #D1D1D4; padding-bottom: 8px; margin-top: 0; margin-bottom: 25px;">
+            External Resources
+        </h2>
+        <div id="sectionExternal" style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- RELEASED FOIS (external) -->    
+            <div class="dataset-card" style="background-color: #F0F4F8; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); border-left: 4px solid #003366; border-radius: 0 4px 4px 0;">
+                <div>
+                    <div style="font-size: 10px; font-weight: bold; color: #47474A; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+                        External Resource ↗
+                    </div>
+                    <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Released FOI Requests | B.C. Government</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">Non-personal records that have been requested through a freedom of information request are posted on the B.C. government website after they're released to the person who requested them.</p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" onclick="setSearchValue('external resource')">external resource</span>
+                        <span class="tag-pill" onclick="setSearchValue('freedom of information')">freedom of information</span>
+                    </div>
+                </div>
+                <a class="btn-action" href="https://www2.gov.bc.ca/gov/search?q=foi+request%2Binmeta%3Ahigh_level_subject%3DFOI+Request&id=9199E7BC9682482EB9EA0B6D6B8D386C&tab=1" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap; border-radius: 4px;">Search the Catalogue</a>
+            </div>
+            
+            <!-- CIVICINFO BC (external) -->        
+            <div class="dataset-card" style="background-color: #F0F4F8; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); border-left: 4px solid #003366; border-radius: 0 4px 4px 0;">
+                <div>
+                    <div style="font-size: 10px; font-weight: bold; color: #47474A; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+                        External Resource ↗
+                    </div>
+                    <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Election Results | CivicInfo BC</h3>
+                    <p style="margin: 0; font-size: 13px; color: #606062;">CivicInfo BC provides a central repository for current and historical local election information in British Columbia.</p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" onclick="setSearchValue('external resource')">external resource</span>
+                        <span class="tag-pill" onclick="setSearchValue('election results')">election results</span>
+                    </div>
+                </div>
+                <a class="btn-action" href="https://www.civicinfo.bc.ca/elections" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap; border-radius: 4px;">Search Results</a>
+            </div> 
+        </div>
+
     </div>        
 </main>
 
@@ -111,8 +214,7 @@
 function filterDatasets() {
     var input = document.getElementById('virdSearch');
     var filter = input.value.toLowerCase();
-    var grid = document.getElementById('datasetGrid');
-    var cards = grid.getElementsByClassName('dataset-card');
+    var cards = document.getElementsByClassName('dataset-card');
 
     for (var i = 0; i < cards.length; i++) {
         var cardText = cards[i].innerText.toLowerCase();
@@ -124,11 +226,19 @@ function filterDatasets() {
         }
     }
 }
+
+function setSearchValue(value) {
+    var input = document.getElementById('virdSearch');
+    input.value = value;
+    input.style.backgroundColor = '#FFFFFF';
+    input.style.color = '#313132';
+    filterDatasets();
+}
 </script>
 
 <footer style="background-color: #003366; color: #FFFFFF; text-align: center; padding: 25px; font-size: 11px; margin-top: 150px; border-top: 4px solid #FCBA19;">
-    <p style="margin: 0; opacity: 0.8;">Vancouver Island Regional Database • Central Public Data Architecture</p>
-    <p style="margin: 6px 0 0 0; opacity: 0.5;">All mirrored information blocks are systematically extracted from publicly authorized statutory dockets.</p>
+    <p style="margin: 0; opacity: 0.8;">Vancouver Island Regional Database • Centralized Open Data Mirror</p>
+    <p style="margin: 6px 0 0 0; opacity: 0.5;">All assets are reproduced directly from primary source public records.</p>
 </footer>
 
 </body>
