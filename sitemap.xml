@@ -1,53 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Root Domain Homepage (from 'home' repo) --> 
-  <!-- WATER SYSTEMS CATALOGUE -->
- <url>
+
+  <!-- ================================================================= -->
+  <!-- 1. SYSTEM HUBS & ENGINES                                          -->
+  <!-- ================================================================= -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/home/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/vird-document-index/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- ================================================================= -->
+  <!-- 2. WATER SYSTEMS REGISTRY INDEX                                   -->
+  <!-- ================================================================= -->
+  <url>
     <loc>https://vancouver-island-regional-database.github.io/water-systems/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
 
-  <!-- 2. The physical, sanitized PDF Document Asset -->
+  <!-- ================================================================= -->
+  <!-- 3. ACTIVE LOG MIRRORS & VERIFIED DATA ASSETS                      -->
+  <!-- ================================================================= -->
+  
+  <!-- 2014 Annual Water Quality Report -->
   <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/lsm-wastewater-audit-2022.pdf</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2014-ladysmith-annual-water-report.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.80</priority>
   </url>
 
-  <!-- Individual HTML Log Entry Inside Water Systems Repo -->
+  <!-- 2015 Annual Water Quality Report -->
   <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/harbour-001.html</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2015-ladysmith-annual-water-report.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
     <priority>0.80</priority>
   </url>
-  
-  <!-- NATURAL RESOURCES CATALOGUE -->
-    <url>
-    <loc>https://vancouver-island-regional-database.github.io/natural-resources/</loc>
-    <lastmod>2026-05-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  
-  <!-- LAND USE PLANNING CATALOGUE -->
-    <url>
-    <loc>https://vancouver-island-regional-database.github.io/land-use-planning/</loc>
-    <lastmod>2026-05-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+
+  <!-- 2016 Annual Water Quality Report -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2016-ladysmith-annual-water-report.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.80</priority>
   </url>
 
-    <!-- PUBLIC OFFICIALS CATALOGUE -->
-    <url>
-    <loc>https://vancouver-island-regional-database.github.io/public-officials/</loc>
-    <lastmod>2026-05-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+  <!-- 2017 Annual Water Quality Report -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2017-ladysmith-annual-water-report.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Tetra Tech Water Investigation 2017 (Part 1) -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2017-12-18_TOL-tetra-tech-water-report_SD68-LSS-part-1.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- 2018 Annual Water Quality Report -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-ladysmith-annual-water-report.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Lead in École Hammond Bay Drinking Water Brief -->
+  <url>
+    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2019-09-30_SD68-EHB-re_lead-in-drinking-water_RBM-R19/10/23-06-ID=6234.pdf</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.80</priority>
   </url>
 
 </urlset>
-
