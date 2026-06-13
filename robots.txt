@@ -10,5 +10,5 @@ Allow: /
 User-agent: GoogleOther
 Allow: /
 
-# Directs all search engines to your clean data map
+# Directs all search engines to the clean data map
 Sitemap: https://vancouver-island-regional-database.github.io/sitemap.xml
