@@ -1,91 +1,491 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ================================================================= -->
-  <!-- 1. SYSTEM HUBS & ENGINES                                          -->
-  <!-- ================================================================= -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/home/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.00</priority>
-  </url>
 
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/vird-document-index/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
+ <!-- ================================================================= -->
+ <!-- 1. SYSTEM HUBS & ENGINES                                          -->
+ <!-- ================================================================= -->
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/home/</loc>
+   <lastmod>2026-06-12</lastmod>
+   <changefreq>weekly</changefreq>
+   <priority>1.00</priority>
+ </url>
 
-  <!-- ================================================================= -->
-  <!-- 2. WATER SYSTEMS REGISTRY INDEX                                   -->
-  <!-- ================================================================= -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
 
-  <!-- ================================================================= -->
-  <!-- 3. ACTIVE LOG MIRRORS & VERIFIED DATA ASSETS                      -->
-  <!-- ================================================================= -->
-  
-  <!-- 2014 Annual Water Quality Report -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2014-ladysmith-annual-water-report.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/vird-document-index/</loc>
+   <lastmod>2026-06-12</lastmod>
+   <changefreq>weekly</changefreq>
+   <priority>0.95</priority>
+ </url>
 
-  <!-- 2015 Annual Water Quality Report -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2015-ladysmith-annual-water-report.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
 
-  <!-- 2016 Annual Water Quality Report -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2016-ladysmith-annual-water-report.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
+ <!-- ================================================================= -->
+ <!-- 2. WATER SYSTEMS REGISTRY INDEX                                   -->
+ <!-- ================================================================= -->
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/water-systems/</loc>
+   <lastmod>2026-06-12</lastmod>
+   <changefreq>weekly</changefreq>
+   <priority>0.90</priority>
+ </url>
 
-  <!-- 2017 Annual Water Quality Report -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2017-ladysmith-annual-water-report.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
 
-  <!-- Tetra Tech Water Investigation 2017 (Part 1) -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2017-12-18_TOL-tetra-tech-water-report_SD68-LSS-part-1.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
+ <!-- ================================================================= -->
+ <!-- 3. ACTIVE LOG MIRRORS & VERIFIED DATA ASSETS                      -->
+ <!-- ================================================================= -->
+<!-- +++++++++++++++++++++++++++++2026+++++++++++++++++++++++++++++ -->
+ <!-- +++++++++++++++++++++++++++++2025+++++++++++++++++++++++++++++ -->
 
-  <!-- 2018 Annual Water Quality Report -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-ladysmith-annual-water-report.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
 
-  <!-- Lead in École Hammond Bay Drinking Water Brief -->
-  <url>
-    <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2019-09-30_SD68-EHB-re_lead-in-drinking-water_RBM-R19/10/23-06-ID=6234.pdf</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.80</priority>
-  </url>
+<!-- +++++++++++++++++++++++++++++2024+++++++++++++++++++++++++++++ -->
+
+
+<!-- December 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-12_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- November 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-11_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- October 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-10_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- September 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-09_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- August 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-08_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- July 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-07_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- June 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-06_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- May 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-05_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- April 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-04_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- March 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-03_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- February 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-02_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- January 2024 Arbutus Water Treatment Plant Monthly Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2024-01_TOL-WTP-monthly-monitoring_VIHA-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2023+++++++++++++++++++++++++++++ -->
+
+
+<!-- FN1074-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-09-29_DFO-Notice-17-7_FN1074-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1073-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-09-29_DFO-Notice-17-7_FN1073-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1038-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-09-21_DFO-Notice-17-7_FN1038-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1037-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-09-21_DFO-Notice-17-7_FN1037-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0929-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-09-01_DFO-Notice-17-7_FN0929-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0928-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-09-01_DFO-Notice-17-7_FN0928-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0870-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-08-18_DFO-Notice-17-7_FN0870-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0869-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2023-08-18_DFO-Notice-17-7_FN0869-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2022+++++++++++++++++++++++++++++ -->
+
+
+<!-- Ladysmith WWTP Conditional Management Plan -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2022-10-31_Ladysmith-Draft-CMP_Att1-Id=5393.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2021+++++++++++++++++++++++++++++ -->
+
+
+<!-- FN1299-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-12-07_DFO-Notice-17-7_ FN1299-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1298-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-12-07_DFO-Notice-17-7_FN1298-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- IR163340 Effluent Non-Compliance Advisory Letter -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-01-29_WWTP-Non-Compliance_ENV-Advisory-163340.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0001-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-01-02_DFO-Notice-17-7_FN0001-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0640-SANITARY Emergency Closure Notice -->
+<url>
+<!-- FN0002-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-01-02_DFO-Notice-17-7_FN0002-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0073-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-01-25_DFO-Notice-17-7_FN0073-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0072-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-01-25_DFO-Notice-17-7_FN0072-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1195-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-11-15_DFO-Notice-17-7_FN1195-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1196-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-11-15_DFO-Notice-17-7_FN1196-SANITARY- closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1247-SANITARY Ammended Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-11-25_DFO-Notice-17-7_FN1247-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN1246-SANITARY Ammended Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-11-25_DFO-Notice-17-7_FN1246-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2020+++++++++++++++++++++++++++++ -->
+
+
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-09-06_DFO-Notice-17-7_FN0640-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0639-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-09-06_DFO-Notice-17-7_FN0639-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0578-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-06-23_DFO-Notice-17-7_FN0578-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0577-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-06-23_DFO-Notice-17-7_FN0577-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- IR147158 Effluent Non-Compliance Advisory Letter -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-03-31_WWTP-Non-Compliance_ENV-Advisory-147158.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0104-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-02-10_DFO-Notice-17-7_FN0104-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0103-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-02-10_DFO-Notice-17-7_FN0103-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0080-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-02-01_DFO-Notice-17-7_FN0080-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0079-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-02-01_DFO-Notice-17-7_FN0079-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+
+
+<!-- +++++++++++++++++++++++++++++2019+++++++++++++++++++++++++++++ -->
+<!-- Re: Lead in École Hammond Bay Drinking Water -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2019-09-30_SD68-EHB-re_lead-in-drinking-water_RBM-R19/10/23-06-ID=6234.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- IR115167 Effluent Non-Compliance Advisory Letter -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2019-01-28_WWTP-Non-Compliance_ENV-Advisory-115167.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0031-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2019-01-11_DFO-Notice-17-7_FN0031-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2018+++++++++++++++++++++++++++++ -->
+
+
+<!-- FN1370-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-12-20_DFO-Notice-17-7_FN1370-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0165-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-03-05_DFO-Notice-17-7_FN0165-SANITARY-revoked.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0120-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-02-22_DFO-Notice-17-7_FN0120-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- IR76276 Effluent Non-Compliance Advisory Letter -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-01-23_WWTP-Non-Compliance_ENV-Advisory-76276.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- 2018 Annual Water Quality Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2018-ladysmith-annual-water-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2017+++++++++++++++++++++++++++++ -->
+
+
+<!-- Tetra Tech Water Investigation 2017 - Ladysmith Secondary School (pt.1) -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2017-12-18_TOL-tetra-tech-water-report_SD68-LSS-part-1.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- 2017 Annual Water Quality Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2017-ladysmith-annual-water-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2016+++++++++++++++++++++++++++++ -->
+
+
+<!-- FN0254-SANITARY Ammended Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2016-03-29_DFO-Notice-17-7_FN0254-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- FN0031-SANITARY Emergency Closure Notice -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2016-01-21_DFO-Notice-17-7_FN0031-SANITARY-closure.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+<!-- 2016 Annual Water Quality Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2016-ladysmith-annual-water-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2015+++++++++++++++++++++++++++++ -->
+
+
+<!-- 2015 Annual Water Quality Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2015-ladysmith-annual-water-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
+
+<!-- +++++++++++++++++++++++++++++2014+++++++++++++++++++++++++++++ -->
+
+
+<!-- 2014 Annual Water Quality Report -->
+<url>
+  <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2014-ladysmith-annual-water-report.pdf</loc>
+  <lastmod>2026-06-18</lastmod>
+  <changefreq>never</changefreq>
+  <priority>0.80</priority>
+</url>
+
 
 </urlset>
