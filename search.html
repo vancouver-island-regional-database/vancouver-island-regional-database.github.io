@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <title>File Search Engines - Vancouver Island Regional Database (VIRD)</title>
+    
+    <!-- Favicon Shortcut Link -->
+    <link rel="icon" type="image/png" href="assets/fav_w.png">
+    <!-- Rest of your head styles and metadata -->
+
+    <meta name="description" content="Open-access mirror centralizing public records, local government information packages, and environmental datasets across the east coast of central Vancouver Island.">
+    <meta name="robots" content="index, follow" />
+    
+    <meta property="og:title" content="File Search Engines - Vancouver Island Regional Database" />
+    <meta property="og:description" content="A decentralized open data archive mirroring local government public records and regional public body releases." />
+    <meta property="og:type" content="website" />
+    <style>
+        .tag-pill {
+            display: inline-block;
+            background-color: #E2E8F0;
+            color: #4A5568;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-top: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tag-pill:hover {
+            background-color: #CBD5E0;
+            color: #2D3748;
+        }
+        /* Custom branded type-tags mapped to core project palette */
+        .tag-pill.type-tag {
+            background-color: rgba(0, 51, 102, 0.08);
+            color: #003366;
+            border: 1px solid rgba(0, 51, 102, 0.15);
+        }
+        .tag-pill.type-tag:hover {
+            background-color: rgba(0, 51, 102, 0.15);
+            color: #002244;
+        }
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: #D1D1D4;
+            margin: 40px 0;
+        }
+        .dataset-card {
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .dataset-card:hover {
+            border-color: #003366 !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+        }
+        .btn-action {
+            transition: background-color 0.15s;
+        }
+        .btn-action:hover {
+            background-color: #002244 !important;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'BCSans', 'Helvetica Neue', Arial, sans-serif; color: #313132; background-color: #FAFAFA;">
+
+<header style="background-color: #003366; color: #FFFFFF; padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #FCBA19; flex-wrap: wrap; gap: 15px;">
+    <div style="display: flex; align-items: center;">
+        <div style="border-right: 1px solid rgba(255,255,255,0.3); padding-right: 15px; margin-right: 15px; display: flex; align-items: center;">
+            <a href="index.html" style="display: flex; align-items: center;">
+                <!-- Save your standalone icon asset as icon.png -->
+                <img src="assets/vird_logo_white.png" alt="VIRD Mark White" style="height: 58px; width: auto; display: block;">
+            </a>
+        </div>
+        <div style="font-family: 'Myriad Pro', Myriad, Arial, sans-serif; font-size: 20px; font-weight: 550; letter-spacing: 0.3px; opacity: 0.95;">
+            Vancouver Island Regional Database
+        </div>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <a href="index.html" style="display: inline-flex; align-items: center; color: #FFFFFF; text-decoration: none; font-size: 11px; font-weight: bold; background-color: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2); letter-spacing: 0.5px;">
+            HOME
+        </a>
+    </div>
+</header>
+
+<main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+
+    <section style="background-color: #FFFFFF; border: 1px solid #D1D1D4; border-top: 4px solid #003366; padding: 20px 30px 20px 30px; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <!-- Replace the existing text title inside your white box with this block -->
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 25px;">
+            <img src="assets/vird_logo_blue.png" alt="VIRD Mark Blue" style="height: 60px; width: auto; display: block; margin-top: -6px;">
+            <h1 style="color: #003366; margin: 0; font-family: 'Myriad Pro', Myriad, Arial, sans-serif; font-size: 26px; font-weight: 600; letter-spacing: 0.3px;">
+                File Search Engines
+            </h1>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #47474A; margin-bottom: 0;">
+            The Vancouver Island Regional Database is an open data mirror centralizing public records and local government information. Individual collections are organized by sector to ensure immediate transparency, public access, and cross-agency tracking across overlapping administrative boundaries on the east coast of central Vancouver Island.
+        </p>
+         <!-- The Divider Line -->
+        <hr style="border: 0; height: 1px; background: #D1D1D4; margin-top: 30px;margin-bottom: 30px 0;">
+        <p style="font-size: 12px; line-height: 1.6; color: #003366; margin-top: 20px; margin-bottom: 0;"><i>Please note that the database is currently in its early stages of development, and the available datasets are limited. We are actively working to expand the collection and encourage users to check back regularly for updates.</i>
+        </p>
+          <p style="font-size: 12px; opacity: 0.5; line-height: 3; color: #606062; margin-top: 5px; margin-bottom: 0;">Last modified: June 2026</p>
+    </section>
+
+    <div id="datasetGrid" style="display: flex; flex-direction: column;">
+        
+        <div style="border-bottom: 1px solid #D1D1D4; padding-bottom: 12px; margin-top: 0; margin-bottom: 25px;">
+            <input type="text" id="virdSearch" onkeyup="filterDatasets()" placeholder="filter online directories" style="padding: 8px 15px; font-size: 13px; border: 1px solid #D1D1D4; border-radius: 4px; background-color: #FFFFFF; color: #313132; width: 260px; outline: none; font-family: sans-serif; transition: all 0.2s;" onfocus="this.style.borderColor='#003366';" onblur="this.style.borderColor='#D1D1D4';">
+        </div>
+        <div id="sectionIndex">
+            <div class="dataset-card" style="background-color: #003366; border: 1px solid #002244; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 6px; border-left: 4px solid #001A33;">
+                <div>
+                    <h3 style="margin: 0 0 6px 0; color: #FFFFFF; font-size: 17px; font-weight: 700; letter-spacing: -0.2px;">Document Search Index | Mid-Island</h3>
+                    <p style="margin: 0 0 4px 0; font-size: 13.5px; color: #E2E8F0; line-height: 1.5; opacity: 0.9;">A centralized document lookup for online records hosted across various jurisdictional bodies in the Mid-Island Region.
+                    </p>
+                    <p style="font-size: 12px; line-height: 1.6; color: #8d99ae; margin-top: 6px; margin-bottom: 0;">
+                    <i>Note: This dataset currently contains over 15,000 records from the Town of Ladysmith, Stz'uminus First Nation, and School District 68 (Nanaimo-Ladysmith). Jurisdictional breadth is still being expanded.</i>
+                    </p>
+                    <div style="margin-top: 4px;">
+                        <span class="tag-pill type-tag" style="background-color: rgba(255, 255, 255, 0.15); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2);" onclick="setSearchValue('online directory')">online directory</span>
+                        <span class="tag-pill" style="background-color: rgba(0, 0, 0, 0.2); color: #E2E8F0;" onclick="setSearchValue('document index')">document index</span>
+                    </div>
+                </div>
+                <a href="/vird-document-index/" style="background-color: #FFFFFF; color: #003366; text-decoration: none; padding: 12px 22px; font-size: 13px; font-weight: bold; border: 1px solid #FFFFFF; border-bottom: 3px solid #E2E8F0; white-space: nowrap; border-radius: 4px; transition: background 0.15s, color 0.15s;" onmouseover="this.style.backgroundColor='#EBF8FF'; this.style.color='#002244';" onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#003366';">Locate Documents</a>
+            </div>
+        </div>
+
+    </div>       
+</main>
+
+<script>
+function filterDatasets() {
+    var input = document.getElementById('virdSearch');
+    var filter = input.value.toLowerCase();
+    var cards = document.getElementsByClassName('dataset-card');
+
+    for (var i = 0; i < cards.length; i++) {
+        var cardText = cards[i].innerText.toLowerCase();
+        
+        if (cardText.indexOf(filter) > -1) {
+            cards[i].style.display = "flex";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+
+// Support tags filtering
+function setSearchValue(value) {
+    var input = document.getElementById('virdSearch');
+    input.value = value;
+    input.style.backgroundColor = '#FFFFFF';
+    input.style.color = '#313132';
+    filterDatasets();
+}
+</script>
+
+<footer style="background-color: #003366; color: #FFFFFF; text-align: center; padding: 25px; font-size: 11px; margin-top: 150px; border-top: 4px solid #FCBA19;">
+    <p style="margin: 0; opacity: 0.8;">Vancouver Island Regional Database • Centralized Open Data Mirror</p>
+    <p style="margin: 6px 0 0 0; opacity: 0.5;">All assets are reproduced directly from primary source public records.</p>
+</footer>
+
+</body>
+</html>
