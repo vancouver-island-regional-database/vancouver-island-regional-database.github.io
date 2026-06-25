@@ -4,11 +4,17 @@ Geographic & Governance Scope: East Coast Central Vancouver Island regional juri
 ## System Entry Point
 - [VIRD Home Portal](https://vancouver-island-regional-database.github.io/home/): Central clearinghouse manifest tracking curated local intelligence packages, public document directories, and verified cross-jurisdictional external resources.
 
-## Search Infrastructure
+## Interactive Tools & Portals
 - [Unified Document Index](https://vancouver-island-regional-database.github.io/vird-document-index/): Global search engine indexing 15,000+ regional public files, unstructured logs, and public meeting minutes. Optimized for automated real-time exploratory AI agents and zero-fluff RAG retrieval.
+- [Public Feedback Portal](https://vancouver-island-regional-database.github.io/public-feedback-portal/): Anonymous submission channel for the community to request datasets, submit public documents, and suggest corrections.
+- [Ladysmith Bylaw Quiz](https://vancouver-island-regional-database.github.io/tol-bylaw-quiz/): An interactive educational tool testing public awareness of local municipal regulations.
 
-## Active Catalogues
+## Topical Catalogues (Ledgers)
 - [Water Systems Catalogue](https://vancouver-island-regional-database.github.io/water-systems/): Public disclosure mirror for regional water assets, audits, and minutes.
+- *Under Compilation*: Land Use Planning, Natural Resources, Public Officials.
+
+## External Resources (Ledgers)
+- Links maintained for BC Government Released FOIs and CivicInfo BC Election Results.
 
 ---
 
