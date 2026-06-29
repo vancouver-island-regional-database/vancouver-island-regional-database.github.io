@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <title>Town of Ladysmith SQL Lookup Engine - VIRD</title>
+    <link rel="icon" type="image/png" href="assets/fav_w.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'BCSans', 'Helvetica Neue', Arial, sans-serif; color: #313132; background-color: #FAFAFA; }
+        header { background-color: #003366; color: #FFFFFF; padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #FCBA19; }
+        .main-container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .search-panel { background: #FFFFFF; border: 1px solid #D1D1D4; border-top: 4px solid #003366; padding: 24px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .controls-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 15px; }
+        .controls-row input[type="text"] { flex: 1; min-width: 250px; padding: 10px 14px; font-size: 14px; border: 1px solid #D1D1D4; border-radius: 4px; outline: none; }
+        .controls-row select { padding: 10px 14px; font-size: 14px; border: 1px solid #D1D1D4; border-radius: 4px; background: #FFF; }
+        .btn-search { background-color: #003366; color: #FFFFFF; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; }
+        .btn-search:hover { background-color: #002244; }
+        .options-row { display: flex; gap: 20px; font-size: 13px; color: #47474A; align-items: center; }
+        .options-row label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+        .data-table { width: 100%; border-collapse: collapse; background: #FFFFFF; border: 1px solid #D1D1D4; }
+        .data-table th { background: #003366; color: #FFFFFF; padding: 12px; text-align: left; font-size: 13px; }
+        .data-table td { padding: 12px; border-bottom: 1px solid #E2E8F0; font-size: 13px; }
+        .badge-cat { background-color: rgba(0, 51, 102, 0.08); color: #003366; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <a href="search.html"><img src="assets/vird_logo_white.png" alt="VIRD Logo" style="height: 45px;"></a>
+        <span style="font-size: 18px; font-weight: 600; color: #FFF;">Vancouver Island Regional Database</span>
+    </div>
+    <a href="search.html" style="color: #FFF; text-decoration: none; font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.3);">← BACK TO SEARCH ENGINES</a>
+</header>
+
+<div class="main-container">
+    <div style="margin-bottom: 20px;">
+        <h1 style="color: #003366; margin: 0 0 8px 0; font-size: 24px;">Town of Ladysmith | SQL Document Lookup Trial</h1>
+        <p style="margin: 0; color: #47474A; font-size: 14px;">Deterministic, exact-match lookup engine operating directly on static data structures without fuzzy ranking.</p>
+    </div>
+
+    <div class="search-panel">
+        <div class="controls-row">
+            <input type="text" id="termInput" placeholder="Enter search terms (e.g. soil remediation, bylaw)...">
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+            </select>
+            <button class="btn-search" id="btnSearch">Search Index</button>
+        </div>
+        <div class="options-row">
+            <span style="font-weight: 600;">Match Precision:</span>
+            <label><input type="radio" name="matchMode" value="and" checked> All Terms (AND)</label>
+            <label><input type="radio" name="matchMode" value="or"> Any Term (OR)</label>
+            <label><input type="radio" name="matchMode" value="exact"> Exact Phrase</label>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; color: #606062;">
+        <span>Showing <strong id="resultCount">0</strong> matching records</span>
+        <span id="totalCount">0 Total Records</span>
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 110px;">Date</th>
+                <th>Record Title</th>
+                <th style="width: 180px;">Category Tag</th>
+                <th>Text Excerpt</th>
+                <th style="width: 110px;">Source</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr><td colspan="5" style="text-align: center; padding: 30px; color: #8d99ae;">Loading document index...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="ladysmith-sql-search.js"></script>
+</body>
+</html>
