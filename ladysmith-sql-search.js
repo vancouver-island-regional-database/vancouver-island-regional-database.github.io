@@ -1,89 +1,207 @@
-let documents = [];
+let currentCategory = "";
+let currentPage = 1;
+const recordsPerPage = 25;
+let allDocuments = [];
+let filteredDocuments = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+    setupNavigation();
+    setupResizer();
+    
     try {
         const res = await fetch('data/ladysmith.json');
-        documents = await res.json();
-        initCategories();
-        renderTable(documents);
-    } catch (err) {
-        console.error('Error loading static dataset:', err);
-        document.getElementById('tableBody').innerHTML = `<tr><td colspan="5" style="text-align: center; color: #d9534f; padding: 20px;">Failed to load static database index.</td></tr>`;
+        allDocuments = await res.json();
+        loadSectionsAndCategories();
+        applyFiltersAndRender();
+    } catch (e) {
+        console.error("Error loading Ladysmith dataset:", e);
+        document.getElementById('documents-tbody').innerHTML = `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: #ef4444;">Error loading dataset records.</td></tr>`;
     }
 
-    document.getElementById('btnSearch').addEventListener('click', runSearch);
-    document.getElementById('termInput').addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') runSearch();
+    document.getElementById('search-btn').addEventListener('click', () => {
+        currentPage = 1;
+        applyFiltersAndRender();
     });
-    document.getElementById('categoryFilter').addEventListener('change', runSearch);
-    document.querySelectorAll('input[name="matchMode"]').forEach(r => r.addEventListener('change', runSearch));
-});
 
-function initCategories() {
-    const cats = new Set();
-    documents.forEach(d => {
-        if (d.category) {
-            d.category.split(',').forEach(c => cats.add(c.trim()));
+    document.getElementById('search-input').addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            currentPage = 1;
+            applyFiltersAndRender();
         }
     });
-    const sel = document.getElementById('categoryFilter');
-    Array.from(cats).sort().forEach(c => {
-        if (c) {
-            const opt = document.createElement('option');
-            opt.value = c;
-            opt.textContent = c;
-            sel.appendChild(opt);
+
+    document.getElementById('prev-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTablePage();
+        }
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+        if (currentPage * recordsPerPage < filteredDocuments.length) {
+            currentPage++;
+            renderTablePage();
+        }
+    });
+});
+
+function setupNavigation() {
+    const navButtons = document.querySelectorAll('.nav-btn');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            
+            btn.classList.add('active');
+            const tabId = btn.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+}
+
+function setupResizer() {
+    const sidebar = document.getElementById('sidebar');
+    const resizer = document.getElementById('resizer');
+    let isResizing = false;
+
+    if (!resizer || !sidebar) return;
+
+    resizer.addEventListener('mousedown', () => {
+        isResizing = true;
+        resizer.classList.add('dragging');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const newWidth = e.clientX;
+        if (newWidth >= 220 && newWidth <= 650) {
+            sidebar.style.width = `${newWidth}px`;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isResizing) {
+            isResizing = false;
+            resizer.classList.remove('dragging');
+            document.body.style.cursor = 'default';
+            document.body.style.userSelect = 'auto';
         }
     });
 }
 
-function runSearch() {
-    const term = document.getElementById('termInput').value.trim().toLowerCase();
-    const cat = document.getElementById('categoryFilter').value;
-    const mode = document.querySelector('input[name="matchMode"]:checked').value;
+function loadSectionsAndCategories() {
+    const catCounts = {};
+    allDocuments.forEach(d => {
+        if (d.category) {
+            d.category.split(',').forEach(c => {
+                const clean = c.trim();
+                if (clean) catCounts[clean] = (catCounts[clean] || 0) + 1;
+            });
+        }
+    });
 
-    const filtered = documents.filter(doc => {
-        if (cat && (!doc.category || !doc.category.includes(cat))) return false;
-        if (!term) return true;
+    const wrapper = document.getElementById('sections-wrapper');
+    wrapper.innerHTML = '';
 
-        const blob = `${doc.title || ''} ${doc.snippet || ''} ${doc.category || ''}`.toLowerCase();
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    block.innerHTML = `
+        <div class="section-header">
+            <h4>📂 General Research Categories</h4>
+        </div>
+        <div class="category-list" id="cat-list-container"></div>
+    `;
+    wrapper.appendChild(block);
 
-        if (mode === 'exact') {
-            return blob.includes(term);
-        } else if (mode === 'and') {
-            const parts = term.split(/\s+/).filter(Boolean);
-            return parts.every(p => blob.includes(p));
-        } else if (mode === 'or') {
-            const parts = term.split(/\s+/).filter(Boolean);
-            return parts.some(p => blob.includes(p));
+    const listContainer = block.querySelector('#cat-list-container');
+    
+    const allItem = document.createElement('div');
+    allItem.className = 'category-item active';
+    allItem.innerHTML = `<span>📋 All Documents Archive</span>`;
+    allItem.addEventListener('click', () => {
+        document.querySelectorAll('.category-item').forEach(ci => ci.classList.remove('active'));
+        allItem.classList.add('active');
+        currentCategory = "";
+        currentPage = 1;
+        applyFiltersAndRender();
+    });
+    listContainer.appendChild(allItem);
+
+    const sortedCats = Object.keys(catCounts).sort((a,b) => catCounts[b] - catCounts[a]);
+    sortedCats.forEach(cat => {
+        const item = document.createElement('div');
+        item.className = 'category-item';
+        item.innerHTML = `<span>${escapeHtml(cat)}</span><strong>${catCounts[cat]}</strong>`;
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.category-item').forEach(ci => ci.classList.remove('active'));
+            if (currentCategory === cat) {
+                currentCategory = "";
+                allItem.classList.add('active');
+            } else {
+                currentCategory = cat;
+                item.classList.add('active');
+            }
+            currentPage = 1;
+            applyFiltersAndRender();
+        });
+        listContainer.appendChild(item);
+    });
+}
+
+function applyFiltersAndRender() {
+    const query = document.getElementById('search-input').value.trim().toLowerCase();
+
+    filteredDocuments = allDocuments.filter(doc => {
+        if (currentCategory && (!doc.category || !doc.category.includes(currentCategory))) {
+            return false;
+        }
+
+        if (query) {
+            const blob = `${doc.title || ''} ${doc.snippet || ''} ${doc.category || ''}`.toLowerCase();
+            return blob.includes(query);
         }
         return true;
     });
 
-    renderTable(filtered);
+    renderTablePage();
 }
 
-function renderTable(list) {
-    const tbody = document.getElementById('tableBody');
-    document.getElementById('resultCount').textContent = list.length;
-    document.getElementById('totalCount').textContent = `${documents.length} Total Records`;
+function renderTablePage() {
+    const tbody = document.getElementById('documents-tbody');
+    const badge = document.getElementById('record-count-badge');
+    
+    badge.textContent = `${filteredDocuments.length} Documents`;
 
-    if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #8d99ae; padding: 30px;">No matching records found.</td></tr>`;
+    if (filteredDocuments.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No matching documents found.</td></tr>`;
+        document.getElementById('page-indicator').textContent = `Page 1 of 1`;
         return;
     }
 
-    tbody.innerHTML = list.map(d => `
-        <tr>
-            <td style="color: #606062; white-space: nowrap;">${d.date || 'N/A'}</td>
-            <td style="font-weight: 600; color: #003366;">${escape(d.title || 'Untitled Record')}</td>
-            <td><span class="badge-cat">${escape(d.category || 'General')}</span></td>
-            <td style="color: #47474A; max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escape(d.snippet || '')}</td>
-            <td>${d.url ? `<a href="${d.url}" target="_blank" style="color: #003366; font-weight: bold; text-decoration: none;">Link ↗</a>` : '<span style="color: #8d99ae;">Archived</span>'}</td>
-        </tr>
-    `).join('');
+    const totalPages = Math.ceil(filteredDocuments.length / recordsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * recordsPerPage;
+    const pageDocs = filteredDocuments.slice(start, start + recordsPerPage);
+
+    tbody.innerHTML = '';
+    pageDocs.forEach(doc => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><strong>${doc.date || 'N/A'}</strong></td>
+            <td><span style="font-size:0.75rem; color:#38bdf8; display:block;">Mid-Island Region</span><strong>Town of Ladysmith</strong></td>
+            <td><a href="${doc.url || '#'}" target="_blank" style="color:#38bdf8; text-decoration:none;">${escapeHtml(doc.title || 'Untitled Document')}</a></td>
+            <td><span style="font-size:0.8rem; background:#334155; padding:4px 8px; border-radius:4px;">${escapeHtml(doc.category || 'Unassigned')}</span></td>
+            <td style="color:#94a3b8; font-size:0.85rem;">...${escapeHtml(doc.snippet || '')}...</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById('page-indicator').textContent = `Page ${currentPage} of ${totalPages}`;
 }
 
-function escape(str) {
+function escapeHtml(str) {
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
