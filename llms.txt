@@ -5,7 +5,7 @@ Geographic & Governance Scope: East Coast Central Vancouver Island regional juri
 - [VIRD Home Portal](https://vancouver-island-regional-database.github.io/home/): Central clearinghouse manifest tracking curated local intelligence packages, public document directories, and verified cross-jurisdictional external resources.
 
 ## Interactive Tools & Portals
-- [Unified Document Index](https://vancouver-island-regional-database.github.io/vird-document-index/): Global search engine indexing 15,000+ regional public files, unstructured logs, and public meeting minutes. Optimized for automated real-time exploratory AI agents and zero-fluff RAG retrieval.
+- [Unified Document Index](https://vancouver-island-regional-database.github.io/document-index/): Global search engine indexing 15,000+ regional public files, unstructured logs, and public meeting minutes. Optimized for automated real-time exploratory AI agents and zero-fluff RAG retrieval.
 - [Public Feedback Portal](https://vancouver-island-regional-database.github.io/public-feedback-portal/): Anonymous submission channel for the community to request datasets, submit public documents, and suggest corrections.
 - [Ladysmith Bylaw Quiz](https://vancouver-island-regional-database.github.io/tol-bylaw-quiz/): An interactive educational tool testing public awareness of local municipal regulations.
 

@@ -2,205 +2,818 @@
 <html lang="en-CA">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topical Catalogues - Vancouver Island Regional Database (VIRD)</title>
-    
-    <!-- Favicon Shortcut Link -->
     <link rel="icon" type="image/png" href="assets/fav_w.png">
-    <!-- Rest of your head styles and metadata -->
-
-    <meta name="description" content="Open-access mirror centralizing public records, local government information packages, and environmental datasets across the east coast of central Vancouver Island.">
-    <meta name="robots" content="index, follow" />
     
-    <meta property="og:title" content="Topical Catalogues - Vancouver Island Regional Database" />
-    <meta property="og:description" content="A decentralized open data archive mirroring local government public records and regional public body releases." />
-    <meta property="og:type" content="website" />
+    <!-- Premium Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            /* Brand Palettes grounded in official BCSans tokens */
+            --bc-blue: #003366;
+            --bc-blue-dark: #002244;
+            --bc-gold: #FCBA19;
+            --bc-gold-hover: #e0a50d;
+            
+            /* Slate Neutrals for premium GovTech polish */
+            --bg-canvas: #F8FAFC;
+            --surface-card: #FFFFFF;
+            --text-main: #1F2933;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --accent-blue-soft: #EFF6FF;
+            
+            /* Elevation & Shadow Effects */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'BCSans', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 1. Brand Accurate Header Frame */
+        header {
+            background-color: var(--bc-blue);
+            color: #FFFFFF;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 4px solid var(--bc-gold);
+            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-brand img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+
+        .header-title-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-title-block h1 {
+            font-family: 'Myriad Pro', Myriad, Arial, sans-serif;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .header-tagline {
+            font-size: 11px;
+            color: #E2E8F0;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+/* Update your existing .header-action-badge class rule block to include transitions */
+.header-action-badge {
+    font-size: 11px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #FFFFFF;
+    
+    /* Added interaction tracking transitions */
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+/* Add these new interactive action states for the button */
+.header-action-badge:hover {
+    background-color: var(--bc-gold);
+    color: var(--bc-blue-dark);
+    border-color: var(--bc-gold);
+    box-shadow: var(--shadow-md);
+}
+
+.header-action-badge:active {
+    transform: scale(0.95);
+}
+        /* Tooltip Container/Trigger */
+        .tooltip-trigger {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Tooltip Popover (Hidden by Default) */
+        .tooltip-content {
+            display: none;
+            position: absolute;
+            width: 280px;
+            padding: 0.75rem;
+            background-color: #1e293b; /* Dark slate background */
+            color: #f8fafc; /* Light text for readability */
+            font-size: 13px;
+            font-weight: normal;
+            line-height: 1.5;
+            text-transform: none;
+            border-radius: 6px;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tooltip-content strong {
+            color: var(--bc-gold);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-right: 0.3rem;
+        }
+
+        .tooltip-trigger:hover .tooltip-content {
+            display: block;
+        }
+
+        .tooltip-content.tooltip-bottom-right {
+            top: 125%;
+            bottom: auto;
+            left: auto;
+            right: 0;
+            transform: none;
+        }
+/* 2. Compact Sector Hero Section with Background Texture */
+.catalogue-hero {
+    background: linear-gradient(rgba(0, 34, 68, 0.82), rgba(0, 34, 68, 0.82)), url('assets/ladysmith-vip703.png');
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+                margin-bottom: 15px; /* Added padding/margin under subtitle */
+        }
+
+        .breadcrumbs {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--bc-gold);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .breadcrumbs span {
+            color: #FFFFFF;
+            opacity: 0.6;
+            margin: 0 6px;
+        }
+/* Keeps the link color matching the parent breadcrumb text layout */
+.breadcrumb-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+        .hero-inner h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-inner p {
+            font-size: 14px;
+            color: #CBD5E1;
+            line-height: 1.6;
+        }
+
+        /* 3. Search & Interactive Filtering Console */
+        .filter-console {
+            max-width: 1040px;
+            margin: -25px auto 30px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .console-card {
+            background: var(--surface-card);
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            font-size: 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background-color: #F8FAFC;
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-wrapper input:focus {
+            background-color: #FFFFFF;
+            border-color: var(--bc-blue);
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+        }
+
+        .search-wrapper::before {
+            content: "🔍";
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        /* Filter Pills Styles */
+        .filter-groups {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 8px;
+        }
+
+        .pill-btn {
+            background-color: #F1F5F9;
+            color: #475569;
+            border: 1px solid var(--border-light);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .pill-btn:hover {
+            background-color: #E2E8F0;
+            color: var(--bc-blue-dark);
+        }
+
+        .pill-btn.active {
+            background-color: var(--bc-blue);
+            color: #FFFFFF;
+            border-color: var(--bc-blue);
+        }
+
+        /* 4. Bento Grid of Catalogues */
+        main {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        .catalogues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* Strict De-emphasis & Greying Out of Under-Compilation Cards */
+        .catalogue-card.compiling {
+            filter: grayscale(100%);
+            opacity: 0.55;
+            background-color: #F8FAFC;
+            border-color: #CBD5E1;
+            cursor: not-allowed;
+        }
+
+        /* Kill all active transitions for compilation cards */
+        .catalogue-card.compiling:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-sm) !important;
+            border-color: #CBD5E1 !important;
+        }
+
+        .catalogue-card.compiling::before {
+            background-color: #94A3B8 !important;
+        }
+
+        /* Card Header Frame */
+        .card-top {
+            padding: 24px 24px 12px 24px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .card-sector-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Premium Monochrome SVG Icon Box */
+        .sector-icon-box {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--accent-blue-soft);
+            color: var(--bc-blue);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .sector-icon {
+            width: 24px;
+            height: 24px;
+            transition: var(--transition-smooth);
+        }
+
+        .catalogue-card.compiling .sector-icon-box {
+            background-color: #E2E8F0;
+            color: #64748B;
+        }
+
+        /* Elegant monochrome SVG inversion on hover (Active only) */
+        .catalogue-card.live:hover .sector-icon-box {
+            background-color: var(--bc-blue);
+            color: #FFFFFF;
+        }
+
+        .card-status-pill {
+            display: inline-flex;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+    /* High-contrast brand gold badge to make active archives pop */
+.status-live {
+    background-color: var(--bc-gold);
+    color: var(--bc-blue-dark);
+    border: 1px solid var(--bc-gold-hover);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(252, 186, 25, 0.25); /* Elegant gold glow */
+}
+
+        .status-compiling {
+            background-color: #F1F5F9;
+            color: #475569;
+            border: 1px solid #CBD5E1;
+        }
+
+        /* Card Content Box */
+        .card-body {
+            padding: 0 24px 20px 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--bc-blue-dark);
+            margin-bottom: 8px;
+        }
+
+        .catalogue-card.compiling .card-body h3 {
+            color: #475569;
+        }
+
+        .card-body p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        /* Sector Tags Row */
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: auto;
+            margin-bottom: 16px;
+        }
+
         .tag-pill {
             display: inline-block;
-            background-color: #E2E8F0;
-            color: #4A5568;
+            background-color: #F1F5F9;
+            color: #475569;
             padding: 3px 10px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 600;
-            margin-right: 6px;
-            margin-top: 8px;
             cursor: pointer;
-            user-select: none;
-            transition: background 0.15s, color 0.15s;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
         }
+
         .tag-pill:hover {
-            background-color: #CBD5E0;
-            color: #2D3748;
+            background-color: #E2E8F0;
+            color: var(--text-main);
+            border-color: #CBD5E1;
         }
-        /* Custom branded type-tags mapped to core project palette */
-        .tag-pill.type-tag {
-            background-color: rgba(0, 51, 102, 0.08);
-            color: #003366;
-            border: 1px solid rgba(0, 51, 102, 0.15);
+
+        .catalogue-card.compiling .tag-pill {
+            background-color: #E2E8F0;
+            color: #94A3B8;
+            cursor: not-allowed;
+            pointer-events: none;
         }
-        .tag-pill.type-tag:hover {
-            background-color: rgba(0, 51, 102, 0.15);
-            color: #002244;
+
+        /* Card Stats Bar */
+        .card-stats-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 14px;
+            border-top: 1px solid #F1F5F9;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        .section-divider {
-            border: 0;
-            height: 1px;
-            background: #D1D1D4;
-            margin: 40px 0;
+
+        .card-stats-row span strong {
+            color: var(--text-main);
         }
-        .dataset-card {
-            transition: border-color 0.15s, box-shadow 0.15s;
+
+        /* Action Footer Box */
+        .card-action-bar {
+            padding: 16px 24px 24px 24px;
+            background-color: #FAFAFA;
+            border-top: 1px solid var(--border-light);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
-        .dataset-card:hover {
-            border-color: #003366 !important;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: var(--bc-blue);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+            border-bottom: 2px solid var(--bc-blue-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
-        .btn-action {
-            transition: background-color 0.15s;
+
+        .catalogue-card.live .action-btn:hover {
+            background-color: var(--bc-blue-dark);
+            transform: scale(1.01);
         }
-        .btn-action:hover {
-            background-color: #002244 !important;
+
+        /* Explicit Disabled Style for action buttons on compiling cards */
+        .catalogue-card.compiling .action-btn {
+            background-color: #E2E8F0;
+            color: #94A3B8;
+            border-bottom: 2px solid #CBD5E1;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* 5. Brand Accurate Footer Frame */
+        footer {
+            background-color: var(--bc-blue-dark);
+            color: #FFFFFF;
+            padding: 40px 20px;
+            border-top: 4px solid var(--bc-gold);
+        }
+
+        .footer-inner {
+            max-width: 1040px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            color: #CBD5E1;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0.75;
+        }
+
+        .footer-disclaimer b {
+            color: var(--bc-gold);
         }
     </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'BCSans', 'Helvetica Neue', Arial, sans-serif; color: #313132; background-color: #FAFAFA;">
 
-<header style="background-color: #003366; color: #FFFFFF; padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #FCBA19; flex-wrap: wrap; gap: 15px;">
-    <div style="display: flex; align-items: center;">
-        <div style="border-right: 1px solid rgba(255,255,255,0.3); padding-right: 15px; margin-right: 15px; display: flex; align-items: center;">
-            <a href="index.html" style="display: flex; align-items: center;">
-                <!-- Save your standalone icon asset as icon.png -->
-                <img src="assets/vird_logo_white.png" alt="VIRD Mark White" style="height: 58px; width: auto; display: block;">
+<body>
+
+    <!-- Exact Redesigned Header Frame -->
+    <header>
+        <div class="header-brand">
+            <a href="index.html">
+                <img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';">
             </a>
+            <div class="header-title-block">
+                <h1>Vancouver Island Regional Database</h1>
+                <span class="header-tagline">Public Access to Public Data</span>
+            </div>
         </div>
-        <div style="font-family: 'Myriad Pro', Myriad, Arial, sans-serif; font-size: 20px; font-weight: 550; letter-spacing: 0.3px; opacity: 0.95;">
-            Vancouver Island Regional Database
-        </div>
-    </div>
-    
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <a href="index.html" style="display: inline-flex; align-items: center; color: #FFFFFF; text-decoration: none; font-size: 11px; font-weight: bold; background-color: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2); letter-spacing: 0.5px;">
-            HOME
-        </a>
-    </div>
-</header>
+        <a class="header-action-badge"  href="index.html"> HOME </a>
+    </header>
 
-<main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+    <!-- Sector Hero Banner -->
+    <section class="catalogue-hero">
+    <div class="hero-inner">
+        <!-- Wrap 'Home' in an anchor tag with a clean utility class -->
+        <div class="breadcrumbs"><a href="index.html" class="breadcrumb-link">Home</a> <span>&gt;</span> Topical Catalogues</div>
+        <h2>Topical Research Archives</h2>
+        <p>Centralised open-access mirror archives hosting primary records, regional environmental disclosures, and municipal document portfolios across the east coast of central Vancouver Island.</p>
+    </div>
+</section>
 
-    <section style="background-color: #FFFFFF; border: 1px solid #D1D1D4; border-top: 4px solid #003366; padding: 20px 30px 20px 30px; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <!-- Replace the existing text title inside your white box with this block -->
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 25px;">
-            <img src="assets/vird_logo_blue.png" alt="VIRD Mark Blue" style="height: 60px; width: auto; display: block; margin-top: -6px;">
-            <h1 style="color: #003366; margin: 0; font-family: 'Myriad Pro', Myriad, Arial, sans-serif; font-size: 26px; font-weight: 600; letter-spacing: 0.3px;">
-                Topical Catalogues
-            </h1>
+    <!-- Interactive Filter & Search Console -->
+    <section class="filter-console">
+        <div class="console-card">
+            <div class="search-row">
+                <div class="search-wrapper">
+                    <input type="text" id="catalogueSearch" onkeyup="filterCatalogues()" placeholder="Search sectors, categories, or keywords...">
+                </div>
+            </div>
+            
+            <div class="filter-groups">
+                <span class="filter-label">Filter Sectors:</span>
+                <button class="pill-btn active" onclick="setSectorFilter('all', this)">All Sectors</button>
+                <button class="pill-btn" onclick="setSectorFilter('environmental', this)">Environmental</button>
+                <button class="pill-btn" onclick="setSectorFilter('zoning', this)">Land &amp; Zoning</button>
+                <button class="pill-btn" onclick="setSectorFilter('governance', this)">Governance</button>
+            </div>
         </div>
-        <p style="font-size: 15px; line-height: 1.6; color: #47474A; margin-bottom: 0;">
-            The Vancouver Island Regional Database is an open data mirror centralizing public records and local government information. Individual collections are organized by sector to ensure immediate transparency, public access, and cross-agency tracking across overlapping administrative boundaries on the east coast of central Vancouver Island.
-        </p>
-         <!-- The Divider Line -->
-        <hr style="border: 0; height: 1px; background: #D1D1D4; margin-top: 30px;margin-bottom: 30px 0;">
-        <p style="font-size: 12px; line-height: 1.6; color: #003366; margin-top: 20px; margin-bottom: 0;"><i>Please note that the database is currently in its early stages of development, and the available datasets are limited. We are actively working to expand the collection and encourage users to check back regularly for updates.</i>
-        </p>
-          <p style="font-size: 12px; opacity: 0.5; line-height: 3; color: #606062; margin-top: 5px; margin-bottom: 0;">Last modified: June 2026</p>
     </section>
 
-    <div id="datasetGrid" style="display: flex; flex-direction: column;">
-        
-        <div style="border-bottom: 1px solid #D1D1D4; padding-bottom: 12px; margin-top: 0; margin-bottom: 25px;">
-            <input type="text" id="virdSearch" onkeyup="filterDatasets()" placeholder="filter catalogues" style="padding: 8px 15px; font-size: 13px; border: 1px solid #D1D1D4; border-radius: 4px; background-color: #FFFFFF; color: #313132; width: 260px; outline: none; font-family: sans-serif; transition: all 0.2s;" onfocus="this.style.borderColor='#003366';" onblur="this.style.borderColor='#D1D1D4';">
-        </div>
-        <div id="sectionCatalogues" style="display: flex; flex-direction: column; gap: 20px;">
-            <!-- WATER SYSTEMS CATALOGUE (live) -->        
-            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); border-left: 4px solid #003366; border-radius: 0 4px 4px 0;">
-                <div>
-                    <h3 style="margin: 0 0 5px 0; color: #003366; font-size: 16px; font-weight: 600;">Water Systems | Mid-Island</h3>
-                    <p style="margin: 0; font-size: 13px; color: #606062;">Regional information on water systems, infrastructure, and environmental data on local watersheds and coastal ecosystems.</p>
-                    <p style="font-size: 12px; line-height: 1.6; color: #79797c; margin-top: 6px; margin-bottom: 0;">
-                    <i>Note: This catalogue is live, but has limited content as it is currently being built.</i>
-                    </p>
-                    <div style="margin-top: 4px;">
-                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
-                        <span class="tag-pill" onclick="setSearchValue('water systems')">water systems</span>
+    <!-- Main Card Grid Area -->
+    <main>
+        <div class="catalogues-grid" id="cataloguesGrid">
+            
+            <!-- WATER SYSTEMS CATALOGUE (Live) -->
+            <div class="catalogue-card live" data-sector="environmental" data-keywords="water systems, drinking water, contaminants, environmental monitoring">
+                <div class="card-top">
+                    <div class="card-sector-meta">
+                        <!-- Clean Traditional Water Droplet Outline (No abstract angles) -->
+                        <span class="sector-icon-box">
+                            <svg class="sector-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2C12 2 6 9 6 14A6 6 0 0 0 18 14C18 9 12 2 12 2Z"/>
+                                <path d="M9 14a3 3 0 0 0 6 0" opacity="0.5"/>
+                            </svg>
+                        </span>
+                        <span class="card-status-pill status-live">✓ Live Archive</span>
                     </div>
                 </div>
-                <a class="btn-action" href="/water-systems/" style="background-color: #003366; color: #FFFFFF; text-decoration: none; padding: 10px 18px; font-size: 13px; font-weight: bold; border-bottom: 2px solid #002244; white-space: nowrap; border-radius: 4px;">Open Catalogue</a>
+                <div class="card-body">
+                    <h3>Water Systems</h3>
+                    <p>Regional indices on public drinking utilities, federal shellfish advisory warnings, local wastewater treatment non-compliance reports, and watershed testing parameters.</p>
+                    <div class="card-tags">
+                        <span class="tag-pill" onclick="setSearchValue('drinking-water')">#drinking-water</span>
+                        <span class="tag-pill" onclick="setSearchValue('wastewater')">#wastewater</span>
+                        <span class="tag-pill" onclick="setSearchValue('advisory')">#federal-advisory</span>
+                    </div>
+                    <div class="card-stats-row">
+                        <span>Database: <strong>Indexed</strong></span>
+                        <span>Latest: <strong>Dec 2024</strong></span>
+                    </div>
+                </div>
+                <div class="card-action-bar">
+                    <a href="/water-systems/" class="action-btn">Open Catalogue →</a>
+                </div>
             </div>
 
-            <!-- LAND USE PLANNING CATALOGUE (under compilation) -->
-            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7; border-left: 4px solid #47474A; border-radius: 0 4px 4px 0;">
-                <div>
-                    <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Land Use Planning | Mid-Island</h3>
-                    <p style="margin: 0; font-size: 13px; color: #606062;">Multi-jurisdictional records on regional community planning, zoning regulations, and local development services.</p>
-                    <div style="margin-top: 4px;">
-                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
-                        <span class="tag-pill" onclick="setSearchValue('land use')">land use</span>
+            <!-- LAND USE PLANNING CATALOGUE (Compiling) -->
+            <div class="catalogue-card compiling" data-sector="zoning" data-keywords="land use planning, zoning, bylaws, development, municipal, OCP">
+                <div class="card-top">
+                    <div class="card-sector-meta">
+                        <!-- Technical Zoning/Parcel Grid Outline (Professional, not geometric-stylized) -->
+                        <span class="sector-icon-box">
+                            <svg class="sector-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <path d="M3 9h18" />
+                                <path d="M9 3v18" />
+                                <path d="M15 9v12" />
+                                <path d="M3 15h6" />
+                            </svg>
+                        </span>
+                        <span class="card-status-pill status-compiling">🔒 Under Compilation</span>
                     </div>
                 </div>
-                <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
-            </div>  
-            
-            <!-- NATURAL RESOURCES CATALOGUE (under compilation) -->
-            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7; border-left: 4px solid #47474A; border-radius: 0 4px 4px 0;">
-                <div>
-                    <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Natural Resources | Mid-Island</h3>
-                    <p style="margin: 0; font-size: 13px; color: #606062;">A collection of documents related to regional resource extraction, forestry management, and subsurface rights.</p>
-                    <div style="margin-top: 4px;">
-                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
-                        <span class="tag-pill" onclick="setSearchValue('natural resources')">natural resources</span>
+                <div class="card-body">
+                    <h3>Land Use &amp; Planning</h3>
+                    <p>Centralising records on regional community boundaries, zoning bylaws, local development variances, OCP modernisations, and spatial land designations.</p>
+                    <div class="card-tags">
+                        <span class="tag-pill" onclick="setSearchValue('zoning')">#zoning-bylaws</span>
+                        <span class="tag-pill" onclick="setSearchValue('OCP')">#OCP</span>
+                    </div>
+                    <div class="card-stats-row">
+                        <span>Database: <strong>Drafting</strong></span>
+                        <span>Target: <strong>August 2026</strong></span>
                     </div>
                 </div>
-                <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
-            </div>  
-            
-            <!-- PUBLIC OFFICIALS CATALOGUE (under compilation) -->
-            <div class="dataset-card" style="background-color: #FFFFFF; border: 1px solid #D1D1D4; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); opacity: 0.7; border-left: 4px solid #47474A; border-radius: 0 4px 4px 0;">
-                <div>
-                    <h3 style="margin: 0 0 5px 0; color: #47474A; font-size: 16px; font-weight: 600;">Public Officials | Mid-Island</h3>
-                    <p style="margin: 0; font-size: 13px; color: #606062;">Public information packages, news articles, press releases, committee appointments, and candidate disclosures for local officials and regional bodies.</p>
-                    <div style="margin-top: 4px;">
-                        <span class="tag-pill type-tag" onclick="setSearchValue('vird catalogue')">vird catalogue</span>
-                        <span class="tag-pill" onclick="setSearchValue('public officials')">public officials</span>
-                    </div>
+                <div class="card-action-bar">
+                    <a href="#" class="action-btn">Under Compilation</a>
                 </div>
-                <span style="font-size: 12px; color: #606062; font-style: italic; font-weight: bold; padding: 10px 18px;">[Under Compilation]</span>
             </div>
+
+            <!-- NATURAL RESOURCES CATALOGUE (Compiling) -->
+            <div class="catalogue-card compiling" data-sector="environmental" data-keywords="natural resources, forestry, forestry management, subsurface, resources, mining">
+                <div class="card-top">
+                    <div class="card-sector-meta">
+                        <!-- Classical outline conifer silhouette (Traditional spruce look, not flat polygons) -->
+                        <span class="sector-icon-box">
+                            <svg class="sector-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3l-3 4h2l-4 5h3l-5 6h14l-5-6h3l-4-5h2z" />
+                                <path d="M12 18v3" />
+                            </svg>
+                        </span>
+                        <span class="card-status-pill status-compiling">🔒 Under Compilation</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Natural Resources</h3>
+                    <p>Administrative collections monitoring regional resource logging tenures, forestry safety audits, surface mineral claims, and localised subsurface water rights.</p>
+                    <div class="card-tags">
+                        <span class="tag-pill" onclick="setSearchValue('forestry')">#forestry</span>
+                        <span class="tag-pill" onclick="setSearchValue('resource')">#resource-rights</span>
+                    </div>
+                    <div class="card-stats-row">
+                        <span>Database: <strong>Drafting</strong></span>
+                        <span>Target: <strong>Sept 2026</strong></span>
+                    </div>
+                </div>
+                <div class="card-action-bar">
+                    <a href="#" class="action-btn">Under Compilation</a>
+                </div>
+            </div>
+
+            <!-- PUBLIC OFFICIALS CATALOGUE (Compiling) -->
+            <div class="catalogue-card compiling" data-sector="governance" data-keywords="public officials, candidate disclosures, press releases, committees, governance, council">
+                <div class="card-top">
+                    <div class="card-sector-meta">
+                        <!-- Classical Neoclassical Capitol Dome/Portico Outline -->
+                        <span class="sector-icon-box">
+                            <svg class="sector-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 22h16" />
+                                <path d="M20 18H4v-1.5h16V18z" />
+                                <path d="M6 16.5V9.5" />
+                                <path d="M10 16.5V9.5" />
+                                <path d="M14 16.5V9.5" />
+                                <path d="M18 16.5V9.5" />
+                                <path d="M4 9.5h16V8H4v1.5z" />
+                                <path d="M12 2L3 8h18L12 2z" />
+                            </svg>
+                        </span>
+                        <span class="card-status-pill status-compiling">🔒 Under Compilation</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Public Officials</h3>
+                    <p>Compiling civic appointments, official candidate transparency disclosures, governance committee profiles, and political conflict of interest registries.</p>
+                    <div class="card-tags">
+                        <span class="tag-pill" onclick="setSearchValue('disclosures')">#disclosures</span>
+                        <span class="tag-pill" onclick="setSearchValue('committees')">#committees</span>
+                    </div>
+                    <div class="card-stats-row">
+                        <span>Database: <strong>Drafting</strong></span>
+                        <span>Target: <strong>Oct 2026</strong></span>
+                    </div>
+                </div>
+                <div class="card-action-bar">
+                    <a href="#" class="action-btn">Under Compilation</a>
+                </div>
+            </div>
+
         </div>
+    </main>
 
-    </div>       
-</main>
+    <!-- exact Branded Footer Frame -->
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-copyright">Vancouver Island Regional Database &bull; Centralized Access to Public Records</p>
+            <p class="footer-disclaimer">
+                <b>Fair Dealing & Copyright:</b> Vancouver Island Regional Database is not affiliated with any government agency. It is an independent, non-commercial research archive ensuring regional compliance with public access laws and citizens’ legal right to access open government data. Materials, text extracts, and HTML copies reproduced directly from primary source public records, without commentary or opinion, for the statutory purposes of Research, Criticism, Review, and News Reporting under Section 29 of the Copyright Act (R.S.C., 1985, c. C-42).
+            </p>
+        </div>
+    </footer>
 
-<script>
-function filterDatasets() {
-    var input = document.getElementById('virdSearch');
-    var filter = input.value.toLowerCase();
-    var cards = document.getElementsByClassName('dataset-card');
+    <!-- Interactive Filtering Script Logic -->
+    <script>
+        let currentSectorFilter = 'all';
 
-    for (var i = 0; i < cards.length; i++) {
-        var cardText = cards[i].innerText.toLowerCase();
-        
-        if (cardText.indexOf(filter) > -1) {
-            cards[i].style.display = "flex";
-        } else {
-            cards[i].style.display = "none";
+        function filterCatalogues() {
+            const searchInput = document.getElementById('catalogueSearch');
+            const query = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.catalogue-card');
+
+            cards.forEach(card => {
+                const sector = card.getAttribute('data-sector');
+                const keywords = card.getAttribute('data-keywords').toLowerCase();
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const description = card.querySelector('p').innerText.toLowerCase();
+                
+                const matchesSearch = title.includes(query) || description.includes(query) || keywords.includes(query);
+                const matchesSector = currentSectorFilter === 'all' || sector === currentSectorFilter;
+
+                if (matchesSearch && matchesSector) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
-    }
-}
 
-function setSearchValue(value) {
-    var input = document.getElementById('virdSearch');
-    input.value = value;
-    input.style.backgroundColor = '#FFFFFF';
-    input.style.color = '#313132';
-    filterDatasets();
-}
-</script>
+        function setSectorFilter(sector, buttonElement) {
+            // Remove active states on buttons
+            document.querySelectorAll('.pill-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Apply active class to selected button
+            buttonElement.classList.add('active');
+            currentSectorFilter = sector;
+            filterCatalogues();
+        }
 
-<footer style="background-color: #003366; color: #FFFFFF; text-align: center; padding: 25px; font-size: 11px; margin-top: 150px; border-top: 4px solid #FCBA19;">
-    <p style="margin: 0; opacity: 0.8;">Vancouver Island Regional Database • Centralized Open Data Mirror</p>
-    <p style="margin: 6px 0 0 0; opacity: 0.5;">All assets are reproduced directly from primary source public records.</p>
-</footer>
-
+        function setSearchValue(value) {
+            const searchInput = document.getElementById('catalogueSearch');
+            searchInput.value = value;
+            filterCatalogues();
+        }
+    </script>
 </body>
 </html>
