@@ -1,0 +1,206 @@
+<!-- search-page_index.html -->
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Database & Closed Sessions Archive</title>
+  <link rel="stylesheet" href="core-database_style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- The layout engine injects the header and sidebar here -->
+  <div id="vird-layout-root"></div>
+
+  <!-- The unique table and card elements for this page -->
+  <div id="page-content-slot" style="display: none;">
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="tab-docs">📄 Document Archive</button>
+          <button class="tab-btn" data-tab="tab-incamera">🔒 Closed-Sessions</button>
+          <button id="clearDateBtn" class="btn-reset-filters" style="display: none; margin-left: 8px;">Reset Filters</button>
+        </div>
+
+        <div class="researcher-action-bar">
+          <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;">Researcher Tools:</span>
+          <button id="csv-export-button" class="btn-export" style="padding: 6px 12px; background: white; border: 1px solid #10b981; color: #10b981; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.8rem;">📥 Download CSV</button>
+          <button id="btnCopyPermalink" style="padding: 6px 12px; background: white; border: 1px solid var(--bc-blue); color: var(--bc-blue); border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.8rem;">🔗 Copy Share Link</button>
+          <button id="btnPrintFriendly" style="padding: 6px 12px; background: white; border: 1px solid var(--text-muted); color: var(--text-muted); border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.8rem;">🖨️ Print Report</button>
+          <button id="btnExportJSON" style="padding: 6px 12px; background: white; border: 1px solid var(--bc-gold); color: var(--bc-gold); border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.8rem;">🛠️ Copy API JSON URL</button>
+        </div>
+      </div>
+
+      <div class="decisions-container">
+        <!-- TAB 1: Documents Card List -->
+        <div class="tab-content active" id="tab-docs" style="padding: 20px;">
+          <div class="doc-sort-bar" style="display: flex; justify-content: flex-start; align-items: center; gap: 16px; margin-bottom: 16px; padding: 0; background: transparent; border: none; flex-wrap: wrap;">
+            <div class="sort-container" style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Sort Documents by:</span>
+              <select id="docSortSelect" style="background: white; border: 1px solid var(--border); border-radius: 4px; padding: 6px 10px; font-size: 0.82rem; font-weight: 600; color: var(--text); cursor: pointer; outline: none;">
+                <option value="date-desc">📅 Date (Newest first)</option>
+                <option value="date-asc">📅 Date (Oldest first)</option>
+                <option value="relevance">🔍 Relevance (Search match)</option>
+              </select>
+            </div>
+
+            <div class="doc-filter-dropdowns" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Filter Records:</span>
+
+              <div class="custom-dropdown" id="docJurDropdown" style="position: relative; width: auto; display: inline-block;">
+                <div class="dropdown-trigger" id="docJurTrigger">
+                  <span id="docJurText">Issuing Jurisdiction</span>
+                  <span class="native-v-arrow"></span>
+                </div>
+                <div class="dropdown-menu" id="docJurMenu" style="display: none; min-width: 200px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                  <input type="text" id="docJurSearch" placeholder="Filter..." class="dropdown-search">
+                  <div class="dropdown-options" id="docJurOptions"></div>
+                  <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                    <button type="button" id="docJurApply" class="dropdown-btn apply-btn" style="flex: 1;">Apply</button>
+                    <button type="button" id="docJurClear" class="dropdown-btn clear-btn" style="flex: 1;">Clear</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="custom-dropdown" id="docAppJurDropdown" style="position: relative; width: auto; display: inline-block;">
+                <div class="dropdown-trigger" id="docAppJurTrigger">
+                  <span id="docAppJurText">Applicable Jurisdictions</span>
+                  <span class="native-v-arrow"></span>
+                </div>
+                <div class="dropdown-menu" id="docAppJurMenu" style="display: none; min-width: 220px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                  <input type="text" id="docAppJurSearch" placeholder="Filter..." class="dropdown-search">
+                  <div class="dropdown-options" id="docAppJurOptions"></div>
+                  <div class="dropdown-footer">
+                    <button type="button" id="docAppJurApply" class="dropdown-btn apply-btn" style="flex:1;">Apply</button>
+                    <button type="button" id="docAppJurClear" class="dropdown-btn clear-btn" style="flex:1;">Clear</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="custom-dropdown" id="docTypeDropdown" style="position: relative; width: auto; display: inline-block;">
+                <div class="dropdown-trigger" id="docTypeTrigger">
+                  <span id="docTypeText">Document Type</span>
+                  <span class="native-v-arrow"></span>
+                </div>
+                <div class="dropdown-menu" id="docTypeMenu" style="display: none; min-width: 180px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                  <input type="text" id="docTypeSearch" placeholder="Filter..." class="dropdown-search">
+                  <div class="dropdown-options" id="docTypeOptions"></div>
+                  <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                    <button type="button" id="docTypeApply" class="dropdown-btn apply-btn" style="flex: 1;">Apply</button>
+                    <button type="button" id="docTypeClear" class="dropdown-btn clear-btn" style="flex: 1;">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="documentsBody" class="doc-list">
+            <div style="padding:16px; text-align:center; color:var(--text-muted);">Loading documents...</div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Closed Sessions Dark Themed Card View -->
+        <div class="tab-content" id="tab-incamera" style="display: none; border-radius: 8px; padding: 20px;">
+          <!-- Filter Bar for Cards -->
+          <div class="card-filter-bar" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 16px;">
+            <span style="font-size: 0.72rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;">Filters:</span>
+            
+            <!-- Date Sort Button -->
+            <div id="thIncameraDate" class="dropdown-trigger" style="padding: 6px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.82rem; border: 1px solid #334155; user-select: none;">
+              <span>Date</span>
+              <span id="sortIncameraArrow" style="margin-left: 2px;">▾</span>
+            </div>
+
+            <!-- Jurisdiction Filter -->
+            <div class="custom-dropdown" id="incameraJurDropdown">
+              <div class="dropdown-trigger" id="incameraJurTrigger">
+                <span id="incameraJurText">Jurisdiction</span>
+                <span class="native-v-arrow"></span>
+              </div>
+              <div class="dropdown-menu" id="incameraJurMenu" style="display: none; min-width: 180px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                <input type="text" id="incameraJurSearch" placeholder="Filter..." class="dropdown-search">
+                <div class="dropdown-options" id="incameraJurOptions"></div>
+                <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                  <button type="button" id="incameraJurApply" class="dropdown-btn apply-btn" style="flex: 1;">Apply</button>
+                  <button type="button" id="incameraJurClear" class="dropdown-btn clear-btn" style="flex: 1;">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Record Type Filter -->
+            <div class="custom-dropdown" id="incameraRecordTypeDropdown">
+              <div class="dropdown-trigger" id="incameraRecordTypeTrigger">
+                <span id="incameraRecordTypeText">Record Type</span>
+                <span class="native-v-arrow"></span>
+              </div>
+              <div class="dropdown-menu" id="incameraRecordTypeMenu" style="display: none; min-width: 180px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                <input type="text" id="incameraRecordTypeSearch" placeholder="Filter..." class="dropdown-search">
+                <div class="dropdown-options" id="incameraRecordTypeOptions"></div>
+                <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                  <button type="button" id="incameraRecordTypeApply" class="dropdown-btn apply-btn" style="flex: 1;">Apply</button>
+                  <button type="button" id="incameraRecordTypeClear" class="dropdown-btn clear-btn" style="flex: 1;">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Statutory Grounds Filter -->
+            <div class="custom-dropdown" id="incameraStatutoryDropdown">
+              <div class="dropdown-trigger" id="incameraStatutoryTrigger">
+                <span id="incameraStatutoryText">Statutory Grounds & Topic</span>
+                <span class="native-v-arrow"></span>
+              </div>
+              <div class="dropdown-menu" id="incameraStatutoryMenu" style="display: none; min-width: 250px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                <input type="text" id="incameraStatutorySearch" placeholder="Filter..." class="dropdown-search">
+                <div class="dropdown-options" id="incameraStatutoryOptions"></div>
+                <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                  <button type="button" id="incameraStatutoryApply" class="dropdown-btn apply-btn">Apply</button>
+                  <button type="button" id="incameraStatutoryClear" class="dropdown-btn clear-btn">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attendees Filter -->
+            <div class="custom-dropdown" id="incameraAttendeesDropdown">
+              <div class="dropdown-trigger" id="incameraAttendeesTrigger">
+                <span id="incameraAttendeesText">Attendees</span>
+                <span class="native-v-arrow"></span>
+              </div>
+              <div class="dropdown-menu" id="incameraAttendeesMenu" style="display: none; min-width: 180px; position: absolute; z-index: 1000; left: 0; box-shadow: var(--shadow);">
+                <input type="text" id="incameraAttendeesSearch" placeholder="Filter..." class="dropdown-search">
+                <div class="dropdown-options" id="incameraAttendeesOptions"></div>
+                <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                  <button type="button" id="incameraAttendeesApply" class="dropdown-btn apply-btn">Apply</button>
+                  <button type="button" id="incameraAttendeesClear" class="dropdown-btn clear-btn">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Disclosure Status Select -->
+            <select id="headIncameraStatusSelect" class="header-dropdown" style="padding: 8px 12px; border-radius: 4px; font-weight: 600; cursor: pointer; outline: none; font-size: 0.82rem; height: 36px;">
+              <option value="">Disclosure Status</option>
+              <option value="RISEN">🔓 Risen & Reported</option>
+              <option value="CONFIDENTIAL">🔒 Unreported</option>
+            </select>
+          </div>
+
+          <!-- Cards List Body -->
+          <div id="incameraBody" class="closed-card-list">
+            <div style="padding: 20px; text-align: center; color: #94a3b8;">Loading closed sessions...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script src="core-database_layout.js"></script>
+  <script>
+    initializeLayout({
+      title: "Search Document Database",
+      subtitle: "Official public ledger of municipal documents, minutes, and closed-session disclosures across Mid-Island regional jurisdictions.",
+      searchPlaceholder: "🔍 Search documents, records, statutory grounds, attendees..."
+    });
+  </script>
+  <script src="search-page_app.js"></script>
+</body>
+</html>

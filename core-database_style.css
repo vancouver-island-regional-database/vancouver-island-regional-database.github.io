@@ -1,0 +1,1012 @@
+/* ==========================================================================
+   🎨 FIGMA DESIGN SYSTEM & CORE FRAMEWORK FOR VANCOUVER ISLAND REGIONAL DATABASE
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SECTION 1: LOCAL DESIGN TOKENS (Figma Global Styles)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand Palettes */
+  --bc-blue: #003366;
+  --bc-blue-dark: #002244;
+  --bc-gold: #FCBA19;
+  
+  /* Layout Surfaces */
+  --bg: #F5F7FA;
+  --surface: #FFFFFF;
+  --text: #1F2933;
+  --text-muted: #64748B;
+  --border: #D1D5DB;
+  
+  /* Shadows & Accents */
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --accent-blue: #0066cc;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 2: CANVAS & TYPOGRAPHY RESETS
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'BCSans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+body, td {
+  color: #1F2933;
+  font-size: .84rem;
+  font-family: Inter, sans-serif;
+}
+
+.text-muted {
+  color: #64748B;
+  font-size: 0.72rem;
+  font-family: Inter, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 3: MASTER LAYOUT SHELL (Desktop Frames)
+   -------------------------------------------------------------------------- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container > header {
+  position: relative;
+  z-index: 10;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.content-area {
+  flex: 1;
+  padding: 28px;
+  min-width: 0;
+}
+
+.page-header {
+  margin-bottom: 18px;
+}
+
+.page-title-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.page-header h1 {
+  color: var(--bc-blue);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 4: FIGMA COMPONENT: LATERAL FOLDING SIDEBAR
+   -------------------------------------------------------------------------- */
+.sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  background: white;
+  border-right: 1px solid var(--border);
+  padding: 22px;
+  transition: width .22s cubic-bezier(0.4, 0, 0.2, 1), padding .22s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden; /* Clips contents cleanly during collapse */
+}
+
+/* Ensure child sidebar elements have a locked static width to prevent
+   stuttery text wrapping/line breaking during animations */
+.sidebar-header, 
+.nav-sections {
+  width: 276px; 
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  padding-top: 4px;
+  margin-bottom: 24px;
+}
+
+.sidebar-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.sidebar.collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: none;
+}
+
+/* Elegant fade out of child elements during sidebar closing sequence */
+.sidebar * {
+  transition: opacity 0.15s ease-in-out;
+}
+
+.sidebar.collapsed * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Sidebar sliding flap drawer button */
+.side-tab-flap {
+  position: fixed;
+  top: 50%;
+  left: 320px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 42px;
+  background: #CBD5E1;
+  border: 0px solid var(--bc-gold);
+  border-radius: 0 5px 5px 0;
+  color: var(--bc-blue);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: left .22s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-tab-flap:hover {
+  background: var(--bc-gold);
+}
+
+.sidebar.collapsed + .side-tab-flap {
+  left: 0px !important;
+}
+
+/* Sidebar manual resizer drag bar handles */
+.resizer {
+  width: 5px;
+  background: #CBD5E1;
+  cursor: col-resize;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+
+.resizer:hover {
+  background: var(--bc-gold);
+}
+
+/* Disable transitions globally during manual mouse-dragging for pixel-perfect tracking */
+body.dragging .sidebar,
+body.dragging .side-tab-flap {
+  transition: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 5: FIGMA COMPONENT: NAVIGATION TABS & COLLABORATIVE BAR
+   -------------------------------------------------------------------------- */
+.tabs-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0px;
+  flex-wrap: wrap-reverse;
+  gap: 12px;
+}
+
+.researcher-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+/* Pull tabs perfectly flush to the left boundary of your contents */
+.tab-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 0 !important;
+  position: relative;
+  padding-left: 0px !important; /* Visual Reset to Left edge */
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  background: #E2E8F0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  top: 1px;
+  z-index: 1;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+  background-color: #CBD5E1;
+}
+
+/* Default Active Tab: Matches Brand Blue with a premium Gold top-cap line */
+.tab-btn.active {
+  color: white;
+  background-color: var(--bc-blue);
+  font-weight: 600;
+  border-top: 3px solid var(--bc-gold);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--bc-blue) !important;
+  box-shadow: none;
+  z-index: 3;
+}
+
+/* Document Archive Tab Override: Stays white when active to overlay the white content panel */
+.tab-btn[data-tab="tab-docs"].active {
+  color: var(--bc-blue);
+  background-color: white;
+  border-bottom: 1px solid white !important;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 6: STICKY FILTERS & FORM CONTROLS (Shared Input Elements)
+   -------------------------------------------------------------------------- */
+.sticky-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white !important;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.sticky-filter-row input {
+  background: white !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  padding: 6px 10px;
+  border-radius: 4px;
+  outline: none;
+}
+
+#decisionSearchInput {
+  flex: 1;
+  min-width: 240px;
+}
+
+.sticky-filter-row span {
+  color: var(--bc-blue);
+  font-weight: 600;
+}
+
+/* High-Contrast Interactive Reset Button */
+#clearDateBtn {
+  background-color: white;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+#clearDateBtn:hover:not(:disabled) {
+  background-color: #ef4444;
+  color: white;
+}
+
+#clearDateBtn:disabled {
+  background-color: transparent;
+  color: #94a3b8;
+  border: 1px solid #cbd5e1;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* High-Contrast Reset Filter matching styles */
+.btn-reset-filters {
+  background-color: white;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-reset-filters:hover:not(:disabled) {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* Active Filter Pill list container */
+.active-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e2e8f0;
+  color: var(--text);
+  border: 1px solid #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.active-filter-pill:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.active-filter-pill .clear-x {
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 7: MULTI-SELECT DROPDOWN COMPONENTS
+   -------------------------------------------------------------------------- */
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.sticky-filter-row .custom-dropdown,
+.card-filter-bar .custom-dropdown {
+  width: auto;
+}
+
+.header-dropdown {
+  background: transparent;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpolyline points="6 9 12 15 18 9"/%3E%3C/svg%3E') no-repeat right 0 center;
+  background-size: 10px;
+  padding-right: 14px;
+}
+
+.header-dropdown option {
+  color: black;
+}
+
+.native-v-arrow {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: rotate(45deg);
+  margin-bottom: 3px;
+  margin-right: 4px;
+  pointer-events: none;
+}
+
+.dropdown-trigger {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: auto;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-top: 4px;
+  padding: 10px;
+  z-index: 100;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-search {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.dropdown-options {
+  max-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.dropdown-option input {
+  cursor: pointer;
+}
+
+.dropdown-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.dropdown-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.dropdown-btn.apply-btn {
+  background: var(--bc-blue);
+  color: white;
+  flex: 1;
+}
+
+.dropdown-btn.clear-btn {
+  background: #E2E8F0;
+  color: var(--text);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--border);
+  margin: 6px 0;
+}
+
+.dropdown-group-header {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 8px 4px 4px 4px;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 8: FIGMA COMPONENT: COMMON PILLS & VISUAL LABELS
+   -------------------------------------------------------------------------- */
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill-red {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pill-green {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pill-grey,
+.pill-gray {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pill-blue {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pill-dark-green {
+  background-color: #065f46;
+  color: #ffffff;
+  border: 1px solid #047857;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Interactive anchor typography links */
+.link-blue {
+  color: #0066cc;
+  text-decoration: underline;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.link-slate-bold {
+  color: #0f172a;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.link-gray {
+  color: #94a3b8;
+  text-decoration: underline;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 9: SYSTEM NAVIGATION ITEMS (Sidebar Category Menus)
+   -------------------------------------------------------------------------- */
+.nav-group {
+  margin-top: 26px;
+}
+
+.nav-title {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--bc-blue);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.nav-item {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #475569;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: #EAF2F8;
+  color: var(--bc-blue);
+}
+
+/* Sidebar Framework Classes (Support dynamic layouts) */
+.nav-sections,
+.nav-cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 10: ARTBOARD A: DOCUMENT ARCHIVE PAGE (Light-Mode Components)
+   -------------------------------------------------------------------------- */
+.decisions-container {
+  border: 1px solid var(--border);
+  border-radius: 0 6px 6px 6px;
+  position: relative;
+  background: white;
+  z-index: 2;
+  margin-top: -1px;
+}
+
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.doc-card {
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.doc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.pagination button {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.pagination button:hover {
+  border-color: var(--bc-blue);
+  color: var(--bc-blue);
+}
+
+.pagination button.active {
+  background: var(--bc-blue);
+  color: white;
+  border-color: var(--bc-blue);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 11: ARTBOARD B: CLOSED SESSIONS COMPONENT (Slate Dark Panel)
+   -------------------------------------------------------------------------- */
+
+/* Active Tab Cap: Seamlessly blends into the dark slate content block beneath */
+.tab-btn[data-tab="tab-incamera"].active {
+  color: white;
+  background-color: #0f172a; /* Matched to Slate-900 */
+  border-bottom: 1px solid #0f172a !important;
+}
+
+/* --- TAB DISPLAY SYSTEM --- */
+
+/* 1. Hide all tab content containers by default */
+.tab-content {
+  display: none !important;
+}
+
+/* 2. Force the active block-level container (Closed Sessions) to display */
+div.tab-content.active {
+  display: block !important;
+}
+
+/* 3. Force the active table-level container (Voting Matrix) to display */
+table.tab-content.active {
+  display: table !important;
+}
+
+/* Parent Container Query: When Closed Sessions Dark Tab is active, we strip
+   the parent .decisions-container of its white background and grey outline,
+   letting the dark slate panels render perfectly flat and integrated! */
+.decisions-container:has(#tab-incamera.tab-content.active) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#tab-incamera {
+  background: #0f172a !important; /* Deep Slate-900 */
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #1e293b;
+  color: #e2e8f0;
+}
+
+#tab-incamera .dropdown-trigger {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+#tab-incamera .dropdown-menu {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+#tab-incamera .dropdown-search {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+#tab-incamera .dropdown-option {
+  color: #cbd5e1;
+}
+
+#tab-incamera .dropdown-option:hover {
+  background: #334155;
+}
+
+#tab-incamera .dropdown-btn {
+  border-color: #334155;
+}
+
+#tab-incamera .header-dropdown {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.closed-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.closed-card {
+  background: #1e293b; /* Slate-800 */
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  text-align: left;
+}
+
+.closed-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  border-color: #475569;
+}
+
+.closed-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.closed-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  text-decoration: none;
+}
+
+.closed-card-title:hover {
+  color: var(--accent-blue);
+}
+
+.closed-card-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+
+.closed-card-body {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 14px;
+}
+
+.closed-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px dashed #334155;
+  padding-top: 14px;
+  font-size: 0.82rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 12: ARTBOARD C: VOTING RECORDS DASHBOARD (Data Spreadsheet Grid)
+   -------------------------------------------------------------------------- */
+
+/* Transparent canvas container override specifically for the Voting Spreadsheet view */
+.voting-view .decisions-container {
+  border: none;
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Blue Active Tab Overrides: Restores default active tab to brand blue when
+   displayed on the Voting page frame. To dissolve the high-contrast grey borders
+   that slice down into the blue table header below, we match the borders' color
+   perfectly to the background dark blue! */
+.voting-view .tab-btn.active {
+  color: white !important;
+  background-color: var(--bc-blue) !important;
+  border-top: 3px solid var(--bc-gold) !important;
+  border-left-color: var(--bc-blue) !important;
+  border-right-color: var(--bc-blue) !important;
+  border-bottom-color: var(--bc-blue) !important;
+}
+
+.matrix-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.matrix-table th,
+.matrix-table td {
+  padding: 12px 6px;
+  border-bottom: 1px solid var(--border);
+  font-size: .84rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.matrix-table th {
+  background: var(--bc-blue);
+  color: white;
+  font-weight: 600;
+  border-bottom: 3px solid var(--bc-gold);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: visible;
+}
+
+.matrix-table th:last-child {
+  border-right: none;
+}
+
+.col-date {
+  width: 120px;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+#thDate, 
+#thIncameraDate {
+  cursor: pointer;
+  user-select: none;
+}
+
+.matrix-table td {
+  background: white;
+}
+
+/* Zebra striping for tabular layout grids */
+.matrix-table tr:nth-child(even) td {
+  background: #F8FAFC;
+}
+
+.matrix-table tr:hover td {
+  background: #EEF6FF;
+}
+
+/* Align rightmost header custom dropdown overlays to prevent spilling off the screen */
+#headYeasMenu, 
+#headNaysMenu {
+  left: auto !important;
+  right: 0 !important;
+}
+
+/* Positioning rules specifically for dropdown menus situated inside the table head */
+.matrix-table .dropdown-menu {
+  min-width: 220px;
+  text-align: left;
+  top: 100%; /* Positions the dropdown directly below the triggers, not on top of them */
+  left: 0;
+}
+
+.matrix-table .dropdown-trigger {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.matrix-table .dropdown-trigger span {
+  font-weight: 600;
+}
+
+.matrix-table .dropdown-option {
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION 13: DESIGN FINISHING TOUCHES & UTILITIES
+   -------------------------------------------------------------------------- */
+
+/* Complete focus reset: kills default browser accessibility outline box */
+.tab-btn:focus,
+.tab-btn:active,
+.dropdown-trigger:focus {
+  outline: none !important;
+}
+
+/* Will-change rendering prompts to GPU for liquid smooth hardware-accelerated transitions */
+.sidebar,
+.content-area,
+.side-tab-flap {
+  will-change: width, left;
+}
