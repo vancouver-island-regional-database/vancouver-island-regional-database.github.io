@@ -22,6 +22,43 @@
 
 
  <!-- ================================================================= -->
+ <!-- 1b. SITE PAGES                                                    -->
+ <!-- (previously missing from this sitemap entirely - added so search  -->
+ <!-- engines can discover them without relying solely on crawled links) -->
+ <!-- ================================================================= -->
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/catalogues.html</loc>
+   <lastmod>2026-07-23</lastmod>
+   <changefreq>weekly</changefreq>
+   <priority>0.85</priority>
+ </url>
+
+
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/external-resources.html</loc>
+   <lastmod>2026-07-13</lastmod>
+   <changefreq>monthly</changefreq>
+   <priority>0.60</priority>
+ </url>
+
+
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/search-page_index.html</loc>
+   <lastmod>2026-07-13</lastmod>
+   <changefreq>monthly</changefreq>
+   <priority>0.70</priority>
+ </url>
+
+
+ <url>
+   <loc>https://vancouver-island-regional-database.github.io/voting-page_index.html</loc>
+   <lastmod>2026-07-13</lastmod>
+   <changefreq>monthly</changefreq>
+   <priority>0.60</priority>
+ </url>
+
+
+ <!-- ================================================================= -->
  <!-- 2. WATER SYSTEMS REGISTRY INDEX                                   -->
  <!-- ================================================================= -->
  <url>
@@ -232,8 +269,6 @@
   <changefreq>never</changefreq>
   <priority>0.80</priority>
 </url>
-<!-- FN0640-SANITARY Emergency Closure Notice -->
-<url>
 <!-- FN0002-SANITARY Emergency Closure Notice -->
 <url>
   <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2021-01-02_DFO-Notice-17-7_FN0002-SANITARY-closure.pdf</loc>
@@ -287,7 +322,8 @@
 
 <!-- +++++++++++++++++++++++++++++2020+++++++++++++++++++++++++++++ -->
 
-
+<!-- FN0640-SANITARY Emergency Closure Notice -->
+<url>
   <loc>https://vancouver-island-regional-database.github.io/water-systems/files/2020-09-06_DFO-Notice-17-7_FN0640-SANITARY-revoked.pdf</loc>
   <lastmod>2026-06-18</lastmod>
   <changefreq>never</changefreq>
