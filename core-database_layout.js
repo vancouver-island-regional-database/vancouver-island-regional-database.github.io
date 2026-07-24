@@ -18,7 +18,7 @@ function initializeLayout(config) {
       <header style="background-color: #003366; color: #FFFFFF; padding: 10px 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid #FCBA19; flex-wrap: wrap; gap: 15px;">
         <div style="display: flex; align-items: center;">
           <div style="border-right: 1px solid rgba(255,255,255,0.3); padding-right: 15px; margin-right: 15px; display: flex; align-items: center;">
-            <a href="search-page_index.html" style="display: flex; align-items: center;">
+            <a href="index.html" style="display: flex; align-items: center;">
               <img src="assets/vird_logo_white.png" alt="VIRD Mark White" style="height: 42px; width: auto; display: block;" onerror="this.style.display='none';">
             </a>
           </div>
@@ -27,7 +27,7 @@ function initializeLayout(config) {
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 15px;">
-          <a href="search-page_index.html" style="display: inline-flex; align-items: center; color: #FFFFFF; text-decoration: none; font-size: 11px; font-weight: bold; background-color: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2); letter-spacing: 0.5px;">
+          <a href="index.html" style="display: inline-flex; align-items: center; color: #FFFFFF; text-decoration: none; font-size: 11px; font-weight: bold; background-color: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2); letter-spacing: 0.5px;">
             HOME
           </a>
         </div>
