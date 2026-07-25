@@ -141,15 +141,38 @@
         }
         .category-nav a:hover { background: var(--accent-blue-soft); }
 
-        /* ============ CATEGORY SECTIONS ============ */
-        .category-section { margin-bottom: 36px; scroll-margin-top: 16px; }
-        .category-heading {
-            font-size: 16px; font-weight: 700; color: var(--bc-blue-dark);
-            margin-bottom: 4px; padding-bottom: 10px; border-bottom: 2px solid var(--border-light);
+        /* ============ CATEGORY SECTIONS (accordion) ============ */
+        .accordion-controls { display: flex; align-items: center; gap: 8px; margin: 0 0 14px 0; }
+        .text-link-btn {
+            background: none; border: none; cursor: pointer; font-family: inherit;
+            font-size: 11.5px; font-weight: 600; color: var(--bc-blue); padding: 4px 0;
         }
-        .category-count { font-size: 11px; font-weight: 500; color: var(--text-muted); margin-bottom: 14px; }
+        .text-link-btn:hover { text-decoration: underline; }
+        .accordion-controls .dot-sep { color: var(--border-light); font-size: 11px; }
 
-        .resource-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .category-section { margin-bottom: 14px; scroll-margin-top: 16px; }
+        .category-toggle {
+            width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            background: none; border: none; cursor: pointer; font-family: inherit; text-align: left;
+            padding: 0 0 10px 0; margin-bottom: 4px; border-bottom: 2px solid var(--border-light);
+        }
+        .category-toggle-left { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+        .category-heading { font-size: 16px; font-weight: 700; color: var(--bc-blue-dark); }
+        .category-count { font-size: 11px; font-weight: 500; color: var(--text-muted); }
+        .chevron {
+            flex-shrink: 0; width: 18px; height: 18px; color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+        .category-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+        .category-body-wrap {
+            display: grid; grid-template-rows: 0fr;
+            transition: grid-template-rows 0.25s ease;
+        }
+        .category-body-wrap.expanded { grid-template-rows: 1fr; }
+        .category-body-inner { overflow: hidden; min-height: 0; }
+
+        .resource-grid { display: grid; grid-template-columns: 1fr; gap: 14px; padding-top: 14px; }
 
         /* ============ RESOURCE CARD (mobile base: stacked) ============ */
         .resource-card {
@@ -185,6 +208,27 @@
             border: 1px solid var(--border-light);
         }
         .btn-fallback:hover { background-color: #F1F5F9; color: var(--text-main); border-color: #CBD5E1; }
+
+        /* ---- Official government resource variant (dark) ---- */
+        .resource-card.is-gov {
+            background-color: var(--bc-blue-dark);
+            border-color: var(--bc-blue-dark);
+            border-left: 4px solid var(--bc-gold);
+        }
+        .resource-card.is-gov:hover { border-color: var(--bc-gold); box-shadow: var(--shadow-md); }
+        .resource-card.is-gov .resource-label { color: var(--bc-gold); }
+        .resource-card.is-gov h3 { color: #FFFFFF; }
+        .resource-card.is-gov p { color: #CBD5E1; }
+        .resource-card.is-gov .pill-topic { background-color: rgba(255,255,255,0.12); color: #E2E8F0; }
+        .resource-card.is-gov .pill-topic:hover { background-color: rgba(255,255,255,0.2); color: #FFFFFF; }
+        .resource-card.is-gov .pill-access { background-color: rgba(252,186,25,0.22); color: var(--bc-gold); border-color: rgba(252,186,25,0.5); }
+        .resource-card.is-gov .btn-primary { background-color: var(--bc-gold); color: var(--bc-blue-dark); border-bottom: 2px solid var(--bc-gold-hover); }
+        .resource-card.is-gov .btn-primary:hover { background-color: var(--bc-gold-hover); }
+        .resource-card.is-gov .btn-fallback { background-color: rgba(255,255,255,0.06); color: #CBD5E1; border-color: rgba(255,255,255,0.2); }
+        .resource-card.is-gov .btn-fallback:hover { background-color: rgba(255,255,255,0.12); color: #FFFFFF; border-color: rgba(255,255,255,0.35); }
+
+        .gov-key-note { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+        .gov-key-swatch { width: 14px; height: 14px; border-radius: 3px; background-color: var(--bc-blue-dark); border-left: 3px solid var(--bc-gold); flex-shrink: 0; }
 
         /* ============ FOOTER (shared pattern) ============ */
         footer { background-color: var(--bc-blue-dark); color: #FFFFFF; padding: 32px 20px; border-top: 4px solid var(--bc-gold); }
@@ -265,11 +309,17 @@
             <div class="accessibility-key">
                 <div class="accessibility-key-label">Filter by Accessibility</div>
                 <div class="access-tag-row" id="accessTagRow"><!-- rendered by JS --></div>
+                <div class="gov-key-note"><span class="gov-key-swatch"></span> Dark cards are official government sources (ministries, Crown corporations, and statutory regulators). Light cards are nonprofits, professional associations, or independent tools.</div>
             </div>
         </div>
     </div>
 
     <nav class="category-nav" id="categoryNav"><!-- rendered by JS --></nav>
+    <div class="accordion-controls">
+        <button type="button" class="text-link-btn" onclick="expandAll()">Expand All</button>
+        <span class="dot-sep">&middot;</span>
+        <button type="button" class="text-link-btn" onclick="collapseAll()">Collapse All</button>
+    </div>
 
     <div id="resourceSections"><!-- rendered by JS --></div>
     <p class="no-results" id="noResults">No resources match your search or filters.</p>
@@ -310,78 +360,78 @@ const CATEGORIES = [
 
 const RESOURCES = [
     // ---- Court & Legal Records ----
-    { title: "Civil Case Search | Court Services Online", url: "https://justice.gov.bc.ca/cso/esearch/civil/partySearch.do", desc: "British Columbia's Court Services Online lets you search civil court case records by party name, file number, or date range.", category: "court-legal", topics: ["court records","civil"], access: ["account","fee"] },
-    { title: "Criminal/Traffic Case Search | Court Services Online", url: "https://justice.gov.bc.ca/cso/esearch/criminal/partySearch.do", desc: "Search B.C. criminal and traffic court case records by participant name or agency.", category: "court-legal", topics: ["court records","criminal"], access: ["account","fee"] },
-    { title: "Court of Appeal Case Search | Court Services Online", url: "https://justice.gov.bc.ca/cso/esearch/appeal/caseSearch.do", desc: "Search B.C. Court of Appeal case records by case number, covering roughly the past 20 years.", category: "court-legal", topics: ["court records","appeal"], access: ["account","fee"] },
-    { title: "CanLII", url: "https://www.canlii.org/", desc: "Free public access to Canadian court decisions, tribunal rulings, and consolidated statutes and regulations.", category: "court-legal", topics: ["case law","legislation"], access: [] },
+    { title: "Civil Case Search | Court Services Online", url: "https://justice.gov.bc.ca/cso/esearch/civil/partySearch.do", desc: "British Columbia's Court Services Online lets you search civil court case records by party name, file number, or date range.", category: "court-legal", topics: ["court records","civil"], access: ["account","fee"], gov: true },
+    { title: "Criminal/Traffic Case Search | Court Services Online", url: "https://justice.gov.bc.ca/cso/esearch/criminal/partySearch.do", desc: "Search B.C. criminal and traffic court case records by participant name or agency.", category: "court-legal", topics: ["court records","criminal"], access: ["account","fee"], gov: true },
+    { title: "Court of Appeal Case Search | Court Services Online", url: "https://justice.gov.bc.ca/cso/esearch/appeal/caseSearch.do", desc: "Search B.C. Court of Appeal case records by case number, covering roughly the past 20 years.", category: "court-legal", topics: ["court records","appeal"], access: ["account","fee"], gov: true },
+    { title: "CanLII", url: "https://www.canlii.org/", desc: "Free public access to Canadian court decisions, tribunal rulings, and consolidated statutes and regulations.", category: "court-legal", topics: ["case law","legislation"], access: [], gov: false },
 
     // ---- Corporate & Business Registries ----
-    { title: "BC OnLine", url: "https://www.bconline.gov.bc.ca/main.html", desc: "Government of B.C. portal for purchasing land title, corporate registry, and court record products.", category: "corporate-registries", topics: ["corporate registry","land title"], access: ["account","fee"] },
-    { title: "BC Registry Services", url: "https://www.bcregistry.gov.bc.ca/", desc: "The Province's current platform for business, cooperative, and society registrations and searches, which has replaced the retired Corporate Online system.", category: "corporate-registries", topics: ["corporate registry"], access: ["account"] },
-    { title: "OrgBook BC", url: "https://orgbook.gov.bc.ca/search", desc: "British Columbia's public registry search for incorporated businesses, societies, and cooperatives.", category: "corporate-registries", topics: ["corporate registry"], access: [] },
-    { title: "Corporate Registry Notices | BC Laws", url: "https://www.bclaws.gov.bc.ca/civix/content/corpreg/corpreg/?xsl=/templates/browse.xsl", desc: "BC Laws' listing of statutory corporate registry notices, including dissolutions and name changes.", category: "corporate-registries", topics: ["corporate registry"], access: ["legacyui"] },
-    { title: "Canada Business Registries Search", url: "https://ised-isde.canada.ca/cbr-rec/en/search", desc: "Federal search tool aggregating business registration data submitted by participating provincial and territorial registries.", category: "corporate-registries", topics: ["corporate registry","federal"], access: [] },
-    { title: "Federal Corporations Search | Corporations Canada", url: "https://ised-isde.canada.ca/cc/lgcy/fdrlCrpSrch.html", desc: "Corporations Canada's search tool for corporations incorporated under federal law.", category: "corporate-registries", topics: ["corporate registry","federal"], access: ["legacyui"] },
-    { title: "Federal Corporations Dataset | Open Government Portal", url: "https://open.canada.ca/data/en/dataset/0032ce54-c5dd-4b66-99a0-320a7b5e99f2", desc: "Bulk downloadable dataset and API of all federally incorporated business, not-for-profit, and cooperative corporations, maintained by Corporations Canada.", category: "corporate-registries", topics: ["corporate registry","open data"], access: ["rawdata"] },
-    { title: "Canada Company Registry", url: "https://www.canadacompanyregistry.com/Company-Search/", desc: "A privately operated search tool aggregating Canadian corporate registration data.", category: "corporate-registries", topics: ["corporate registry"], access: ["thirdparty"] },
-    { title: "OpenCorporates", url: "https://opencorporates.com/", desc: "An open database aggregating corporate registry data from jurisdictions worldwide, including Canada.", category: "corporate-registries", topics: ["corporate registry","international"], access: ["thirdparty"] },
-    { title: "SEDAR+", url: "https://www.sedarplus.ca/home/", desc: "Canada's official system for public company securities filings, prospectuses, and continuous disclosure documents.", category: "corporate-registries", topics: ["securities","public companies"], access: [] },
+    { title: "BC OnLine", url: "https://www.bconline.gov.bc.ca/main.html", desc: "Government of B.C. portal for purchasing land title, corporate registry, and court record products.", category: "corporate-registries", topics: ["corporate registry","land title"], access: ["account","fee"], gov: true },
+    { title: "BC Registry Services", url: "https://www.bcregistry.gov.bc.ca/", desc: "The Province's current platform for business, cooperative, and society registrations and searches, which has replaced the retired Corporate Online system.", category: "corporate-registries", topics: ["corporate registry"], access: ["account"], gov: true },
+    { title: "OrgBook BC", url: "https://orgbook.gov.bc.ca/search", desc: "British Columbia's public registry search for incorporated businesses, societies, and cooperatives.", category: "corporate-registries", topics: ["corporate registry"], access: [], gov: true },
+    { title: "Corporate Registry Notices | BC Laws", url: "https://www.bclaws.gov.bc.ca/civix/content/corpreg/corpreg/?xsl=/templates/browse.xsl", desc: "BC Laws' listing of statutory corporate registry notices, including dissolutions and name changes.", category: "corporate-registries", topics: ["corporate registry"], access: ["legacyui"], gov: true },
+    { title: "Canada Business Registries Search", url: "https://ised-isde.canada.ca/cbr-rec/en/search", desc: "Federal search tool aggregating business registration data submitted by participating provincial and territorial registries.", category: "corporate-registries", topics: ["corporate registry","federal"], access: [], gov: true },
+    { title: "Federal Corporations Search | Corporations Canada", url: "https://ised-isde.canada.ca/cc/lgcy/fdrlCrpSrch.html", desc: "Corporations Canada's search tool for corporations incorporated under federal law.", category: "corporate-registries", topics: ["corporate registry","federal"], access: ["legacyui"], gov: true },
+    { title: "Federal Corporations Dataset | Open Government Portal", url: "https://open.canada.ca/data/en/dataset/0032ce54-c5dd-4b66-99a0-320a7b5e99f2", desc: "Bulk downloadable dataset and API of all federally incorporated business, not-for-profit, and cooperative corporations, maintained by Corporations Canada.", category: "corporate-registries", topics: ["corporate registry","open data"], access: ["rawdata"], gov: true },
+    { title: "Canada Company Registry", url: "https://www.canadacompanyregistry.com/Company-Search/", desc: "A privately operated search tool aggregating Canadian corporate registration data.", category: "corporate-registries", topics: ["corporate registry"], access: ["thirdparty"], gov: false },
+    { title: "OpenCorporates", url: "https://opencorporates.com/", desc: "An open database aggregating corporate registry data from jurisdictions worldwide, including Canada.", category: "corporate-registries", topics: ["corporate registry","international"], access: ["thirdparty"], gov: false },
+    { title: "SEDAR+", url: "https://www.sedarplus.ca/home/", desc: "Canada's official system for public company securities filings, prospectuses, and continuous disclosure documents.", category: "corporate-registries", topics: ["securities","public companies"], access: [], gov: true },
 
     // ---- Land, Property & Mapping ----
-    { title: "Land Owner Transparency Registry Search | LTSA", url: "https://apps.ltsa.ca/lotr-search-ui/public-search/search", desc: "Search British Columbia's Land Owner Transparency Registry by person name or parcel identifier to see beneficial (behind-the-scenes) interest holders in a property. Free to search.", category: "land-property", topics: ["land title","beneficial ownership"], access: ["account"] },
-    { title: "ParcelMap BC | LTSA", url: "https://parcelmapbc.ltsa.ca/pmsspub/", desc: "LTSA's public web map of British Columbia's cadastral (property parcel boundary) data.", category: "land-property", topics: ["mapping","land title"], access: [] },
-    { title: "BC Assessment", url: "https://www.bcassessment.ca/", desc: "Search current property assessment values and historical assessment and sale data for any property in British Columbia.", category: "land-property", topics: ["property value","assessment"], access: [] },
-    { title: "iMapBC", url: "https://maps.gov.bc.ca/ess/hm/imap4m/", desc: "The Province's general-purpose interactive mapping tool for provincial spatial data layers, including Crown land, resource tenures, and environmental data.", category: "land-property", topics: ["mapping","crown land"], access: ["legacyui"] },
-    { title: "New Homes Registry | BC Housing", url: "https://newhomesregistry.bchousing.org/", desc: "Search whether a new home or home under construction is covered by mandatory home warranty insurance, and identify its licensed builder.", category: "land-property", topics: ["home warranty","builders"], access: [] },
+    { title: "Land Owner Transparency Registry Search | LTSA", url: "https://apps.ltsa.ca/lotr-search-ui/public-search/search", desc: "Search British Columbia's Land Owner Transparency Registry by person name or parcel identifier to see beneficial (behind-the-scenes) interest holders in a property. Free to search.", category: "land-property", topics: ["land title","beneficial ownership"], access: ["account"], gov: true },
+    { title: "ParcelMap BC | LTSA", url: "https://parcelmapbc.ltsa.ca/pmsspub/", desc: "LTSA's public web map of British Columbia's cadastral (property parcel boundary) data.", category: "land-property", topics: ["mapping","land title"], access: [], gov: true },
+    { title: "BC Assessment", url: "https://www.bcassessment.ca/", desc: "Search current property assessment values and historical assessment and sale data for any property in British Columbia.", category: "land-property", topics: ["property value","assessment"], access: [], gov: true },
+    { title: "iMapBC", url: "https://maps.gov.bc.ca/ess/hm/imap4m/", desc: "The Province's general-purpose interactive mapping tool for provincial spatial data layers, including Crown land, resource tenures, and environmental data.", category: "land-property", topics: ["mapping","crown land"], access: ["legacyui"], gov: true },
+    { title: "New Homes Registry | BC Housing", url: "https://newhomesregistry.bchousing.org/", desc: "Search whether a new home or home under construction is covered by mandatory home warranty insurance, and identify its licensed builder.", category: "land-property", topics: ["home warranty","builders"], access: [], gov: true },
 
     // ---- Government Accountability & Oversight ----
-    { title: "Released FOI Requests | B.C. Government", url: "https://www2.gov.bc.ca/gov/search?q=foi+request%2Binmeta%3Ahigh_level_subject%3DFOI+Request&id=9199E7BC9682482EB9EA0B6D6B8D386C&tab=1", desc: "Non-personal records that have been requested through a freedom of information request are posted on the B.C. government website after they're released to the person who requested them.", category: "accountability", topics: ["freedom of information"], access: [] },
-    { title: "Election Results | CivicInfo BC", url: "https://www.civicinfo.bc.ca/elections", desc: "CivicInfo BC provides a central repository for current and historical local election information in British Columbia.", category: "accountability", topics: ["election results"], access: [] },
-    { title: "Registrar of Lobbyists BC", url: "https://www.lobbyistsregistrar.bc.ca/", desc: "British Columbia's public registry of lobbying activity, disclosing which organizations are lobbying government and on what subject matter.", category: "accountability", topics: ["lobbying"], access: [] },
-    { title: "BC Government Internal Audit Reports", url: "https://www2.gov.bc.ca/gov/content/governments/services-for-government/internal-corporate-services/internal-audits/audit-reports", desc: "Published internal audit reports evaluating the management and operations of B.C. government ministries and programs.", category: "accountability", topics: ["audits"], access: [] },
-    { title: "Cullen Commission", url: "https://www.cullencommission.ca/", desc: "Final report and evidentiary record of the B.C. Commission of Inquiry into Money Laundering, covering real estate, luxury vehicle sales, and gaming sectors.", category: "accountability", topics: ["money laundering","public inquiry"], access: [] },
-    { title: "Investment Caution List | BC Securities Commission", url: "https://www.bcsc.bc.ca/enforcement/early-intervention/investment-caution-list", desc: "A list of companies and individuals the B.C. Securities Commission has flagged for suspected unregistered or fraudulent investment activity.", category: "accountability", topics: ["investment fraud"], access: [] },
+    { title: "Released FOI Requests | B.C. Government", url: "https://www2.gov.bc.ca/gov/search?q=foi+request%2Binmeta%3Ahigh_level_subject%3DFOI+Request&id=9199E7BC9682482EB9EA0B6D6B8D386C&tab=1", desc: "Non-personal records that have been requested through a freedom of information request are posted on the B.C. government website after they're released to the person who requested them.", category: "accountability", topics: ["freedom of information"], access: [], gov: true },
+    { title: "Election Results | CivicInfo BC", url: "https://www.civicinfo.bc.ca/elections", desc: "CivicInfo BC provides a central repository for current and historical local election information in British Columbia.", category: "accountability", topics: ["election results"], access: [], gov: false },
+    { title: "Registrar of Lobbyists BC", url: "https://www.lobbyistsregistrar.bc.ca/", desc: "British Columbia's public registry of lobbying activity, disclosing which organizations are lobbying government and on what subject matter.", category: "accountability", topics: ["lobbying"], access: [], gov: true },
+    { title: "BC Government Internal Audit Reports", url: "https://www2.gov.bc.ca/gov/content/governments/services-for-government/internal-corporate-services/internal-audits/audit-reports", desc: "Published internal audit reports evaluating the management and operations of B.C. government ministries and programs.", category: "accountability", topics: ["audits"], access: [], gov: true },
+    { title: "Cullen Commission", url: "https://www.cullencommission.ca/", desc: "Final report and evidentiary record of the B.C. Commission of Inquiry into Money Laundering, covering real estate, luxury vehicle sales, and gaming sectors.", category: "accountability", topics: ["money laundering","public inquiry"], access: [], gov: true },
+    { title: "Investment Caution List | BC Securities Commission", url: "https://www.bcsc.bc.ca/enforcement/early-intervention/investment-caution-list", desc: "A list of companies and individuals the B.C. Securities Commission has flagged for suspected unregistered or fraudulent investment activity.", category: "accountability", topics: ["investment fraud"], access: [], gov: true },
 
     // ---- Environmental & Resource Compliance ----
-    { title: "Fisheries and Aquaculture Notices | DFO", url: "https://notices.dfo-mpo.gc.ca/fns-sap/index-eng.cfm", desc: "Federal Fisheries and Oceans Canada notices, including shellfish harvest closures and fishery openings and closures.", category: "environmental", topics: ["fisheries","shellfish"], access: [] },
-    { title: "Environment | Province of British Columbia", url: "https://www2.gov.bc.ca/gov/content/environment", desc: "The Province's general hub for environmental protection, permitting, and compliance information.", category: "environmental", topics: ["environment"], access: [] },
-    { title: "Natural Resource Compliance & Enforcement Database (NRCED)", url: "https://nrced.gov.bc.ca/records", desc: "Search publicly disclosed compliance and enforcement actions — warnings, tickets, and court convictions — taken under B.C.'s natural resource laws.", category: "environmental", topics: ["compliance","enforcement"], access: [] },
-    { title: "ACAT — Authorizations & Compliance Tracking", url: "https://a100.gov.bc.ca/pub/acat/public/welcome.do", desc: "Search reports and application documents related to provincial natural resource authorizations, including water, land, and forestry.", category: "environmental", topics: ["authorizations","water"], access: ["rawdata"] },
-    { title: "Waste Discharge Authorizations Search (AMS)", url: "https://j200.gov.bc.ca/pub/ams/Default.aspx?PossePresentation=DocumentSearch", desc: "Search authorization documents for permitted waste discharges to air, land, and water, issued under B.C.'s Environmental Management Act.", category: "environmental", topics: ["waste discharge","permits"], access: ["legacyui"] },
-    { title: "GATOR — Crown Land Registry", url: "https://a100.gov.bc.ca/pub/pls/gator/gator$queryforms.menu", desc: "Search British Columbia's Crown land registry for historic land grants, surveys, and tenure documents dating back to the 1850s.", category: "environmental", topics: ["crown land","historical records"], access: ["legacyui"] },
-    { title: "Dangerous Goods Incident Reports", url: "https://catalogue.data.gov.bc.ca/dataset/dangerous-goods-incident-reports-dgir-incident-public-access-/resource/8911ff2e-08f1-47ab-8880-17cc7ab8c4f0", desc: "Public dataset of reported dangerous goods transportation incidents in British Columbia.", category: "environmental", topics: ["dangerous goods","transportation"], access: ["rawdata"] },
-    { title: "Environmental Monitoring Data System (EnMoDS) Results", url: "https://catalogue.data.gov.bc.ca/dataset/83a585fe-effb-48bd-8a03-d35db4eeb1bb", desc: "Environmental test results — physical, chemical, and biological analyses of water, air, and waste discharge samples — collected under the Environmental Management Act. Published by the Province as raw data that may contain omissions or errors.", category: "environmental", topics: ["water quality","environmental monitoring"], access: ["rawdata"] },
+    { title: "Fisheries and Aquaculture Notices | DFO", url: "https://notices.dfo-mpo.gc.ca/fns-sap/index-eng.cfm", desc: "Federal Fisheries and Oceans Canada notices, including shellfish harvest closures and fishery openings and closures.", category: "environmental", topics: ["fisheries","shellfish"], access: [], gov: true },
+    { title: "Environment | Province of British Columbia", url: "https://www2.gov.bc.ca/gov/content/environment", desc: "The Province's general hub for environmental protection, permitting, and compliance information.", category: "environmental", topics: ["environment"], access: [], gov: true },
+    { title: "Natural Resource Compliance & Enforcement Database (NRCED)", url: "https://nrced.gov.bc.ca/records", desc: "Search publicly disclosed compliance and enforcement actions — warnings, tickets, and court convictions — taken under B.C.'s natural resource laws.", category: "environmental", topics: ["compliance","enforcement"], access: [], gov: true },
+    { title: "ACAT — Authorizations & Compliance Tracking", url: "https://a100.gov.bc.ca/pub/acat/public/welcome.do", desc: "Search reports and application documents related to provincial natural resource authorizations, including water, land, and forestry.", category: "environmental", topics: ["authorizations","water"], access: ["rawdata"], gov: true },
+    { title: "Waste Discharge Authorizations Search (AMS)", url: "https://j200.gov.bc.ca/pub/ams/Default.aspx?PossePresentation=DocumentSearch", desc: "Search authorization documents for permitted waste discharges to air, land, and water, issued under B.C.'s Environmental Management Act.", category: "environmental", topics: ["waste discharge","permits"], access: ["legacyui"], gov: true },
+    { title: "GATOR — Crown Land Registry", url: "https://a100.gov.bc.ca/pub/pls/gator/gator$queryforms.menu", desc: "Search British Columbia's Crown land registry for historic land grants, surveys, and tenure documents dating back to the 1850s.", category: "environmental", topics: ["crown land","historical records"], access: ["legacyui"], gov: true },
+    { title: "Dangerous Goods Incident Reports", url: "https://catalogue.data.gov.bc.ca/dataset/dangerous-goods-incident-reports-dgir-incident-public-access-/resource/8911ff2e-08f1-47ab-8880-17cc7ab8c4f0", desc: "Public dataset of reported dangerous goods transportation incidents in British Columbia.", category: "environmental", topics: ["dangerous goods","transportation"], access: ["rawdata"], gov: true },
+    { title: "Environmental Monitoring Data System (EnMoDS) Results", url: "https://catalogue.data.gov.bc.ca/dataset/83a585fe-effb-48bd-8a03-d35db4eeb1bb", desc: "Environmental test results — physical, chemical, and biological analyses of water, air, and waste discharge samples — collected under the Environmental Management Act. Published by the Province as raw data that may contain omissions or errors.", category: "environmental", topics: ["water quality","environmental monitoring"], access: ["rawdata"], gov: true },
 
     // ---- Open Data & Statistics ----
-    { title: "BC Data Catalogue", url: "https://catalogue.data.gov.bc.ca/", desc: "The Province's central catalogue of open datasets, web services, and applications across all ministries.", category: "open-data", topics: ["open data"], access: ["rawdata"] },
-    { title: "Proactive Publication — Contracts | Open Government Portal", url: "https://open.canada.ca/data/en/dataset/d8f85d91-7dec-4fd1-8055-483b77225d8b", desc: "Federal government contracts over $10,000 disclosed under proactive publication requirements.", category: "open-data", topics: ["contracts","federal"], access: ["rawdata"] },
-    { title: "StatCan Linkable Open Data Environment (LODE)", url: "https://www.statcan.gc.ca/en/lode/databases", desc: "Statistics Canada's Linkable Open Data Environment — community, business, and demographic databases designed for cross-referencing by researchers.", category: "open-data", topics: ["statistics","demographics"], access: ["rawdata"] },
-    { title: "Open Database of Businesses | Statistics Canada", url: "https://www150.statcan.gc.ca/n1/pub/21-26-0003/212600032023001-eng.htm", desc: "Statistics Canada's database of business names, addresses, and locations across Canada.", category: "open-data", topics: ["statistics","businesses"], access: ["rawdata"] },
-    { title: "bcdata (GitHub)", url: "https://github.com/bcgov/bcdata", desc: "An open-source R package, maintained by the Province, for querying and downloading data directly from the BC Data Catalogue.", category: "open-data", topics: ["open data","developer tools"], access: ["rawdata"] },
-    { title: "LODE-ECDO (GitHub)", url: "https://github.com/CSBP-CPSE/LODE-ECDO", desc: "Open-source tools from Statistics Canada's Community Data Program supporting the Linkable Open Data Environment.", category: "open-data", topics: ["open data","developer tools"], access: ["rawdata"] },
+    { title: "BC Data Catalogue", url: "https://catalogue.data.gov.bc.ca/", desc: "The Province's central catalogue of open datasets, web services, and applications across all ministries.", category: "open-data", topics: ["open data"], access: ["rawdata"], gov: true },
+    { title: "Proactive Publication — Contracts | Open Government Portal", url: "https://open.canada.ca/data/en/dataset/d8f85d91-7dec-4fd1-8055-483b77225d8b", desc: "Federal government contracts over $10,000 disclosed under proactive publication requirements.", category: "open-data", topics: ["contracts","federal"], access: ["rawdata"], gov: true },
+    { title: "StatCan Linkable Open Data Environment (LODE)", url: "https://www.statcan.gc.ca/en/lode/databases", desc: "Statistics Canada's Linkable Open Data Environment — community, business, and demographic databases designed for cross-referencing by researchers.", category: "open-data", topics: ["statistics","demographics"], access: ["rawdata"], gov: true },
+    { title: "Open Database of Businesses | Statistics Canada", url: "https://www150.statcan.gc.ca/n1/pub/21-26-0003/212600032023001-eng.htm", desc: "Statistics Canada's database of business names, addresses, and locations across Canada.", category: "open-data", topics: ["statistics","businesses"], access: ["rawdata"], gov: true },
+    { title: "bcdata (GitHub)", url: "https://github.com/bcgov/bcdata", desc: "An open-source R package, maintained by the Province, for querying and downloading data directly from the BC Data Catalogue.", category: "open-data", topics: ["open data","developer tools"], access: ["rawdata"], gov: true },
+    { title: "LODE-ECDO (GitHub)", url: "https://github.com/CSBP-CPSE/LODE-ECDO", desc: "Open-source tools from Statistics Canada's Community Data Program supporting the Linkable Open Data Environment.", category: "open-data", topics: ["open data","developer tools"], access: ["rawdata"], gov: false },
 
     // ---- Procurement & Contracts ----
-    { title: "CanadaBuys", url: "https://canadabuys.canada.ca/en/tender-opportunities", desc: "Federal government's tender and contract award search — find current and historical procurement opportunities and awarded vendors.", category: "procurement", topics: ["procurement","tenders"], access: [] },
+    { title: "CanadaBuys", url: "https://canadabuys.canada.ca/en/tender-opportunities", desc: "Federal government's tender and contract award search — find current and historical procurement opportunities and awarded vendors.", category: "procurement", topics: ["procurement","tenders"], access: [], gov: true },
 
     // ---- Financial, Charity & Consumer Protection ----
-    { title: "Charities Listing | Canada Revenue Agency", url: "https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyAdvncdSrch", desc: "Canada Revenue Agency's public search of registered charities, including financial filings (T3010 returns).", category: "financial-charity", topics: ["charities"], access: [] },
-    { title: "CharityData.ca", url: "https://www.charitydata.ca/", desc: "A third-party tool that visualizes and cross-references Canadian charity financial filings drawn from CRA data.", category: "financial-charity", topics: ["charities"], access: ["thirdparty"] },
-    { title: "Clearance Letter Search | WorkSafeBC", url: "https://asmtclr.online.worksafebc.com/", desc: "Check whether a B.C. business or contractor is registered and in good standing with WorkSafeBC.", category: "financial-charity", topics: ["contractors","worker safety"], access: [] },
+    { title: "Charities Listing | Canada Revenue Agency", url: "https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyAdvncdSrch", desc: "Canada Revenue Agency's public search of registered charities, including financial filings (T3010 returns).", category: "financial-charity", topics: ["charities"], access: [], gov: true },
+    { title: "CharityData.ca", url: "https://www.charitydata.ca/", desc: "A third-party tool that visualizes and cross-references Canadian charity financial filings drawn from CRA data.", category: "financial-charity", topics: ["charities"], access: ["thirdparty"], gov: false },
+    { title: "Clearance Letter Search | WorkSafeBC", url: "https://asmtclr.online.worksafebc.com/", desc: "Check whether a B.C. business or contractor is registered and in good standing with WorkSafeBC.", category: "financial-charity", topics: ["contractors","worker safety"], access: [], gov: true },
 
     // ---- Professional Licensing Verification ----
-    { title: "Find a Notary | BC Notaries Association", url: "https://www.bcnotaryassociation.ca/find/", desc: "Verify whether an individual is a registered notary public in British Columbia.", category: "professional-licensing", topics: ["notary","licensing"], access: [] },
-    { title: "Find a Land Surveyor | ABCLS", url: "https://abcls.ca/land-surveying-in-bc/find-land-surveyor/", desc: "Directory of B.C. land surveyors licensed by the Association of BC Land Surveyors.", category: "professional-licensing", topics: ["land surveyor","licensing"], access: [] },
-    { title: "Find a Real Estate Professional | RECBC", url: "https://www.recbc.ca/professionals/find-professional", desc: "Verify whether an individual is a licensed real estate professional in British Columbia.", category: "professional-licensing", topics: ["real estate","licensing"], access: [] },
-    { title: "Find a Teacher | BC Teacher Regulation Branch", url: "https://teacherregulation.gov.bc.ca/CertificateServices/FindATeacher.aspx", desc: "Verify a person's teaching certification status with the BC Teacher Regulation Branch.", category: "professional-licensing", topics: ["teachers","licensing"], access: [] },
-    { title: "Directory Search | CPA British Columbia", url: "https://services.bccpa.ca/imis/Directory/Directory_Search.aspx", desc: "Verify whether an individual is a registered Chartered Professional Accountant in British Columbia.", category: "professional-licensing", topics: ["accountants","licensing"], access: [] },
+    { title: "Find a Notary | BC Notaries Association", url: "https://www.bcnotaryassociation.ca/find/", desc: "Verify whether an individual is a registered notary public in British Columbia.", category: "professional-licensing", topics: ["notary","licensing"], access: [], gov: false },
+    { title: "Find a Land Surveyor | ABCLS", url: "https://abcls.ca/land-surveying-in-bc/find-land-surveyor/", desc: "Directory of B.C. land surveyors licensed by the Association of BC Land Surveyors.", category: "professional-licensing", topics: ["land surveyor","licensing"], access: [], gov: false },
+    { title: "Find a Real Estate Professional | RECBC", url: "https://www.recbc.ca/professionals/find-professional", desc: "Verify whether an individual is a licensed real estate professional in British Columbia.", category: "professional-licensing", topics: ["real estate","licensing"], access: [], gov: false },
+    { title: "Find a Teacher | BC Teacher Regulation Branch", url: "https://teacherregulation.gov.bc.ca/CertificateServices/FindATeacher.aspx", desc: "Verify a person's teaching certification status with the BC Teacher Regulation Branch.", category: "professional-licensing", topics: ["teachers","licensing"], access: [], gov: true },
+    { title: "Directory Search | CPA British Columbia", url: "https://services.bccpa.ca/imis/Directory/Directory_Search.aspx", desc: "Verify whether an individual is a registered Chartered Professional Accountant in British Columbia.", category: "professional-licensing", topics: ["accountants","licensing"], access: [], gov: false },
 
     // ---- Research Tools & Reference ----
-    { title: "DuckDuckGo", url: "https://duckduckgo.com/", desc: "A general-purpose search engine that does not track or profile users, useful for supplementary open-source research.", category: "research-tools", topics: ["search engine"], access: [] },
-    { title: "OSINT Resources in Canada", url: "https://start.me/p/aLe0vp/osint-resources-in-canada", desc: "A large, independently maintained curated list of open-source research links spanning all Canadian provinces, not specific to B.C.", category: "research-tools", topics: ["osint","reference"], access: ["thirdparty"] },
-    { title: "BC Historical Newspapers | UBC Open Collections", url: "https://open.library.ubc.ca/collections/bcnewspapers", desc: "UBC Open Collections' digitized archive of historical British Columbia newspapers.", category: "research-tools", topics: ["newspapers","historical records"], access: [] },
-    { title: "PDF Drive", url: "https://www.pdfdrive.com/", desc: "A search engine for freely available PDF books and documents.", category: "research-tools", topics: ["reference"], access: ["thirdparty"] },
-    { title: "National Cyber Threat Assessment | Canadian Centre for Cyber Security", url: "https://www.cyber.gc.ca/en/guidance/national-cyber-threat-assessment-2025-2026", desc: "The Canadian Centre for Cyber Security's periodic assessment of the national cyber threat landscape.", category: "research-tools", topics: ["cybersecurity"], access: [] },
-    { title: "Vancouver Island Regional Library (VIRL)", url: "https://virl.bc.ca/", desc: "VIRL branches provide free public access to subscription research databases, newspaper archives, and reference librarians across the region.", category: "research-tools", topics: ["library","reference"], access: [] }
+    { title: "DuckDuckGo", url: "https://duckduckgo.com/", desc: "A general-purpose search engine that does not track or profile users, useful for supplementary open-source research.", category: "research-tools", topics: ["search engine"], access: [], gov: false },
+    { title: "OSINT Resources in Canada", url: "https://start.me/p/aLe0vp/osint-resources-in-canada", desc: "A large, independently maintained curated list of open-source research links spanning all Canadian provinces, not specific to B.C.", category: "research-tools", topics: ["osint","reference"], access: ["thirdparty"], gov: false },
+    { title: "BC Historical Newspapers | UBC Open Collections", url: "https://open.library.ubc.ca/collections/bcnewspapers", desc: "UBC Open Collections' digitized archive of historical British Columbia newspapers.", category: "research-tools", topics: ["newspapers","historical records"], access: [], gov: false },
+    { title: "PDF Drive", url: "https://www.pdfdrive.com/", desc: "A search engine for freely available PDF books and documents.", category: "research-tools", topics: ["reference"], access: ["thirdparty"], gov: false },
+    { title: "National Cyber Threat Assessment | Canadian Centre for Cyber Security", url: "https://www.cyber.gc.ca/en/guidance/national-cyber-threat-assessment-2025-2026", desc: "The Canadian Centre for Cyber Security's periodic assessment of the national cyber threat landscape.", category: "research-tools", topics: ["cybersecurity"], access: [], gov: true },
+    { title: "Vancouver Island Regional Library (VIRL)", url: "https://virl.bc.ca/", desc: "VIRL branches provide free public access to subscription research databases, newspaper archives, and reference librarians across the region.", category: "research-tools", topics: ["library","reference"], access: [], gov: false }
 ];
 
 /* ===================== RENDER ===================== */
@@ -420,8 +470,10 @@ function cardHtml(r) {
     const accessPills = r.access.map(function (a) {
         return '<span class="pill pill-access">' + ACCESS_TAGS[a].label + '</span>';
     }).join('');
-    return '<div class="resource-card" data-title="' + r.title.toLowerCase() + '" data-desc="' + r.desc.toLowerCase() + '" data-topics="' + r.topics.join(',').toLowerCase() + '" data-access="' + r.access.join(',') + '">' +
-        '<div class="resource-label">External Resource &#8599;</div>' +
+    const govClass = r.gov ? ' is-gov' : '';
+    const label = r.gov ? 'Government Source' : 'External Resource';
+    return '<div class="resource-card' + govClass + '" data-title="' + r.title.toLowerCase() + '" data-desc="' + r.desc.toLowerCase() + '" data-topics="' + r.topics.join(',').toLowerCase() + '" data-access="' + r.access.join(',') + '">' +
+        '<div class="resource-label">' + label + ' &#8599;</div>' +
         '<h3>' + r.title + '</h3>' +
         '<p>' + r.desc + '</p>' +
         '<div class="tag-row">' + topicPills + accessPills + '</div>' +
@@ -437,11 +489,45 @@ function renderSections() {
         const items = RESOURCES.filter(function (r) { return r.category === c.id; });
         if (!items.length) return '';
         return '<section class="category-section" id="cat-' + c.id + '">' +
-            '<h2 class="category-heading">' + c.label + '</h2>' +
-            '<p class="category-count">' + items.length + ' resource' + (items.length === 1 ? '' : 's') + '</p>' +
-            '<div class="resource-grid">' + items.map(cardHtml).join('') + '</div>' +
+            '<button type="button" class="category-toggle" aria-expanded="false" data-cat="' + c.id + '" onclick="toggleCategory(this)">' +
+                '<span class="category-toggle-left"><span class="category-heading">' + c.label + '</span><span class="category-count">' + items.length + ' resource' + (items.length === 1 ? '' : 's') + '</span></span>' +
+                '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+            '</button>' +
+            '<div class="category-body-wrap" id="body-' + c.id + '">' +
+                '<div class="category-body-inner">' +
+                    '<div class="resource-grid">' + items.map(cardHtml).join('') + '</div>' +
+                '</div>' +
+            '</div>' +
             '</section>';
     }).join('');
+}
+
+/* ===================== ACCORDION ===================== */
+
+let manualExpandState = {};
+
+function setSectionExpanded(id, expanded) {
+    const wrap = document.getElementById('body-' + id);
+    const btn = document.querySelector('.category-toggle[data-cat="' + id + '"]');
+    if (!wrap || !btn) return;
+    wrap.classList.toggle('expanded', expanded);
+    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+}
+
+function toggleCategory(btn) {
+    const id = btn.dataset.cat;
+    const wrap = document.getElementById('body-' + id);
+    const expanded = !wrap.classList.contains('expanded');
+    setSectionExpanded(id, expanded);
+    manualExpandState[id] = expanded;
+}
+
+function expandAll() {
+    CATEGORIES.forEach(function (c) { setSectionExpanded(c.id, true); manualExpandState[c.id] = true; });
+}
+
+function collapseAll() {
+    CATEGORIES.forEach(function (c) { setSectionExpanded(c.id, false); manualExpandState[c.id] = false; });
 }
 
 /* ===================== FILTERING ===================== */
@@ -462,6 +548,7 @@ function setSearchValue(value) {
 
 function applyFilters() {
     const query = document.getElementById('resourceSearch').value.toLowerCase().trim();
+    const filtering = !!query || activeAccessFilters.length > 0;
     const cards = document.querySelectorAll('.resource-card');
     let visibleCount = 0;
 
@@ -478,8 +565,14 @@ function applyFilters() {
     });
 
     document.querySelectorAll('.category-section').forEach(function (section) {
+        const id = section.id.replace('cat-', '');
         const visibleInSection = Array.from(section.querySelectorAll('.resource-card')).some(function (c) { return c.style.display !== 'none'; });
         section.style.display = visibleInSection ? '' : 'none';
+        if (filtering) {
+            setSectionExpanded(id, visibleInSection);
+        } else {
+            setSectionExpanded(id, !!manualExpandState[id]);
+        }
     });
 
     document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
