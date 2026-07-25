@@ -317,6 +317,17 @@
     display: block;
 }
 
+/* Touch devices have no hover state, so hover-only made these two
+   tooltips (site disclaimer, "in development" note) completely
+   unreachable on mobile. .tooltip-active is added/removed by the tap
+   handler at the bottom of the page - tap the trigger to show it, tap
+   anywhere else to dismiss. Purely additive: hover still works
+   independently for mouse users, this just gives touch users an
+   equivalent way in. */
+.tooltip-trigger.tooltip-active .tooltip-content {
+    display: block;
+}
+
 /* Position alignment helper for elements on the far right screen edge */
 .tooltip-content.tooltip-bottom-right {
     top: 125%;          /* Drops the box below the button instead of above it */
@@ -339,6 +350,8 @@ main {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 30px;
             border-bottom: 2px solid var(--border-light);
             padding-bottom: 12px;
@@ -585,10 +598,6 @@ main {
                 border-bottom: none;
                 padding-bottom: 0;
             }
-            .project-status-inner {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
         }
 
         @media (max-width: 520px) {
@@ -601,6 +610,61 @@ main {
             }
             .stat-box:last-child {
                 border-bottom: none;
+            }
+        }
+
+        /* Hero had no mobile handling at all - fixed 440px height + 38px
+           heading ate most of a phone's first screen. Scaled down instead
+           of just shrinking text in place, so the section as a whole takes
+           proportionally less of the viewport. Search input stays at 16px
+           (not scaled down) - anything smaller triggers iOS Safari's
+           auto-zoom-on-focus, which is worse than a slightly large input. */
+        @media (max-width: 768px) {
+            .hero {
+                height: auto;
+                padding: 48px 20px;
+            }
+            .hero h2 {
+                font-size: 26px;
+            }
+            .hero p {
+                font-size: 15px;
+                margin-bottom: 22px;
+            }
+            .search-glass-container input {
+                padding: 12px 14px;
+            }
+            .search-glass-container button {
+                padding: 0 18px;
+            }
+        }
+
+        /* Both tooltip position schemes (.tooltip-content's own centered-
+           under-trigger default, and .tooltip-bottom-right's right-
+           anchored variant) assume there's enough horizontal room on
+           either side - fine on desktop, but on a narrow phone a trigger
+           near either screen edge pushes the fixed 280px popover
+           partway off-screen, clipping its text unreadably. Only became
+           visible now that tap-to-toggle (see the click handler at the
+           bottom of the page) actually makes these reachable on touch -
+           hover-only, they were invisible on mobile regardless. Switched
+           to position:fixed, horizontally centered in the viewport with
+           safe margins (can't overflow either edge at any width), but
+           still vertically anchored just below whichever trigger was
+           tapped via --tooltip-top (set inline by the click handler) so
+           it still reads as "attached" to what you tapped instead of
+           jumping to an unrelated spot on screen. */
+        @media (max-width: 768px) {
+            .tooltip-content,
+            .tooltip-content.tooltip-bottom-right {
+                position: fixed;
+                top: var(--tooltip-top, 80px);
+                left: 50%;
+                right: auto;
+                bottom: auto;
+                transform: translateX(-50%);
+                width: calc(100vw - 32px);
+                max-width: 320px;
             }
         }
         /* Custom sizing and vertical alignment for new SVG vectors */
@@ -973,6 +1037,35 @@ document.addEventListener('DOMContentLoaded', () => {
             
             requestAnimationFrame(animate);
         });
+    });
+
+    // Tap-to-toggle tooltips - :hover-only meant these were unreachable
+    // on touch devices (no hover state). Tapping a .tooltip-trigger adds
+    // .tooltip-active (see CSS), which shows its .tooltip-content the
+    // same way :hover does for mouse users. Tapping anywhere else closes
+    // whichever one is open. Doesn't interfere with desktop hover at all
+    // - the two mechanisms are independent, both just toggle display:block.
+    document.addEventListener('click', function (e) {
+        var trigger = e.target.closest('.tooltip-trigger');
+        document.querySelectorAll('.tooltip-trigger.tooltip-active').forEach(function (el) {
+            if (el !== trigger) el.classList.remove('tooltip-active');
+        });
+        if (!trigger) return;
+        var wasActive = trigger.classList.contains('tooltip-active');
+        trigger.classList.toggle('tooltip-active');
+        if (!wasActive) {
+            // Just opened - anchor the mobile fixed-position popover (see
+            // the @media (max-width:768px) .tooltip-content rule) just
+            // below wherever this trigger actually is, so it still reads
+            // as attached to what was tapped even though it's centered
+            // horizontally rather than lined up under the trigger. No-op
+            // on desktop - hover positioning there doesn't read this var.
+            var content = trigger.querySelector('.tooltip-content');
+            if (content) {
+                var rect = trigger.getBoundingClientRect();
+                content.style.setProperty('--tooltip-top', (rect.bottom + 8) + 'px');
+            }
+        }
     });
     </script>
 </body>
