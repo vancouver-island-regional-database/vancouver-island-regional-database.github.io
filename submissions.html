@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contribute a Document - Vancouver Island Regional Database</title>
+<link rel="icon" type="image/png" href="assets/fav_w.png">
+<link rel="canonical" href="https://vancouver-island-regional-database.github.io/submissions.html">
+<meta name="description" content="Contribute a public government document to the Vancouver Island Regional Database archive. Submissions are reviewed, contributor information is not published, and files are held to a Submission Agreement covering lawful origin and public status.">
+<meta property="og:title" content="Contribute a Document - Vancouver Island Regional Database" />
+<meta property="og:description" content="Contribute a public government document to the Vancouver Island Regional Database archive. Contributor information is not published." />
+<meta property="og:type" content="website" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Contribute a Document - Vancouver Island Regional Database",
+  "url": "https://vancouver-island-regional-database.github.io/submissions.html",
+  "description": "Contribute a public government document to the Vancouver Island Regional Database archive. Submissions are reviewed, contributor information is not published, and files are held to a Submission Agreement covering lawful origin and public status.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Vancouver Island Regional Database (VIRD)",
+    "url": "https://vancouver-island-regional-database.github.io/"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bc-blue:#003366;
+  --bc-blue-dark:#002244;
+  --bc-gold:#FCBA19;
+  --bg-canvas:#F8FAFC;
+  --text-main:#1F2933;
+  --text-muted:#64748B;
+  --border-light:#E2E8F0;
+  --border-medium:#CBD5E1;
+  --shadow-sm:0 1px 2px 0 rgba(0,0,0,.05);
+  --shadow-md:0 8px 22px rgba(0,34,68,.09);
+  --transition-smooth:all .2s ease;
+
+  /* external-resource component */
+  --ink:#20324b;
+  --muted:#617087;
+  --border:#dbe5ef;
+  --purple-pill:#E0E7FF;
+  --purple-text:#3730A3;
+  --green-pill:#E6F4EA;
+  --green-text:#137333;
+  --orange-pill:#FEF4D9;
+  --orange-text:#7A5300;
+  --neutral:#f8fafc;
+  --category-panel:#E7ECF1;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+  background:var(--bg-canvas);
+  color:var(--text-main);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--bc-blue)}
+
+header{
+  background-color:var(--bc-blue);
+  color:#fff;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:4px solid var(--bc-gold);
+  box-shadow:var(--shadow-sm);
+  flex-wrap:wrap;
+  gap:12px;
+}
+.header-brand{display:flex;align-items:center;gap:12px}
+.header-brand img{height:36px;width:auto;display:block}
+.header-title-block{display:flex;flex-direction:column}
+.header-title-block h1{font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.header-tagline{font-size:10px;color:#E2E8F0;opacity:.85;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.header-action-badge{
+  font-size:11px;
+  font-weight:700;
+  background-color:rgba(255,255,255,.1);
+  padding:6px 14px;
+  border-radius:9999px;
+  border:1px solid rgba(255,255,255,.2);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:#fff;
+}
+.header-action-badge:hover{
+  background-color:var(--bc-gold);
+  color:var(--bc-blue-dark);
+  border-color:var(--bc-gold);
+}
+
+/* HERO */
+.page-hero{
+  min-height:370px;
+  position:relative;
+  background:
+    linear-gradient(90deg,rgba(0,34,68,.90) 0%,rgba(0,34,68,.78) 48%,rgba(0,34,68,.38) 100%),
+    url('assets/contribute-a-document/submissions_hero.webp');
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+}
+.hero-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:44px 20px 118px;
+}
+.breadcrumbs{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--bc-gold);
+  margin-bottom:12px;
+  font-weight:600;
+}
+.breadcrumbs span{color:#fff;opacity:.6;margin:0 6px}
+.breadcrumb-link{color:inherit;text-decoration:none}
+.hero-inner h2{
+  font-size:34px;
+  font-weight:700;
+  line-height:1.08;
+  margin-bottom:12px;
+  letter-spacing:-0.03em;
+}
+.hero-lead{
+  font-size:17px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:8px;
+  max-width:650px;
+}
+.hero-inner p:last-child{
+  font-size:13.5px;
+  color:#D8E3EC;
+  line-height:1.6;
+  max-width:650px;
+}
+
+.hero-jump{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:18px;
+  min-height:36px;
+  padding:8px 13px;
+  border-radius:8px;
+  border:1px solid rgba(252,186,25,.82);
+  background:rgba(0,34,68,.24);
+  color:#fff;
+  text-decoration:none;
+  font-size:11.5px;
+  font-weight:750;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+.hero-jump:hover{
+  background:var(--bc-gold);
+  color:var(--bc-blue-dark);
+  border-color:var(--bc-gold);
+}
+
+/* SUMMARY STRIP STRADDLING HERO */
+.stats-wrap{
+  max-width:1100px;
+  margin:-58px auto 0;
+  padding:0 20px;
+  position:relative;
+  z-index:5;
+}
+.stats-strip{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  background:#fff;
+  border:1px solid var(--border-light);
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(0,34,68,.12);
+  overflow:hidden;
+}
+.stat{
+  padding:20px 24px 18px;
+  text-align:center;
+}
+.stat + .stat{
+  border-left:1px solid var(--border-light);
+}
+.stat-value{
+  display:block;
+  color:var(--bc-blue-dark);
+  font-size:28px;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:-.03em;
+  margin-bottom:6px;
+}
+.stat-label{
+  display:block;
+  color:#6B7C8B;
+  font-size:10.5px;
+  line-height:1.35;
+  font-weight:750;
+  text-transform:uppercase;
+  letter-spacing:.055em;
+}
+
+/* SUBMISSION FORM */
+.form-wrap{
+  margin:0;
+  padding:0;
+}
+.submit-card{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255,255,255,.07), transparent 45%),
+    linear-gradient(160deg, rgba(10,30,51,.97) 0%, rgba(4,18,32,.98) 100%);
+  border:1px solid rgba(255,255,255,.08);
+  border-top:3px solid var(--bc-gold);
+  border-radius:16px;
+  box-shadow:0 14px 34px rgba(0,10,22,.35), inset 0 1px 0 rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.submit-head{
+  padding:18px 22px 14px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:16px;
+}
+.submit-head h3{
+  font-size:21px;
+  color:#fff;
+  margin-bottom:3px;
+}
+.submit-head p{
+  font-size:12.5px;
+  color:#A9C0D4;
+}
+.privacy-pill{
+  flex-shrink:0;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  color:#CBD9E5;
+  font-size:10.5px;
+  font-weight:700;
+  padding:6px 9px;
+  border-radius:999px;
+}
+.form-body{padding:18px 22px}
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px 16px;
+}
+.field.full{grid-column:1/-1}
+label{
+  display:block;
+  margin-bottom:5px;
+  font-size:10.5px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.045em;
+  color:#9FB6CB;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:8px;
+  background:rgba(255,255,255,.04);
+  color:#F2F6FA;
+  font:inherit;
+  font-size:12.5px;
+  padding:9px 10px;
+}
+input::placeholder,textarea::placeholder{color:#6E85A0}
+select option{color:#33485A}
+textarea{min-height:62px;resize:vertical}
+.form-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  padding-top:16px;
+  margin-top:16px;
+  border-top:1px solid rgba(255,255,255,.12);
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:36px;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:12.5px;
+  font-weight:750;
+  text-decoration:none;
+}
+.btn-primary{background:var(--bc-blue);color:#fff;border:1px solid var(--bc-blue);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28)}
+.btn-secondary:hover{background:rgba(255,255,255,.08)}
+.form-capacity{
+  margin-left:auto;
+  font-size:11px;
+  color:#9FB6CB;
+}
+.form-capacity.copied{color:#8FD6A6;font-weight:700}
+.btn-disabled{opacity:.45;cursor:not-allowed}
+.copy-email-btn{
+  display:inline-flex;
+  align-items:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.2);
+  color:var(--bc-gold);
+  font:inherit;
+  font-size:11.5px;
+  font-weight:700;
+  padding:3px 9px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.copy-email-btn:hover{background:rgba(255,255,255,.15)}
+.copy-email-btn.copied{color:#8FD6A6;border-color:rgba(143,214,166,.5)}
+.agreement-block{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.12);
+}
+.agreement-body{
+  font-size:11.5px;
+  color:#A9C0D4;
+  margin-top:8px;
+  max-width:760px;
+}
+.agreement-body p{margin:0 0 10px}
+.agreement-body p:last-child{margin-bottom:0}
+.agreement-body strong{color:#E7EEF5}
+.agreement-check{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  margin-top:14px;
+  font-size:12px;
+  color:#CBD9E5;
+  cursor:pointer;
+}
+.agreement-check input{
+  width:auto;
+  margin-top:2px;
+  flex-shrink:0;
+  accent-color:var(--bc-gold);
+}
+.agreement-check a{color:var(--bc-gold);font-weight:700}
+.upload-help{
+  padding:0 22px 16px;
+}
+details{
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:11px;
+}
+summary{
+  cursor:pointer;
+  color:var(--bc-gold);
+  font-size:11.5px;
+  font-weight:700;
+}
+.help-body{
+  font-size:11.5px;
+  color:#A9C0D4;
+  margin-top:8px;
+  max-width:760px;
+}
+.help-body ol{margin:6px 0 0 18px}
+.help-body a{color:var(--bc-gold);font-weight:700}
+
+/* PAGE */
+main{
+  max-width:1100px;
+  margin:0 auto;
+  padding:42px 20px 64px;
+}
+.section{margin-bottom:44px}
+.access-grid{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:32px;
+  align-items:center;
+}
+
+.access-section{
+  margin-bottom:26px;
+}
+
+.kicker{
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.075em;
+  color:#7A8996;
+  margin-bottom:7px;
+}
+.section h2{
+  font-size:27px;
+  color:var(--bc-blue-dark);
+  letter-spacing:-0.02em;
+  margin-bottom:10px;
+}
+.section p{
+  font-size:13.5px;
+  color:#586B7A;
+  margin-bottom:9px;
+}
+.visual{
+  min-height:250px;
+  border-radius:14px;
+  border:1px solid var(--border-light);
+  background:
+    linear-gradient(rgba(255,255,255,.08),rgba(0,34,68,.16)),
+    url('assets/contribute-a-document/submissions_foi-request.webp');
+  background-size:cover;
+  background-position:center;
+  box-shadow:var(--shadow-sm);
+  position:relative;
+  overflow:hidden;
+}
+/*.visual::after{
+  content:"generated image slot";
+  position:absolute;
+  right:10px;
+  bottom:10px;
+  background:rgba(255,255,255,.9);
+  color:#617087;
+  font-size:9px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:5px 7px;
+  border-radius:5px;
+}*/
+.submit-types{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:15px;
+}
+.chip{
+  background:#fff;
+  border:1px solid #CFD9E1;
+  color:#455B6D;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:11px;
+  font-weight:650;
+}
+.scope-note{
+  font-size:11.5px!important;
+  color:#71808F!important;
+  margin-top:11px!important;
+}
+
+/* WHAT HAPPENS NEXT - full width beneath access/image pair */
+.next-step{
+  margin-top:24px;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--border-light);
+}
+.next-step-title{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.055em;
+  font-weight:800;
+  color:#607180;
+  margin-bottom:9px;
+}
+.form-wrap + .section{
+  margin-top:36px;
+}
+.process-line{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:7px;
+  width:100%;
+}
+.step{
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid var(--border-light);
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:10.5px;
+  font-weight:750;
+  color:var(--bc-blue-dark);
+  box-shadow:var(--shadow-sm);
+  white-space:nowrap;
+}
+.step.long{
+  flex:0 0 auto;
+  text-align:center;
+  white-space:nowrap;
+}
+.arrow{font-size:11px;color:#9AA8B4;font-weight:700}
+.privacy-text{
+  margin-top:9px!important;
+  font-size:11.5px!important;
+  color:#6C7C89!important;
+}
+
+/* OPEN-GOVERNMENT SECTION */
+.policy-intro{
+  max-width:850px;
+}
+.resource-panel{
+  margin-top:18px;
+  background:rgba(231,236,241,.82);
+  border:1px solid rgba(148,163,184,.22);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:
+    0 1px 2px rgba(15,23,42,.03),
+    inset 0 1px 0 rgba(255,255,255,.55);
+}
+.panel-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:#6B7C8B;
+  margin-bottom:10px;
+}
+.card-group{margin-bottom:6px}
+.card-group:last-child{margin-bottom:0}
+.card-group:not(:last-child) .resource-card{border-bottom:1px solid var(--border-light)}
+
+.resource-card{
+  position:relative;
+  display:flex;
+  flex-direction:row;
+  align-items:flex-start;
+  gap:24px;
+  background:#fff;
+  border-radius:8px;
+  padding:14px 18px;
+}
+.card-main{flex:1;min-width:0}
+.card-title{
+  position:relative;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  color:var(--card-brand,var(--bc-blue-dark));
+  min-width:0;
+}
+.card-title img{
+  width:24px;
+  height:24px;
+  border-radius:5px;
+  flex-shrink:0;
+}
+.card-title h3{
+  margin:0;
+  font-size:1.1875rem;
+  font-weight:800;
+  min-width:0;
+  flex-shrink:1;
+  color:var(--card-brand,var(--bc-blue-dark));
+}
+.card-subtitle{
+  margin:6px 0 2px;
+  font-size:.75rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--bc-blue);
+}
+.description{
+  margin:0;
+  font-size:12.5px;
+  line-height:1.5;
+  color:var(--text-muted);
+}
+.note{
+  margin:10px 0 0;
+  background:var(--neutral);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  font-size:.8rem;
+  color:var(--muted);
+  border-radius:8px;
+}
+.note.orange{
+  background:var(--orange-pill);
+  color:var(--orange-text);
+  border-color:color-mix(in srgb,var(--orange-text) 15%,var(--orange-pill));
+}
+.action-col{
+  flex-shrink:0;
+  width:160px;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:8px;
+}
+.link-button{
+  position:relative;
+  white-space:nowrap;
+  width:100%;
+  justify-content:center;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:36px;
+  padding:7px 14px;
+  background:var(--card-brand,#F1F5F9);
+  color:var(--card-brand-text,#475569);
+  border:1px solid var(--card-brand,var(--border-light));
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:750;
+  font-size:.8rem;
+  box-shadow:0 2px 5px rgba(15,23,42,.15), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.link-button::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(255,255,255,.18),transparent 55%);
+  pointer-events:none;
+}
+.action-stack{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:4px;
+}
+.pill{
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:.64rem;
+  font-weight:750;
+  text-align:center;
+}
+.green{
+  background:var(--green-pill);
+  color:var(--green-text);
+  border:1px solid color-mix(in srgb,var(--green-text) 15%,var(--green-pill));
+}
+.purple{
+  background:var(--purple-pill);
+  color:var(--purple-text);
+  border:1px solid color-mix(in srgb,var(--purple-text) 15%,var(--purple-pill));
+}
+.difficulty-card{
+  border-radius:10px;
+  overflow:hidden;
+  outline:2px solid transparent;
+  outline-offset:-2px;
+}
+.difficulty-card.easy{
+  background:var(--green-pill);
+  outline-color:var(--green-text);
+}
+.difficulty-card.moderate{
+  background:var(--orange-pill);
+  outline-color:var(--orange-text);
+}
+.difficulty-title{
+  padding:4px 8px;
+  font-size:.64rem;
+  font-weight:750;
+  white-space:nowrap;
+  text-align:center;
+}
+.difficulty-description{
+  padding:1px 12px 8px;
+  font-size:.6rem;
+  line-height:1.35;
+  font-style:italic;
+  text-align:center;
+}
+.difficulty-card.easy .difficulty-title,
+.difficulty-card.easy .difficulty-description{color:var(--green-text)}
+.difficulty-card.moderate .difficulty-title,
+.difficulty-card.moderate .difficulty-description{color:var(--orange-text)}
+
+.policy-close{
+  margin-top:13px!important;
+  font-size:12px!important;
+  color:#667786!important;
+}
+
+/* CONTRIBUTED RECORDS */
+.archive-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:15px;
+}
+.archive-head h2{margin-bottom:3px}
+.archive-note{
+  font-size:11px;
+  color:#7A8996;
+}
+.desktop{
+  min-height:300px;
+  border:1px solid rgba(255,255,255,.08);
+  border-top:3px solid var(--bc-gold);
+  border-radius:16px;
+  padding:22px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,.08), transparent 45%),
+    linear-gradient(160deg, rgba(10,30,51,.93) 0%, rgba(4,18,32,.96) 100%),
+    url('assets/contribute-a-document/submissions_archive-bg.jpg');
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 14px 34px rgba(0,10,22,.35), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.file-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(110px,1fr));
+  gap:25px 18px;
+}
+.file{
+  text-align:center;
+  text-decoration:none;
+  color:inherit;
+  border-radius:10px;
+  padding:6px 4px;
+  transition:background-color .15s ease, transform .15s ease;
+}
+.file:hover{
+  background:rgba(255,255,255,.05);
+  transform:translateY(-2px);
+}
+.file:focus-visible{
+  outline:2px solid var(--bc-gold);
+  outline-offset:2px;
+  background:rgba(255,255,255,.06);
+}
+.file-icon{
+  width:58px;
+  height:72px;
+  margin:0 auto 8px;
+  border:1px solid #BAC8D3;
+  border-radius:7px;
+  background:#fff;
+  position:relative;
+  box-shadow:0 6px 14px rgba(0,0,0,.45);
+}
+.file-icon::before{
+  content:"";
+  position:absolute;
+  top:-1px;
+  right:-1px;
+  width:20px;
+  height:20px;
+  background:linear-gradient(225deg,#DDE8F0 50%,transparent 51%);
+  border-top-right-radius:7px;
+}
+.file-type{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:9px;
+  font-size:9.5px;
+  font-weight:800;
+  color:var(--bc-blue-dark);
+}
+.file-title{
+  display:block;
+  max-width:145px;
+  margin:auto;
+  font-size:11.5px;
+  line-height:1.3;
+  font-weight:700;
+  color:#F2F6FA;
+}
+.file-meta{
+  display:block;
+  margin-top:3px;
+  font-size:9.5px;
+  color:#A9C0D4;
+}
+.file:hover .file-title,
+.file:focus-visible .file-title{
+  color:var(--bc-gold);
+}
+
+.file-icon.landscape{
+  width:78px;
+  height:58px;
+}
+
+/* Jurisdiction mark: small logo centered above the "PDF" label inside the
+   icon (confirmed direction — no plate/border/shadow, sits like a native
+   icon glyph), plus an optional caption above the whole icon naming the
+   jurisdiction in text. img sizing rule is required — without it the
+   image renders at native pixel size instead of filling the mark. */
+.jur-caption{
+  display:block;
+  font-size:9.5px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--bc-gold);
+  margin-bottom:6px;
+}
+.jur-mark{
+  position:absolute;
+  left:50%;
+  top:16px;
+  transform:translateX(-50%);
+  width:22px;
+  height:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.jur-mark img{
+  max-width:100%;
+  max-height:100%;
+  display:block;
+}
+.file-icon.landscape .jur-mark{
+  top:10px;
+  width:18px;
+  height:18px;
+}
+
+footer{
+  background-color:var(--bc-blue-dark);
+  color:#fff;
+  padding:28px 20px;
+  border-top:4px solid var(--bc-gold);
+}
+.footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  text-align:center;
+}
+.footer-inner p{
+  font-size:10.5px;
+  color:#CBD5E1;
+  line-height:1.6;
+}
+.footer-copyright{
+  font-size:12px!important;
+  font-weight:600;
+  color:#fff!important;
+  opacity:.9;
+  margin-bottom:10px;
+}
+.footer-disclaimer{
+  font-size:10.5px!important;
+  color:#CBD5E1!important;
+  line-height:1.6!important;
+  max-width:900px;
+  margin:0 auto;
+  opacity:.75;
+}
+.footer-disclaimer b{color:var(--bc-gold)}
+
+@media(min-width:640px){
+  header{padding:16px 32px}
+  .header-brand img{height:44px}
+  .header-title-block h1{font-size:18px}
+}
+@media(max-width:820px){
+  .access-grid{grid-template-columns:1fr}
+  .file-grid{grid-template-columns:repeat(3,1fr)}
+  .form-capacity{width:100%;margin-left:0}
+  .process-line{flex-wrap:wrap}
+  .step.long{flex:0 0 auto}
+}
+@media(max-width:640px){
+  .hero-inner{padding:38px 16px 96px}
+  .hero-inner h2{font-size:30px}
+  .stats-wrap{padding:0 12px;margin-top:-48px}
+  .stats-strip{grid-template-columns:1fr}
+  .stat{padding:14px 16px}
+  .stat + .stat{border-left:none;border-top:1px solid var(--border-light)}
+  .stat-value{font-size:24px}
+  .form-wrap{padding:0 12px;margin-top:20px}
+  .submit-head{align-items:flex-start;flex-direction:column}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  main{padding:36px 16px 56px}
+  .resource-card{flex-direction:column}
+  .action-col{width:100%}
+  .file-grid{grid-template-columns:repeat(2,1fr)}
+  .archive-head{align-items:flex-start;flex-direction:column}
+}
+
+.file-year-group{
+  margin-bottom:32px;
+}
+
+.file-year-group:last-child{
+  margin-bottom:0;
+}
+
+.file-year{
+  margin-bottom:18px;
+  padding-bottom:7px;
+
+  border-bottom:1px solid rgba(255,255,255,.14);
+
+  font-size:13px;
+  font-weight:800;
+  color:#fff;
+}
+
+.archive-footnote{
+  margin-top:11px;
+  font-size:11px;
+  color:#71808F;
+}
+.archive-footnote a{
+  color:var(--bc-gold);
+  font-weight:700;
+}
+
+/* Closing open-data quote — matches index.html / water-systems pattern */
+.quote-section{
+  max-width:780px;
+  margin:52px auto 56px;
+  padding:0 24px;
+  text-align:center;
+}
+.quote-section.quote-section-wide{
+  max-width:920px;
+}
+.quote-logo{
+  display:block;
+  width:88px;
+  height:auto;
+  margin:0 auto 26px;
+}
+.quote-content{
+  margin:0 auto;
+  color:#475569;
+  text-align:center;
+}
+.quote-content p{
+  margin:0 auto 18px;
+  max-width:760px;
+  font-size:18px;
+  line-height:1.75;
+  font-style:italic;
+}
+.quote-content .quote-list{
+  list-style:none;
+  margin:0 auto 18px;
+  max-width:820px;
+  text-align:left;
+  font-size:15px;
+  line-height:1.65;
+  font-style:normal;
+}
+.quote-content .quote-list li{
+  margin-bottom:12px;
+  padding-left:24px;
+  position:relative;
+}
+.quote-content .quote-list li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:4px;
+  width:14px;
+  height:14px;
+  background-image:url('assets/fav_w.png');
+  background-size:contain;
+  background-repeat:no-repeat;
+}
+.quote-content .quote-list li:last-child{
+  margin-bottom:0;
+}
+.quote-content .quote-list strong{
+  color:var(--ink);
+}
+.quote-content cite{
+  display:block;
+  margin-top:10px;
+  font-size:11px;
+  line-height:1.5;
+  color:#7A8996;
+  font-style:normal;
+}
+.quote-link{
+  display:block;
+  color:inherit;
+  text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <a href="index.html"><img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';"></a>
+    <div class="header-title-block">
+      <h1>Vancouver Island Regional Database</h1>
+      <span class="header-tagline">Public Access to Public Data</span>
+    </div>
+  </div>
+  <a class="header-action-badge" href="index.html">HOME</a>
+</header>
+
+<section class="page-hero">
+  <div class="hero-inner">
+    <div class="breadcrumbs"><a href="index.html" class="breadcrumb-link">Home</a> <span>&gt;</span> Contribute a Document</div>
+    <h2>Contribute a Document</h2>
+    <p class="hero-lead">Help make public information easier to find, preserve, and reuse.</p>
+    <p>Public documents already obtained by members of the public can be submitted, including FOI 
+        releases, paid records, archived documents, and copies that are no longer available from 
+        their original source.</p>
+    <a class="hero-jump" href="#contributed-records">Browse Submissions ↓</a>
+  </div>
+</section>
+
+<div class="stats-wrap" aria-label="Community submission summary">
+  <div class="stats-strip">
+    <div class="stat">
+      <span class="stat-value">36</span>
+      <span class="stat-label">Community submissions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">$360</span>
+      <span class="stat-label">Estimated access fees saved</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Public bodies represented</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <section class="section access-section">
+    <div class="access-grid">
+      <div>
+        <div class="kicker">Why contribute?</div>
+        <h2>Access is more than just availability</h2>
+        <p>Public information can become difficult to access when websites change, files are removed, 
+            systems are replaced, access requires a fee, or the same document must be requested repeatedly.</p>
+        <p>Sharing documents that have already been obtained can help preserve access and reduce unnecessary 
+            duplication of complex retrieval processes.</p>
+
+        <div class="submit-types">
+          <span class="chip">Freedom of Information / Access to Information releases</span>
+          <span class="chip">Paid public records</span>
+          <span class="chip">Archived copies</span>
+          <span class="chip">Removed documents</span>
+          <span class="chip">Historical versions</span>
+          <span class="chip">Related government records</span>
+        </div>
+
+        <p class="scope-note">Documents should have been obtained lawfully and are reviewed before publication.</p>
+      </div>
+
+      <div class="visual"></div>
+    </div>
+
+  </section>
+
+  <section class="section">
+    <div class="kicker">Open-government practice</div>
+    <h2>Sharing previously released documents is already part of open government</h2>
+    <div class="policy-intro">
+      <p>Public-access systems already recognize that information released for
+        one request can be useful to other people. Provincial and federal open-government
+        services make previously released or completed access-to-information records easier to find and reuse.</p>
+      <p>The same accessibility principle can be applied at the community level
+        by preserving and organizing relevant documents that members of the public have already obtained.</p>
+    </div>
+
+    <div class="resource-panel">
+      <div class="panel-label">Official open-government resources</div>
+
+      <div class="card-group">
+        <article class="resource-card" style="--card-brand:#1A5A96;--card-brand-text:#ffffff">
+          <div class="card-main">
+            <div class="card-title">
+              <img src="assets/authority-icons/fav_bc-ca_1A5A96.png" alt="Province of British Columbia icon">
+              <h3>B.C. Records Released by Request</h3>
+            </div>
+            <div class="card-subtitle">Useful for finding documents already released through a provincial Freedom of Information requests</div>
+            <p class="description">British Columbia's catalogue of completed Freedom of Information releases, with the released documents available to view or download.</p>
+          </div>
+          <div class="action-col">
+            <a class="link-button" href="https://www2.gov.bc.ca/gov/content/governments/about-the-bc-government/open-government/open-information/completed-foi-requests" target="_blank" rel="noopener">Search Records ↗</a>
+            <div class="action-stack">
+              <span class="pill green">$ Free</span>
+              <span class="pill purple">No login required</span>
+              <div class="difficulty-card easy">
+                <div class="difficulty-title">● ● ● Easy to Use</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="card-group">
+        <article class="resource-card" style="--card-brand:#26374A;--card-brand-text:#ffffff">
+          <div class="card-main">
+            <div class="card-title">
+              <img src="assets/authority-icons/fav_gov-ca_26374A.png" alt="Government of Canada icon">
+              <h3>Open Government Portal (Access to Information Requests)</h3>
+            </div>
+            <div class="card-subtitle">Useful for checking whether a federal Access to Information request has already been completed</div>
+            <p class="description">Search summaries of completed federal Access to Information requests by institution, topic, or keyword.</p>
+            <div class="note orange"><strong>TIP:</strong> If a completed request covers the information you need, you can ask the institution
+                for a copy of the previously released documents instead of filing a new request.</div>
+          </div>
+
+          <div class="action-col">
+            <a class="link-button" href="https://open.canada.ca/en/search/ati" target="_blank" rel="noopener">Search Records ↗</a>
+            <div class="action-stack">
+              <span class="pill green">$ Free</span>
+              <span class="pill purple">No login required</span>
+              <div class="difficulty-card moderate">
+                <div class="difficulty-title">● ● ○ Moderate Difficulty</div>
+                <div class="difficulty-description">Summaries only, not full documents</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <p class="policy-close">These official systems do not cover every public body or every record
+        relevant to the Mid-Island region, which is where contributed local copies can help preserve access.</p>
+  </section>
+
+<div class="form-wrap">
+  <section class="submit-card">
+    <div class="submit-head">
+      <div>
+        <h3>Submission Form</h3>
+        <p>Fill this out, then send it as an email with your file attached.</p>
+      </div>
+      <div class="privacy-pill">Contributor information is not published</div>
+    </div>
+
+    <div class="form-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>What are you submitting?</label>
+          <input id="subWhat" placeholder="Short title or description">
+        </div>
+
+        <div class="field">
+          <label>Where did it come from?</label>
+          <input id="subWhere" placeholder="Government or public body">
+        </div>
+
+        <div class="field">
+          <label>How did you obtain it?</label>
+          <select id="subHow">
+            <option>Choose one</option>
+            <option>Freedom of Information request</option>
+            <option>Access to Information request</option>
+            <option>Public website</option>
+            <option>Paid registry or database</option>
+            <option>Previously downloaded copy</option>
+            <option>Provided by a public body</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Original web address <span style="font-weight:500;text-transform:none;letter-spacing:0">(if known)</span></label>
+          <input id="subUrl" placeholder="https://">
+        </div>
+
+        <div class="field full">
+          <label>Anything else we should know? <span style="font-weight:500;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <textarea id="subNotes" placeholder="Context, information needing redaction, missing pages, where you found it, or anything else that may help with review."></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Email for follow-up <span style="font-weight:500;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input id="subEmail" placeholder="Only used if clarification about the submission is needed">
+        </div>
+      </div>
+
+      <div class="agreement-block">
+        <details class="agreement-details">
+          <summary>Submission Agreement — please read before submitting</summary>
+          <div class="agreement-body">
+            <p><strong>Lawful Origin &amp; Public Status:</strong> You warrant that all submitted materials were lawfully obtained under applicable Canadian laws and constitute legally public information, open government data, or open-access records. Submissions must not violate court orders, publication bans, privacy laws, or confidentiality agreements.</p>
+            <p><strong>Vetting &amp; Redaction:</strong> We reserve the right to review, edit, redact, or reject any submission. Our review does not constitute legal validation, clearance, or certification of your material.</p>
+            <p><strong>Disclaimer of Liability:</strong> You assume sole responsibility for the collection, procurement, and transmission of the material. We disclaim all liability for unlawfully obtained or unauthorized data submitted by third parties.</p>
+            <p><strong>Indemnity:</strong> You agree to indemnify and hold harmless this website and its operators from any third-party claims, legal actions, damages, or expenses arising from your submission or breach of these terms.</p>
+            <p><strong>License:</strong> You grant us a perpetual, royalty-free, non-exclusive license to host, redact, modify, and publish the submitted content.</p>
+          </div>
+        </details>
+
+        <label class="agreement-check">
+          <input type="checkbox" id="agreementCheck">
+          <span>I confirm that this content was lawfully obtained, is legally public or open data in Canada, and I agree to the Submission Terms &amp; Conditions and Indemnity Agreement above.</span>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <a href="#" id="composeSubmissionBtn" class="btn btn-primary btn-disabled" aria-disabled="true">Compose Submission Email →</a>
+        <span class="form-capacity" id="composeHint">Opens your email app, pre-filled with your answers.</span>
+      </div>
+    </div>
+
+    <div class="upload-help">
+      <details>
+        <summary>Files over 25MB, or no email app set up?</summary>
+        <div class="help-body">
+          <p><strong>Large files:</strong> Send them via <a href="https://wetransfer.com" target="_blank" rel="noopener">WeTransfer</a> (free) — <button type="button" class="copy-email-btn">Copy submission email</button> and enter it as the recipient. Paste the same details from the form above into WeTransfer's message field.</p>
+          <p style="margin-top:8px"><strong>No email app on this device?</strong> <button type="button" class="copy-email-btn">Copy submission email</button> and paste it into whatever email account you normally use — Gmail, Outlook, or similar, in your browser.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+    <div class="next-step">
+      <div class="next-step-title">What happens to a submission?</div>
+      <div class="process-line">
+        <span class="step">Received</span>
+        <span class="arrow">→</span>
+        <span class="step">Reviewed</span>
+        <span class="arrow">→</span>
+        <span class="step long">Personal information removed where appropriate</span>
+        <span class="arrow">→</span>
+        <span class="step">Published</span>
+      </div>
+      <p class="privacy-text">Contributor names, contact information, addresses, and other
+        identifying submission information are not published with contributed files.
+        </p>
+    </div>
+    </div>
+
+  <section class="section" id="contributed-records">
+  <div class="archive-head">
+    <div>
+      <div class="kicker">Document submissions</div>
+      <h2>Vancouver Island Regional Database Community Archive List</h2>
+      <p>Public access to public data restored by citizen action, organized by year requested.</p>
+    </div>
+  </div>
+
+  <div class="desktop">
+
+    <div class="file-year-group">
+      <div class="file-year">2026</div>
+
+      <div class="file-grid">
+
+        <a class="file" href="water-systems/files/Brechin-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Brechin Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Cilaire-SD-68-Drinking-Water-Lead-Investigation-2018.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Cilaire Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Departure-Bay-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Departure Bay Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Dufferin-Cres-SD-68-Drinking-Water-Lead-Investigation-2018-Part-2.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Dufferin Crescent — Lab Data</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Forest-Park-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Forest Park Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Gabriola-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Gabriola Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Georgia-Ave-SD-68-Drinking-Water-Lead-Investigation-2018-Part-1.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Georgia Avenue Community School — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Georgia-Ave-SD-68-Drinking-Water-Lead-Investigation-2018-Part-2.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Georgia Avenue Community School — Lab Data</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2017-12-18_TOL-tetra-tech-water-report_SD68-LSS-part-1.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Ladysmith Secondary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Ladysmith-SD-68-Water-Investigation-2017-Part-2.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Ladysmith Secondary — Lab Data</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Maintenance-Facilities-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">SD 68 Maintenance Facilities — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Mount-Benson-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Mount Benson Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Mountain-View-SD-68-Drinking-Water-Lead-Investigation-2018.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Mountain View Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Park-Avenue_RPT_SD-68-Drinking-Water-Lead-Investigation-2018.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Park Avenue Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Pauline-Haarer-SD-68-Drinking-Water-Lead-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Pauline Haarer Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Quarterway-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Quarterway Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Quennell-Gym-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Quennell Gym — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Seaview-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Seaview Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Selby-Street_RPT_SD-68-Drinking-Water-Lead-Investigation-2018.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Selby Street Daycare — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Strickland-Street_RPT_SD-68-Drinking-Water-Lead-Investigation-2018.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Strickland Street Daycare — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Uplands-Park-SD-68-Drinking-Water-Lead-Investigation-2018.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Uplands Park Elementary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Wellington-Secondary-SD-68-Water-Investigation-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Wellington Secondary — Lead-in-Water Investigation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2022-10-31_Ladysmith-Draft-CMP_Att1-Id=5393.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith WWTP Conditional Management Plan</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2019-09-30_SD68-EHB-re_lead-in-drinking-water_RBM-R19-10-23-06-ID=6234.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">Re: Lead in École Hammond Bay Drinking Water</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2018-ladysmith-annual-water-report.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith 2018 Annual Water Quality Report</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2017-ladysmith-annual-water-report.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith 2017 Annual Water Quality Report</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2016-ladysmith-annual-water-report.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith 2016 Annual Water Quality Report</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2015-ladysmith-annual-water-report.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith 2015 Annual Water Quality Report</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/2014-ladysmith-annual-water-report.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith 2014 Annual Water Quality Report</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/190736-Testing-Lead-Content-in-Drinking-Water-Letter.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Government of British Columbia</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_bc-ca_1A5A96.png" alt="Government of British Columbia"></span>
+          </div>
+          <span class="file-title">Ministry Letter — Policy for Testing Lead Content in School Drinking Water</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/190736-Policy-for-Testing-Lead-Content-in-Drinking-Water.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Government of British Columbia</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_bc-ca_1A5A96.png" alt="Government of British Columbia"></span>
+          </div>
+          <span class="file-title">BC Policy for Testing Lead Content in Drinking Water of School Facilities</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/Water-Testing-Results-presentation-Business-Committee-April-12-2017.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">SD 68 Water Testing Results — Business Committee Presentation</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/SD68-Drinking-Water-Lead-Inventory-Tetra-Tech-Report-April-2017-Part-1.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">SD 68 Drinking Water Lead Inventory — Tetra Tech Report (Part 1)</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+        <a class="file" href="water-systems/files/SD68-Drinking-Water-Lead-Inventory-Tetra-Tech-Report-April-2017-Part-2.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">SD 68</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_sd68.png" alt="SD 68"></span>
+          </div>
+          <span class="file-title">SD 68 Drinking Water Lead Inventory — Tetra Tech Lab Data (Part 2)</span>
+          <span class="file-meta">Archived Copy</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="file-year-group">
+      <div class="file-year">2025</div>
+
+      <div class="file-grid">
+        <a class="file" href="submissions/2022-building-permit-register-foi_combined.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon landscape">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">2022 Combined Building Permit Register</span>
+          <span class="file-meta">FOI Release</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="file-year-group">
+      <div class="file-year">2023</div>
+
+      <div class="file-grid">
+        <a class="file" href="submissions/LHED-FOI-July-2023_Redacted.pdf" target="_blank" rel="noopener">
+          <span class="jur-caption">Town of Ladysmith</span>
+          <div class="file-icon">
+            <span class="file-type">PDF</span>
+            <span class="jur-mark"><img src="assets/authority-icons/fav_ladysmith.png" alt="Town of Ladysmith"></span>
+          </div>
+          <span class="file-title">Ladysmith Harbour Economic Development Corporation</span>
+          <span class="file-meta">FOI Release</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <p class="archive-footnote"><a href="#footer">See footer</a> for how these records are made available.</p>
+</section>
+
+<section class="quote-section quote-section-wide">
+    <img
+        src="assets/vird_logo_blue.png"
+        alt=""
+        class="quote-logo"
+    >
+    <a
+        href="https://search.open.canada.ca/data/"
+        class="quote-link"
+    >
+    <blockquote class="quote-content">
+        <p>
+            Open data is defined as structured data that is machine-readable, freely shared, used and built on
+            without restrictions. The key things to remember about open data are:
+        </p>
+
+        <ul class="quote-list">
+            <li><strong>Availability and access:</strong> the data must be available as a whole and at no more than a reasonable reproduction cost, preferably by downloading over the internet. The data must also be available in a convenient and modifiable form.</li>
+            <li><strong>Re-use and redistribution:</strong> the data must be provided under terms that permit re-use and redistribution including the intermixing with other datasets.</li>
+            <li><strong>Universal participation:</strong> everyone must be able to use, re-use and redistribute. There should be no discrimination against fields of endeavour or against persons or groups. For example, 'non-commercial' restrictions that would prevent 'commercial' use, or restrictions of use for certain purposes (e.g. only in education), are not allowed.</li>
+        </ul>
+
+        <cite>
+            Open Data Definition, Government of Canada — Open Government Portal
+        </cite>
+    </blockquote> </a>
+</section>
+
+</main>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <p class="footer-copyright">Vancouver Island Regional Database &bull; Centralized Access to Public Records</p>
+    <p class="footer-disclaimer">
+      <b>Fair Dealing &amp; Copyright:</b> Vancouver Island Regional Database is not affiliated with any government agency. It is an independent, non-commercial research archive ensuring regional compliance with public access laws and citizens' legal right to access open government data. Materials, text extracts, and HTML copies reproduced directly from primary source public records, without commentary or opinion, for the statutory purposes of Research, Criticism, Review, and News Reporting under Section 29 of the Copyright Act (R.S.C., 1985, c. C-42). External resources linked from this page are independently operated; Vancouver Island Regional Database is not responsible for their content or availability.
+    </p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.stat-value').forEach(stat => {
+        const rawText = stat.textContent.trim();
+        const numericValue = parseInt(rawText.replace(/[^\d]/g, ''), 10);
+        const suffix = rawText.replace(/[\d,]/g, '');
+        const prefix = /^\$/.test(rawText) ? '$' : '';
+        const suffixClean = suffix.replace('$', '');
+
+        if (isNaN(numericValue)) return;
+
+        const duration = 1400;
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            const easeProgress = progress * (2 - progress);
+            const currentValue = Math.floor(easeProgress * numericValue);
+
+            stat.textContent =
+                prefix + currentValue.toLocaleString('en-CA') + suffixClean;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                stat.textContent = rawText;
+            }
+        }
+
+        requestAnimationFrame(animate);
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Built at call time (not a static literal) so the address never sits
+    // as plain text in the page source or repo files.
+    function getSubmissionEmail() {
+        var user = ['vi', 'regional', 'database'].join('.');
+        var domain = ['gmail', 'com'].join('.');
+        return user + '@' + domain;
+    }
+    var agreementCheck = document.getElementById('agreementCheck');
+    var composeBtn = document.getElementById('composeSubmissionBtn');
+    var agreementDetails = document.querySelector('.agreement-details');
+    if (!agreementCheck || !composeBtn) return;
+
+    var fieldWhat = document.getElementById('subWhat');
+    var fieldWhere = document.getElementById('subWhere');
+    var fieldHow = document.getElementById('subHow');
+    var fieldUrl = document.getElementById('subUrl');
+    var fieldNotes = document.getElementById('subNotes');
+    var fieldEmail = document.getElementById('subEmail');
+
+    function buildSubmissionText() {
+        var subjectTitle = (fieldWhat.value || '').trim() || 'Document Submission';
+        var subject = 'VIRD Submission: ' + subjectTitle;
+
+        var lines = [
+            'What are you submitting?',
+            (fieldWhat.value || '').trim() || '(not provided)',
+            '',
+            'Where did it come from?',
+            (fieldWhere.value || '').trim() || '(not provided)',
+            '',
+            'How did you obtain it?',
+            (fieldHow.selectedIndex > 0 ? fieldHow.value.trim() : '') || '(not provided)',
+            '',
+            'Original web address (if known):',
+            (fieldUrl.value || '').trim() || '(not provided)',
+            '',
+            'Anything else we should know?',
+            (fieldNotes.value || '').trim() || '(none)',
+            '',
+            'Email for follow-up (optional):',
+            (fieldEmail.value || '').trim() || '(none provided)',
+            '',
+            '---',
+            'File(s): attached directly if under 25MB. If larger, sent via WeTransfer to ' + getSubmissionEmail() + ' instead (noted in the WeTransfer message).',
+            '',
+            'I confirm that this content was lawfully obtained, is legally public or open data in Canada, and I agree to the Submission Terms & Conditions and Indemnity Agreement.'
+        ];
+
+        return { subject: subject, body: lines.join('\n') };
+    }
+
+    function buildMailto() {
+        var t = buildSubmissionText();
+        return 'mailto:' + getSubmissionEmail() + '?subject=' + encodeURIComponent(t.subject) + '&body=' + encodeURIComponent(t.body);
+    }
+
+    function buildClipboardText() {
+        var t = buildSubmissionText();
+        return 'To: ' + getSubmissionEmail() + '\nSubject: ' + t.subject + '\n\n' + t.body;
+    }
+
+    function updateComposeState() {
+        if (agreementCheck.checked) {
+            composeBtn.href = buildMailto();
+            composeBtn.classList.remove('btn-disabled');
+            composeBtn.removeAttribute('aria-disabled');
+        } else {
+            composeBtn.removeAttribute('href');
+            composeBtn.classList.add('btn-disabled');
+            composeBtn.setAttribute('aria-disabled', 'true');
+        }
+    }
+
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(ta);
+    }
+
+    function copyToClipboard(text, cb) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(cb).catch(function () {
+                fallbackCopy(text);
+                cb();
+            });
+        } else {
+            fallbackCopy(text);
+            cb();
+        }
+    }
+
+    composeBtn.addEventListener('click', function (e) {
+        if (!agreementCheck.checked) {
+            e.preventDefault();
+            if (agreementDetails) agreementDetails.open = true;
+            agreementCheck.focus();
+            return;
+        }
+
+        composeBtn.href = buildMailto();
+
+        // There is no reliable way to detect whether the mail app actually
+        // opened, so the full submission is copied to the clipboard on
+        // every click as a guaranteed fallback, not just on failure.
+        copyToClipboard(buildClipboardText(), function () {
+            var hint = document.getElementById('composeHint');
+            if (hint) {
+                hint.textContent = 'Also copied to your clipboard — paste it if your email app didn’t open.';
+                hint.classList.add('copied');
+            }
+        });
+    });
+
+    agreementCheck.addEventListener('change', updateComposeState);
+    [fieldWhat, fieldWhere, fieldHow, fieldUrl, fieldNotes, fieldEmail].forEach(function (el) {
+        if (el) el.addEventListener('input', updateComposeState);
+        if (el) el.addEventListener('change', updateComposeState);
+    });
+
+    updateComposeState();
+
+    document.querySelectorAll('.copy-email-btn').forEach(function (btn) {
+        var originalText = btn.textContent;
+        btn.addEventListener('click', function () {
+            copyToClipboard(getSubmissionEmail(), function () {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function () {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 1600);
+            });
+        });
+    });
+});
+</script>
+
+</body>
+</html>

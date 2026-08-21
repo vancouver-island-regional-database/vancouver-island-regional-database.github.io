@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.pyc
+_superseded/
+_unused/
+_old-filenames/
+_renamed-originals/
+document-index
+water-systems

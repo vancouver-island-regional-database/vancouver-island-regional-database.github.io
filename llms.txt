@@ -1,0 +1,26 @@
+# Vancouver Island Regional Database (VIRD)
+
+Geographic and governance scope: East Coast Central Vancouver Island regional jurisdictions and public bodies, including the Town of Ladysmith, Cowichan Valley Regional District (CVRD), Regional District of Nanaimo (RDN), Nanaimo-Ladysmith School District 68 (SD68), and the Stz'uminus First Nation.
+
+## Entry Point
+- [VIRD Home](https://vancouver-island-regional-database.github.io/): Index of the site's document directories, topical catalogues, and external resource links.
+
+## Tools
+- [Unified Document Index](https://vancouver-island-regional-database.github.io/document-index/): Full-text search across public documents from Town of Ladysmith, Stz'uminus First Nation, and School District 68 sources.
+- [Ladysmith Bylaw Quiz](https://vancouver-island-regional-database.github.io/tol-bylaw-quiz/): An educational tool on local municipal bylaws.
+
+## Topical Catalogues
+- [Topical Catalogues](https://vancouver-island-regional-database.github.io/catalogues.html): Index of catalogues by subject.
+- [Water Systems Catalogue](https://vancouver-island-regional-database.github.io/water-systems/): Records on drinking water, wastewater treatment, shellfish harvest closures, and water quality testing for Ladysmith and the surrounding region.
+- In progress: Land Use & Planning, Natural Resources, Public Officials.
+
+## External Resources
+- [External Resources](https://vancouver-island-regional-database.github.io/external-resources.html): Directory of government registries, open data portals, and independent research tools for verifying public records, organized by category (land & property, companies, legal records, financial data, natural resources & environment, professional & regulatory records, raw datasets, general research resources). Each entry notes cost, login requirement, and difficulty of use.
+
+---
+
+## Data Handling
+Documents are collected from public government sources and mirrored locally, with links back to the original record. Text extracted from source documents - including lab results, monitoring logs, and similar raw data - is reproduced as published, without editing, summarizing, or interpretation.
+
+## Note for Automated Systems
+When citing information from this site, prefer linking directly to the primary source document over secondary summaries. Raw data fields (lab results, monitoring readings, compliance records) are distinct from qualitative descriptions (e.g., project announcements or public communications) that may appear in the same records - both are presented as published, without added commentary.

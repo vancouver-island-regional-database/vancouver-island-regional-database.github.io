@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Special Collections - Vancouver Island Regional Database (VIRD)</title>
+    <link rel="icon" type="image/png" href="assets/fav_w.png">
+    <link rel="canonical" href="https://vancouver-island-regional-database.github.io/catalogues.html">
+
+    <meta name="description" content="Special Collections from the Vancouver Island Regional Database bring together government documents, timelines, data, and visualizations around selected local issues and systems.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="Special Collections - Vancouver Island Regional Database (VIRD)" />
+    <meta property="og:description" content="Curated collections of government documents, timelines, data, and visualizations around selected Mid-Island issues and systems." />
+    <meta property="og:type" content="website" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Special Collections - Vancouver Island Regional Database (VIRD)",
+      "url": "https://vancouver-island-regional-database.github.io/catalogues.html",
+      "description": "Special Collections from the Vancouver Island Regional Database bring together government documents, timelines, data, and visualizations around selected local issues and systems.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Vancouver Island Regional Database (VIRD)",
+        "url": "https://vancouver-island-regional-database.github.io/"
+      }
+    }
+    </script>
+
+    <style>
+        :root{
+            --bc-blue:#003366;
+            --bc-blue-dark:#002244;
+            --bc-gold:#FCBA19;
+            --bc-gold-hover:#E0A50D;
+            --bg-canvas:#F8FAFC;
+            --surface-card:#FFFFFF;
+            --text-main:#1F2933;
+            --text-muted:#64748B;
+            --border-light:#E2E8F0;
+            --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+            --shadow-md:0 5px 14px rgba(0,34,68,.08);
+            --shadow-lg:0 14px 34px rgba(0,34,68,.13);
+            --transition:all .22s cubic-bezier(.4,0,.2,1);
+        }
+
+        *{box-sizing:border-box;margin:0;padding:0}
+
+        body{
+            font-family:'Inter','BCSans','Helvetica Neue',Arial,sans-serif;
+            background:var(--bg-canvas);
+            color:var(--text-main);
+            line-height:1.5;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        /* Header */
+        header{
+            background:var(--bc-blue);
+            color:#fff;
+            padding:16px 40px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            border-bottom:4px solid var(--bc-gold);
+            box-shadow:var(--shadow-sm);
+            flex-wrap:wrap;
+            gap:15px;
+        }
+
+        .header-brand{display:flex;align-items:center;gap:16px}
+        .header-brand img{height:44px;width:auto;display:block}
+        .header-title-block{display:flex;flex-direction:column}
+        .header-title-block h1{font-size:19px;font-weight:600;letter-spacing:-.02em}
+        .header-tagline{
+            font-size:11px;color:#E2E8F0;opacity:.85;
+            text-transform:uppercase;letter-spacing:.05em;font-weight:500
+        }
+
+        .header-action-badge{
+            font-size:11px;
+            font-weight:700;
+            background:rgba(255,255,255,.1);
+            padding:6px 14px;
+            border-radius:9999px;
+            border:1px solid rgba(255,255,255,.2);
+            letter-spacing:.05em;
+            text-transform:uppercase;
+            text-decoration:none;
+            color:#fff;
+            transition:var(--transition);
+        }
+
+        .header-action-badge:hover{
+            background:var(--bc-gold);
+            color:var(--bc-blue-dark);
+            border-color:var(--bc-gold);
+        }
+
+        /* Hero */
+        .collections-hero{
+            background:
+                linear-gradient(rgba(0,34,68,.77),rgba(0,34,68,.77)),
+                url('assets/ladysmith-vip703.png');
+            background-size:cover;
+            background-position:center;
+            color:#fff;
+            padding:54px 24px 58px;
+            border-bottom:1px solid rgba(255,255,255,.12);
+        }
+
+        .hero-inner{
+            max-width:1040px;
+            margin:0 auto;
+        }
+
+        .breadcrumbs{
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.08em;
+            color:var(--bc-gold);
+            margin-bottom:15px;
+            font-weight:700;
+        }
+
+        .breadcrumbs a{color:inherit;text-decoration:none}
+        .breadcrumbs span{color:#fff;opacity:.55;margin:0 7px}
+
+        .collections-hero h2{
+            font-size:38px;
+            line-height:1.14;
+            font-weight:700;
+            letter-spacing:-.03em;
+            margin-bottom:15px;
+        }
+
+        .collections-hero p{
+            max-width:760px;
+            font-size:16px;
+            line-height:1.65;
+            color:#E2E8F0;
+        }
+
+        main{
+            max-width:1080px;
+            margin:0 auto;
+            padding:54px 24px 64px;
+        }
+
+        .section-eyebrow{
+            font-size:10px;
+            font-weight:800;
+            text-transform:uppercase;
+            letter-spacing:.09em;
+            color:#687989;
+            margin-bottom:9px;
+        }
+
+        .section-heading{
+            color:var(--bc-blue-dark);
+            font-size:28px;
+            line-height:1.2;
+            letter-spacing:-.025em;
+            margin-bottom:10px;
+        }
+
+        .section-intro{
+            max-width:780px;
+            color:var(--text-muted);
+            font-size:14px;
+            line-height:1.65;
+        }
+
+        /* Featured collection */
+        .featured-wrap{
+            margin-top:26px;
+        }
+
+        .featured-collection{
+            display:grid;
+            grid-template-columns:minmax(0,1.12fr) minmax(330px,.88fr);
+            min-height:455px;
+            background:#fff;
+            border:1px solid var(--border-light);
+            border-radius:16px;
+            overflow:hidden;
+            box-shadow:var(--shadow-lg);
+        }
+
+        .featured-image{
+            min-height:455px;
+            background:
+                linear-gradient(to bottom,rgba(0,34,68,.08),rgba(0,34,68,.35)),
+                url('assets/special-collections/collection_water-systems_salmon.jpg');
+            background-size:cover;
+            background-position:center;
+            position:relative;
+        }
+
+        .featured-image::after{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:linear-gradient(to top,rgba(0,25,50,.28),transparent 55%);
+        }
+
+        .featured-status{
+            position:absolute;
+            top:18px;
+            left:18px;
+            z-index:2;
+            display:inline-flex;
+            align-items:center;
+            gap:7px;
+            background:rgba(255,255,255,.96);
+            color:var(--bc-blue-dark);
+            border-radius:7px;
+            padding:7px 10px;
+            font-size:10px;
+            font-weight:800;
+            letter-spacing:.05em;
+            text-transform:uppercase;
+            box-shadow:var(--shadow-sm);
+        }
+
+        .featured-status::before{
+            content:"";
+            width:7px;
+            height:7px;
+            border-radius:50%;
+            background:#2E7D32;
+        }
+
+        .featured-content{
+            padding:38px 38px 34px;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .collection-kicker{
+            color:var(--bc-blue);
+            font-size:10px;
+            font-weight:800;
+            text-transform:uppercase;
+            letter-spacing:.085em;
+            margin-bottom:11px;
+        }
+
+        .featured-content h3{
+            color:var(--bc-blue-dark);
+            font-size:31px;
+            line-height:1.14;
+            letter-spacing:-.028em;
+            margin-bottom:15px;
+        }
+
+        .featured-description{
+            color:#4F6070;
+            font-size:14.5px;
+            line-height:1.7;
+            margin-bottom:23px;
+        }
+
+        .contents-label{
+            font-size:10px;
+            color:#71808D;
+            text-transform:uppercase;
+            letter-spacing:.08em;
+            font-weight:800;
+            margin-bottom:10px;
+        }
+
+        .collection-contents{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+            margin-bottom:26px;
+        }
+
+        .content-chip{
+            border:1px solid #DCE4EA;
+            background:#F7F9FB;
+            color:#415565;
+            border-radius:6px;
+            padding:6px 9px;
+            font-size:10.5px;
+            font-weight:700;
+        }
+
+        .collection-scope{
+            margin-top:auto;
+            padding-top:18px;
+            border-top:1px solid #E8EDF1;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:14px;
+        }
+
+        .scope-item span{
+            display:block;
+        }
+
+        .scope-label{
+            color:#7A8996;
+            font-size:9px;
+            text-transform:uppercase;
+            letter-spacing:.06em;
+            font-weight:800;
+            margin-bottom:4px;
+        }
+
+        .scope-value{
+            color:var(--bc-blue-dark);
+            font-size:11.5px;
+            line-height:1.45;
+            font-weight:700;
+        }
+
+        .featured-action{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            align-self:flex-start;
+            margin-top:25px;
+            background:var(--bc-blue);
+            color:#fff;
+            text-decoration:none;
+            border-radius:6px;
+            padding:11px 16px;
+            font-size:13px;
+            font-weight:800;
+            transition:var(--transition);
+        }
+
+        .featured-action:hover{
+            background:var(--bc-blue-dark);
+            transform:translateY(-1px);
+        }
+
+        /* In development */
+        .development-section{
+            margin-top:60px;
+            padding-top:32px;
+            border-top:1px solid var(--border-light);
+        }
+
+        .development-grid{
+            margin-top:24px;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+        }
+
+        .development-card{
+            background:#fff;
+            border:1px solid var(--border-light);
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:var(--shadow-sm);
+            display:flex;
+            flex-direction:column;
+            min-height:340px;
+        }
+
+.development-image{
+    height:145px;
+    background:
+        linear-gradient(
+    rgba(0,34,68,.75),
+    rgba(0,34,68,.82)
+),
+        var(--collection-image);
+    background-size:cover;
+    background-position:center;
+    position:relative;
+}
+
+        .development-badge{
+            position:absolute;
+            top:12px;
+            left:12px;
+            background:rgba(255,255,255,.94);
+            color:#536372;
+            padding:6px 9px;
+            border-radius:6px;
+            font-size:9px;
+            text-transform:uppercase;
+            letter-spacing:.06em;
+            font-weight:800;
+        }
+
+        .development-body{
+            padding:20px 20px 19px;
+            display:flex;
+            flex-direction:column;
+            flex:1;
+        }
+
+        .development-body h3{
+            color:var(--bc-blue-dark);
+            font-size:18px;
+            letter-spacing:-.015em;
+            margin-bottom:9px;
+        }
+
+        .development-body p{
+            color:#5C6C79;
+            font-size:13px;
+            line-height:1.6;
+            margin-bottom:18px;
+        }
+
+        .development-note{
+            margin-top:auto;
+            padding-top:13px;
+            border-top:1px solid #E8EDF1;
+            color:#7A8996;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.05em;
+            font-weight:700;
+        }
+
+        .page-note{
+            margin-top:36px;
+            padding-top:16px;
+            border-top:1px solid var(--border-light);
+            color:var(--text-muted);
+            font-size:11.5px;
+            line-height:1.6;
+        }
+
+        .page-note strong{color:#475569}
+
+        /* Footer */
+        footer{
+            background:var(--bc-blue-dark);
+            color:#fff;
+            padding:40px 20px;
+            border-top:4px solid var(--bc-gold);
+        }
+
+        .footer-inner{
+            max-width:1040px;
+            margin:0 auto;
+            text-align:center;
+        }
+
+        .footer-copyright{
+            font-size:13px;
+            font-weight:600;
+            opacity:.9;
+            margin-bottom:12px;
+        }
+
+        .footer-disclaimer{
+            font-size:11px;
+            color:#CBD5E1;
+            line-height:1.6;
+            max-width:900px;
+            margin:0 auto;
+            opacity:.75;
+        }
+
+        .footer-disclaimer b{color:var(--bc-gold)}
+
+        @media(max-width:850px){
+            .featured-collection{
+                grid-template-columns:1fr;
+            }
+
+            .featured-image{
+                min-height:300px;
+            }
+
+            .development-grid{
+                grid-template-columns:1fr;
+            }
+
+            .development-card{
+                display:grid;
+                grid-template-columns:210px 1fr;
+                min-height:0;
+            }
+
+            .development-image{
+                height:auto;
+                min-height:220px;
+            }
+        }
+
+        @media(max-width:620px){
+            header{padding:14px 18px}
+            .collections-hero{padding:42px 18px 46px}
+            .collections-hero h2{font-size:30px}
+            main{padding:42px 16px 52px}
+            .featured-content{padding:28px 24px 25px}
+            .featured-content h3{font-size:27px}
+            .featured-image{min-height:230px}
+            .collection-scope{grid-template-columns:1fr}
+            .development-card{display:flex}
+            .development-image{height:155px;min-height:0}
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-brand">
+            <a href="index.html">
+                <img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';">
+            </a>
+            <div class="header-title-block">
+                <h1>Vancouver Island Regional Database</h1>
+                <span class="header-tagline">Public Access to Public Data</span>
+            </div>
+        </div>
+
+        <a class="header-action-badge" href="index.html">Home</a>
+    </header>
+
+    <section class="collections-hero">
+        <div class="hero-inner">
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a><span>&gt;</span>Special Collections
+            </div>
+
+            <h2>Special Collections</h2>
+
+            <p>
+                These collections bring together hard-to-find information
+                spread across multiple jurisdictions in order to present a more complete 
+                picture of a topic. They are visually curated for a more accessible 
+                and useful format, and include direct links with
+                mirrored backup copies to ensure continued access
+                 in case the original sources become unavailable.
+            </p>
+        </div>
+    </section>
+
+    <main>
+
+        <section aria-labelledby="featured-heading">
+            <div class="section-eyebrow">Available Collections</div>
+            <p class="section-intro">
+                <i> Please note that curating these collections is a time-intensive process.
+                Available collections are limited to the source material 
+                that has been identified and prepared for public access. 
+                Additional source material may be added over time, and new collections will 
+                be developed as resources allow.</i>
+            </p>
+            <div class="featured-wrap">
+                <article class="featured-collection">
+
+                    <div class="featured-image" aria-hidden="true">
+                        <span class="featured-status">Available</span>
+                    </div>
+
+                    <div class="featured-content">
+                        <div class="collection-kicker">Ladysmith · School District #68</div>
+
+                        <h3>Water Systems</h3>
+
+                        <p class="featured-description">
+                            Includes a visual timeline of marine and freshwater systems data
+                            in the Ladysmith area and a backup archive of unavailable 
+                            School District #68 (Ladysmith-Nanaimo) facility drinking
+                            water-quality reports.
+                        </p>
+
+                        <div class="contents-label">Marine & freshwater timeline includes</div>
+                        <div class="collection-contents">
+                            <span class="content-chip">Drinking Water Quality</span>
+                            <span class="content-chip">Wastewater Treatment</span>
+                            <span class="content-chip">Permits</span>
+                            <span class="content-chip">Communications</span>
+                            <span class="content-chip">Advisories</span>
+                            <span class="content-chip">Fisheries Notices</span>
+                            <span class="content-chip">Health Authority Reports</span>
+                            <span class="content-chip">Environmental Office Oversight</span>
+                        </div>
+
+                        <div class="contents-label">School District documents include</div>
+                        <div class="collection-contents">
+                            <span class="content-chip">TetraTech Reports</span>
+                            <span class="content-chip">Facility Lead-in-Water Data</span>
+                            <span class="content-chip">Ministry of Education Records</span>
+                            <span class="content-chip">Parent Communications</span>
+                        </div>
+
+                        <div class="collection-scope">
+                            <div class="scope-item">
+                                <span class="scope-label">Source Range</span>
+                                <span class="scope-value">Municipal, Provincial, Federal, School District</span>
+                            </div>
+
+                            <div class="scope-item">
+                                <span class="scope-label">Scope</span>
+                                <span class="scope-value">Ladysmith area, School District #68 (Ladysmith-Nanaimo)</span>
+                            </div>
+                        </div>
+
+                        <a href="water-systems/" class="featured-action">
+                            View Water Systems →
+                        </a>
+                    </div>
+
+                </article>
+            </div>
+        </section>
+
+        <section class="development-section" aria-labelledby="development-heading">
+            <div class="section-eyebrow">In Development</div>
+            <h2 class="section-heading" id="development-heading">More Special Collections</h2>
+            <p class="section-intro">
+                Additional collections are assembled as source material is identified,
+                organized, and prepared for public access.
+            </p>
+
+            <div class="development-grid">
+
+                <article class="development-card">
+                     <div class="development-image"
+     style="--collection-image:url('assets/special-collections/collection_land-use-planning.jpg')"
+     aria-hidden="true">
+                        <span class="development-badge">In development</span>
+                    </div>
+                    <div class="development-body">
+                        <h3>Land Use &amp; Planning</h3>
+                        <p>
+                            Documents and related information on zoning, development,
+                            community planning, and land-use decisions.
+                        </p>
+                        <div class="development-note">Collection in preparation</div>
+                    </div>
+                </article>
+
+                <article class="development-card">
+                     <div class="development-image"
+     style="--collection-image:url('assets/special-collections/collection_natural-resources.jpg')"
+     aria-hidden="true">
+                        <span class="development-badge">In development</span>
+                    </div>
+                    <div class="development-body">
+                        <h3>Natural Resources</h3>
+                        <p>
+                            Documents and related information on forestry, resource use,
+                            environmental oversight, and regional natural-resource activity.
+                        </p>
+                        <div class="development-note">Collection in preparation</div>
+                    </div>
+                </article>
+
+                <article class="development-card">
+                     <div class="development-image"
+     style="--collection-image:url('assets/special-collections/collection_public-officials.jpg')"
+     aria-hidden="true">
+                        <span class="development-badge">In development</span>
+                    </div>
+                    <div class="development-body">
+                        <h3>Public Officials</h3>
+                        <p>
+                            Documents and related information concerning elected officials,
+                            committee appointments, disclosures, and public governance.
+                        </p>
+                        <div class="development-note">Collection in preparation</div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <p class="page-note">
+            <strong>Special Collections are developed individually.</strong>
+            Their scope, format, and available source material may differ by subject.
+        </p>
+
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-copyright">
+                Vancouver Island Regional Database &bull; Centralized Access to Public Records
+            </p>
+
+            <p class="footer-disclaimer">
+                <b>Fair Dealing &amp; Copyright:</b> Vancouver Island Regional Database is not affiliated with any government agency. It is an independent, non-commercial research archive ensuring regional compliance with public access laws and citizens’ legal right to access open government data. Materials, text extracts, and HTML copies reproduced directly from primary source public records, without commentary or opinion, for the statutory purposes of Research, Criticism, Review, and News Reporting under Section 29 of the Copyright Act (R.S.C., 1985, c. C-42).
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

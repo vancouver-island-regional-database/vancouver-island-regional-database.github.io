@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Directs all search engines to the clean data map
+Sitemap: https://vancouver-island-regional-database.github.io/sitemap.xml

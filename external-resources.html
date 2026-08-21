@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>External Resources - Vancouver Island Regional Database (VIRD)</title>
+<link rel="icon" type="image/png" href="assets/fav_w.png">
+<link rel="canonical" href="https://vancouver-island-regional-database.github.io/external-resources.html">
+<meta name="description" content="A curated, categorized directory of government registries, open data portals, and independent research tools for citizen researchers investigating public records in British Columbia and Canada.">
+
+<meta property="og:title" content="External Resources - Vancouver Island Regional Database" />
+<meta property="og:description" content="A curated, categorized directory of government registries, open data portals, and independent research tools for citizen researchers." />
+<meta property="og:type" content="website" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "External Resources - Vancouver Island Regional Database (VIRD)",
+  "url": "https://vancouver-island-regional-database.github.io/external-resources.html",
+  "description": "A curated, categorized directory of government registries, open data portals, and independent research tools for citizen researchers investigating public records in British Columbia and Canada.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Vancouver Island Regional Database (VIRD)",
+    "url": "https://vancouver-island-regional-database.github.io/"
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+   
+/* =====================================================================================
+   Page structure: header/hero/footer chrome, a category-level accordion (grid-collapse
+   animation, breakout panel background), and inside each open category a flat-list of
+   resource rows grouped by subcategory. Subcategories are a plain heading, not a second
+   collapsible layer. Categories, subcategories, and resource rows are all generated from
+   the RESOURCES data array + CATEGORY_META below (see the script block) rather than
+   hand-authored HTML, so adding a row to the CSV and regenerating RESOURCES is enough to
+   add a new entry -- nothing here needs to change to pick it up.
+   ===================================================================================== */
+
+:root{
+  /* ---- page chrome ---- */
+  --bc-blue:#003366;
+  --bc-blue-dark:#002244;
+  --bc-gold:#FCBA19;
+  --bg-canvas:#F8FAFC;
+  --text-main:#1F2933;
+  --text-muted:#64748B;
+  --border-light:#E2E8F0;
+  --shadow-sm:0 1px 2px 0 rgba(0,0,0,.05);
+  --transition-smooth:all .2s ease;
+  --highlight-bg:#DBEAFE;
+
+  /* ---- card component ---- */
+  /* Title color points directly at --bc-blue-dark (matches every other
+     heading in the page); button has its own separate explicit fallback
+     values, so the two never drift together. */
+  --ink:#20324b;
+  --muted:#617087;
+  --border:#dbe5ef;
+
+  --purple-pill:#E0E7FF; --purple-text:#3730A3;
+  --dk-purple-pill:#C7D2FE; --dk-purple-text:#312E81;
+  --green-pill:#E6F4EA; --green-text:#137333;
+  --orange-pill:#FEF4D9; --orange-text:#7A5300; /* rejected alternatives kept for later: old muted-brown #f8efe2/#a65b00; VIRD's tier2 #FFEDD5/#9A3412 */
+  --red-pill:#FCE8E6; --red-text:#C5221F; /* rejected alternative kept for later: VIRD's darker tier4 #FECACA/#7F1D1D */
+  --grey-pill:#eef1f5; --grey-text:#475569;
+  --navy-pill: var(--ink); --navy-text:#ffffff;
+  --neutral:#f8fafc;
+  --category-panel:#E7ECF1;
+
+  font-family:Inter,system-ui,sans-serif;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{
+  font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+  background-color:var(--bg-canvas);
+  color:var(--text-main);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden; /* safety net for the category-panel 100vw breakout below */
+}
+
+/* ============ HEADER / HERO / FOOTER ============ */
+header{
+  background-color:var(--bc-blue); color:#fff; padding:14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:4px solid var(--bc-gold); box-shadow:var(--shadow-sm);
+  flex-wrap:wrap; gap:12px;
+}
+.header-brand{ display:flex; align-items:center; gap:12px; }
+.header-brand img{ height:36px; width:auto; display:block; }
+.header-title-block{ display:flex; flex-direction:column; }
+.header-title-block h1{ font-size:15px; font-weight:600; letter-spacing:-0.01em; }
+.header-tagline{ font-size:10px; color:#E2E8F0; opacity:.85; text-transform:uppercase; letter-spacing:.05em; font-weight:500; }
+.header-action-badge{
+  font-size:11px; font-weight:700; background-color:rgba(255,255,255,.1);
+  padding:6px 14px; border-radius:9999px; border:1px solid rgba(255,255,255,.2);
+  letter-spacing:.05em; text-transform:uppercase; text-decoration:none; color:#fff;
+  cursor:pointer; transition:var(--transition-smooth);
+}
+.header-action-badge:hover{ background-color:var(--bc-gold); color:var(--bc-blue-dark); border-color:var(--bc-gold); }
+
+.page-hero{
+  background: linear-gradient(rgba(0, 34, 68, 0.85), rgba(0, 34, 68, 0.85)), url('assets/ladysmith-vip703.png');
+  background-size: cover;
+  background-position: center;
+  color:#fff; padding:30px 20px; text-align:left;
+}
+.hero-inner{ max-width:1100px; margin:0 auto; }
+.breadcrumbs{ font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--bc-gold); margin-bottom:10px; font-weight:600; }
+.breadcrumbs span{ color:#fff; opacity:.6; margin:0 6px; }
+.breadcrumb-link{ color:inherit; text-decoration:none; }
+.hero-inner h2{ font-size:22px; font-weight:700; margin-bottom:10px; letter-spacing:-0.02em; }
+.hero-inner p{ font-size:13.5px; color:#CBD5E1; line-height:1.6; margin-bottom:8px; }
+.hero-note{ font-size:11.5px; color:var(--bc-gold); opacity:.9; margin-top:10px; font-style:italic; }
+.hero-modified{ font-size:10.5px; color:#94A3B8; margin-top:6px; }
+
+main{ max-width:1100px; margin:0 auto; padding:32px 16px 60px; }
+
+footer{ background-color:var(--bc-blue-dark); color:#fff; padding:32px 20px; border-top:4px solid var(--bc-gold); }
+.footer-inner{ max-width:1100px; margin:0 auto; text-align:center; }
+.footer-copyright{ font-size:12px; font-weight:600; opacity:.9; margin-bottom:10px; }
+.footer-disclaimer{ font-size:10.5px; color:#CBD5E1; line-height:1.6; max-width:900px; margin:0 auto; opacity:.75; }
+.footer-disclaimer b{ color:var(--bc-gold); }
+
+/* ============ CATEGORY ACCORDION ============ */
+.category{ margin-bottom:32px; padding-bottom:28px; border-bottom:1px solid var(--border-light); }
+.category:last-child{ margin-bottom:0; padding-bottom:0; border-bottom:none; }
+.category-header{ display:flex; align-items:flex-start; gap:16px; }
+.category-toggle{
+  flex:1; min-width:0; display:flex; align-items:center; gap:16px;
+  background:none; border:none; cursor:pointer; font-family:inherit; text-align:left;
+  padding:0 0 14px;
+}
+.category-image-wrap{ position:relative; width:56px; height:56px; border-radius:8px; overflow:hidden; flex-shrink:0; }
+.category-image{ width:100%; height:100%; object-fit:cover; display:block; }
+/* Optional tint over a category thumbnail -- set overlay:true on that category in
+   CATEGORY_META to turn it on. Matches the .page-hero treatment (same blue, lower
+   opacity since this sits at icon size rather than full-bleed). */
+.category-image-wrap.overlay::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(rgba(0,34,68,.45), rgba(0,34,68,.45));
+}
+.category-toggle-text{ flex:1; min-width:0; }
+.category-toggle-text h3{ font-size:19px; font-weight:700; color:var(--bc-blue-dark); margin-bottom:4px; }
+.category-desc{ font-size:12.5px; color:var(--text-muted); line-height:1.5; }
+
+/* Right column: toggle-count and subcategory quicklinks stacked together, not spread
+   across a separate full-width row — reads as one small navigation block, not two
+   competing rows of controls. */
+.category-side{ flex-shrink:0; width:210px; display:flex; flex-direction:column; align-items:flex-end; gap:10px; padding-top:2px; padding-bottom:14px; }
+.category-meta-toggle{
+  background:none; border:none; cursor:pointer; font-family:inherit;
+  display:flex; align-items:center; gap:8px; padding:0;
+}
+.section-count{ font-size:11px; font-weight:500; color:var(--text-muted); white-space:nowrap; }
+.chevron{ flex-shrink:0; width:16px; height:16px; color:var(--text-muted); transition:transform .2s ease; }
+.category-meta-toggle[aria-expanded="true"] .chevron{ transform:rotate(180deg); }
+
+.category-typelinks-col{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+.type-quicklink{
+  background:none; border:none; font-family:inherit; cursor:pointer;
+  font-size:12px; font-weight:400; color:var(--bc-blue); padding:0; text-align:right;
+}
+.type-quicklink:hover{ color:var(--bc-blue-dark); text-decoration:underline; }
+
+.section-body-wrap{ display:grid; grid-template-rows:minmax(0, 0fr); overflow:hidden; transition:grid-template-rows .25s ease; }
+.section-body-wrap.expanded{ grid-template-rows:minmax(0, 1fr); }
+.section-body-inner{ overflow:hidden; min-height:0; }
+.category > .section-body-wrap > .section-body-inner{
+  padding:12px 0 14px;
+}
+.category-body-constrain{ max-width:1100px; margin:0 auto; padding:0 16px; }
+
+/* Subcategory: a plain heading now, not a second accordion layer. .type-group-highlight
+   is the quicklink's "you clicked here" flash, kept since it's still useful without the
+   toggle it used to accompany. */
+.type-section{ margin-bottom:28px; border-radius:6px; transition:background-color .3s ease; }
+.type-section.type-group-highlight{ background-color:var(--highlight-bg); }
+.type-label{
+  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--muted);
+  display:inline-block; padding:8px 2px 3px; margin-bottom:14px;
+}
+
+/* ============ CARD COMPONENT ============
+   Flat-list row: a plain white row sitting on a grey category panel. Two
+   flex siblings side by side -- card-main (title/subtitle/description/
+   notes) and action-col (button + pills) -- so each column's height is
+   independent and neither forces empty space into the other. */
+.card-group{ margin-bottom:6px; }
+.card-group:last-child{ margin-bottom:0; }
+.type-section .card-group:not(:last-child) .resource-card{ border-bottom:1px solid var(--border-light); }
+
+.pill{ padding:3px 8px; border-radius:999px; font-size:.64rem; font-weight:750; text-align:center; }
+.green{ background:var(--green-pill); color:var(--green-text); border:1px solid color-mix(in srgb, var(--green-text) 15%, var(--green-pill)); }
+.orange{ background:var(--orange-pill); color:var(--orange-text); border:1px solid color-mix(in srgb, var(--orange-text) 15%, var(--orange-pill)); }
+.red{ background:var(--red-pill); color:var(--red-text); border:1px solid color-mix(in srgb, var(--red-text) 15%, var(--red-pill)); }
+.purple{ background:var(--purple-pill); color:var(--purple-text); border:1px solid color-mix(in srgb, var(--purple-text) 15%, var(--purple-pill)); }
+.dk-purple{ background:var(--dk-purple-pill); color:var(--dk-purple-text); border:1px solid color-mix(in srgb, var(--dk-purple-text) 15%, var(--dk-purple-pill)); }
+.grey{ background:var(--grey-pill); color:var(--grey-text); border:1px solid color-mix(in srgb, var(--grey-text) 15%, var(--grey-pill)); }
+.navy{ background:var(--navy-pill); color:var(--navy-text); border:1px solid color-mix(in srgb, var(--navy-text) 15%, var(--navy-pill)); }
+
+.resource-card{
+  position:relative; display:flex; flex-direction:row; align-items:flex-start;
+  gap:24px; background:#fff; border-radius:8px; padding:14px 18px;
+}
+
+.card-main{ flex:1; min-width:0; }
+.card-title{
+  position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  color:var(--card-brand, var(--bc-blue-dark)); min-width:0;
+}
+.card-title img{ width:24px; height:24px; border-radius:5px; flex-shrink:0; }
+.card-title h2{ margin:0; font-size:1.1875rem; font-weight:800; min-width:0; flex-shrink:1; }
+/* "Link broken?" rides the title row on desktop, right-aligned via the auto margin;
+   flex-wrap above lets it drop to its own full-width line once the row can't fit
+   both the title and the link at a readable width, instead of squeezing either one. */
+.card-title .search{ margin-left:auto; flex-shrink:0; white-space:nowrap; }
+
+.card-subtitle{ margin:6px 0 2px; font-size:.75rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--bc-blue); }
+.description{ margin:0; font-size:12.5px; line-height:1.5; color:var(--text-muted); }
+.search{ font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline; }
+
+.badge-technical, .badge-map{
+  display:inline-flex; align-items:center; white-space:nowrap;
+  font-size:.7rem; font-weight:750; padding:5px 10px; border-radius:6px;
+}
+.badge-technical{ background:var(--bc-blue-dark); color:#fff; }
+.badge-map{ background:none; outline:2px solid var(--bc-gold); color:var(--bc-blue); }
+
+.action-col{
+  flex-shrink:0; width:160px; display:flex; flex-direction:column; align-items:stretch; gap:8px;
+}
+.link-button-icon{ width:14px; height:14px; border-radius:3px; flex-shrink:0; }
+.link-button{
+  position:relative; white-space:nowrap; width:100%; justify-content:center;
+  overflow:hidden; display:flex; align-items:center; gap:8px; min-height:36px; padding:7px 14px;
+  background:var(--card-brand, #F1F5F9); color:var(--card-brand-text, #475569);
+  border:1px solid var(--card-brand, var(--border-light)); border-radius:8px; text-decoration:none;
+  font-weight:750; font-size:.8rem;
+  box-shadow:0 2px 5px rgba(15,23,42,.15), inset 0 1px 0 rgba(255,255,255,.35);
+  transition:.18s ease;
+}
+.link-button::before{ content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent 55%); pointer-events:none; }
+.link-button > *{ position:relative; z-index:1; }
+.link-button:hover{
+  background:var(--card-brand, var(--bc-blue-dark)); color:var(--card-brand-text, #fff);
+  border-color:var(--card-brand, var(--bc-blue-dark)); filter:brightness(.92);
+  transform:translateY(-1px); box-shadow:0 4px 8px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.link-button:active{ transform:translateY(0); box-shadow:none; }
+.link-button:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+.action-stack{ display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+.action-stack .pill{ width:100%; }
+
+.note{ margin:10px 0 0; background:var(--neutral); border:1px solid var(--border); padding:6px 10px; font-size:.8rem; color:var(--muted); border-radius:8px; }
+.note.green { background: var(--green-pill); color: var(--green-text); border-color: color-mix(in srgb, var(--green-text) 15%, var(--green-pill)); }
+.note.orange { background: var(--orange-pill); color: var(--orange-text); border-color: color-mix(in srgb, var(--orange-text) 15%, var(--orange-pill)); }
+.note.red { background: var(--red-pill); color: var(--red-text); border-color: color-mix(in srgb, var(--red-text) 15%, var(--red-pill)); }
+.note.purple { background: var(--purple-pill); color: var(--purple-text); border-color: color-mix(in srgb, var(--purple-text) 15%, var(--purple-pill)); }
+.note.dk-purple { background: var(--dk-purple-pill); color: var(--dk-purple-text); border-color: color-mix(in srgb, var(--dk-purple-text) 15%, var(--dk-purple-pill)); }
+
+/* outline (not border) so the colored ring sits outside the box and doesn't eat into
+   the padding; outline-color uses the full-strength *-text color rather than the pale
+   color-mix the pill background uses, since a 15%-mixed tint at 1-2px was too close to
+   the fill color to actually read as an outline. */
+.difficulty-card{ border-radius:10px; overflow:hidden; outline:2px solid transparent; outline-offset:-2px; }
+.difficulty-card.easy { background: var(--green-pill); outline-color: var(--green-text); }
+.difficulty-card.moderate { background: var(--orange-pill); outline-color: var(--orange-text); }
+.difficulty-card.difficult { background: var(--red-pill); outline-color: var(--red-text); }
+.difficulty-title{ padding:4px 8px; font-size:.64rem; font-weight:750; white-space:nowrap; text-align:center; }
+.difficulty-description{ padding:1px 12px 8px; font-size:.6rem; line-height:1.35; font-style:italic; text-wrap:balance; text-align:center; }
+.difficulty-card.easy .difficulty-title, .difficulty-card.easy .difficulty-description { color: var(--green-text); }
+.difficulty-card.moderate .difficulty-title, .difficulty-card.moderate .difficulty-description { color: var(--orange-text); }
+.difficulty-card.difficult .difficulty-title, .difficulty-card.difficult .difficulty-description { color: var(--red-text); }
+
+/* category = grey panel, listed item = white row inside it, so "category group" vs
+   "listed item" reads at a glance */
+.category{ background:var(--category-panel); border-radius:14px; padding:24px 24px 28px; margin-bottom:24px; }
+.category:last-child{ margin-bottom:0; }
+
+/* "Technical" category variant -- dark panel with light text, so the raw-file/
+   programmatic-access category reads visually distinct from the lookup-tool
+   categories around it. Only .category-toggle-text/.category-side content needs
+   inverting; the white resource-card rows underneath stay as-is (same contrast
+   pattern already used for dark-vs-light authority icons elsewhere on the site). */
+.category.category-technical{ background:var(--bc-blue-dark); }
+.category.category-technical .category-toggle-text h3{ color:#fff; }
+.category.category-technical .category-desc{ color:#CBD5E1; }
+.category.category-technical .section-count{ color:#CBD5E1; }
+.category.category-technical .chevron{ color:#fff; }
+.category.category-technical .type-quicklink{ color:#fff; }
+.category.category-technical .type-quicklink:hover{ color:var(--bc-gold); }
+.category.category-technical .type-label{ color:#CBD5E1; }
+
+@media (max-width: 640px){
+  body{ padding:0; }
+  .resource-card{ flex-direction:column; }
+  .action-col{ width:100%; }
+  .category-header{ flex-direction:column; }
+  .category-side{ width:100%; align-items:flex-start; }
+  .category-typelinks-col{ align-items:flex-start; }
+  .type-quicklink{ text-align:left; }
+}
+
+@media (min-width: 640px){
+  header{ padding:16px 32px; }
+  .header-brand img{ height:44px; }
+  .header-title-block h1{ font-size:18px; }
+  .page-hero{ padding:40px 32px; }
+  main{ padding:40px 24px 60px; }
+  .category-image-wrap{ width:200px; height:110px; }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <a href="index.html"><img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';"></a>
+    <div class="header-title-block">
+      <h1>Vancouver Island Regional Database</h1>
+      <span class="header-tagline">Public Access to Public Data</span>
+    </div>
+  </div>
+  <a class="header-action-badge" href="index.html">HOME</a>
+</header>
+
+<section class="page-hero">
+  <div class="hero-inner">
+    <div class="breadcrumbs"><a href="index.html" class="breadcrumb-link">Home</a> <span>&gt;</span> External Resources</div>
+    <h2>External Resources</h2>
+    <p>A curated set of official records, registries, and research tools for looking into a property, company, or public official mentioned in a document you found elsewhere on this site.</p>
+    <p>Every entry links directly to its primary source, with a plain-language note on what it's useful for, what it costs, and how hard it is to use. Government links change addresses and go dead more often than they should — every entry also includes a backup search link scoped to that same website, so if the direct link breaks, you can search for where the page moved.</p>
+    <p class="hero-note">This database is in its early stages and this list is actively growing. Check back for updates.</p>
+    <p class="hero-modified">Last modified: August 2026</p>
+  </div>
+</section>
+
+<main>
+  <div id="categories-container"></div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-copyright">Vancouver Island Regional Database &bull; Centralized Access to Public Records</p>
+    <p class="footer-disclaimer">
+      <b>Fair Dealing &amp; Copyright:</b> Vancouver Island Regional Database is not affiliated with any government agency. It is an independent, non-commercial research archive ensuring regional compliance with public access laws and citizens' legal right to access open government data. Materials, text extracts, and HTML copies reproduced directly from primary source public records, without commentary or opinion, for the statutory purposes of Research, Criticism, Review, and News Reporting under Section 29 of the Copyright Act (R.S.C., 1985, c. C-42). External resources listed here are independently operated; VIRD is not responsible for their content or availability.
+    </p>
+  </div>
+</footer>
+
+<script>
+
+/* ---------- category metadata ----------
+   Category images aren't a CSV column, so all seven still reuse the same placeholder
+   hero image (ladysmith-vip703.png) until a real one exists per category — swap in a
+   real image whenever you're ready; nothing else needs to change to pick it up. */
+const CATEGORY_META = {
+  'Financial Data': {
+    description: 'Track government contracts, procurement awards, and financial oversight reports for federal and provincial spending.',
+    image: 'assets/thumbnails/thumbnail_financial-data.jpg'
+  },
+  'Professional & Regulatory Records': {
+    description: 'Confirm whether a person or business is licensed, registered, or in good standing with their professional or regulatory body, and look up lobbying activity involving public officials.',
+    image: 'assets/thumbnails/thumbnail_professional-regulatory.jpg'
+  },
+  'Legal Records': {
+    description: 'Search court case records and legislation for British Columbia and Canada.',
+    image: 'assets/thumbnails/thumbnail_legal-records.jpg'
+  },
+  'Land & Property': {
+    description: 'Search property ownership, assessed value, and parcel boundary information for land in British Columbia.',
+    image: 'assets/thumbnails/thumbnail_land-property.jpg'
+  },
+  'Natural Resources & Environment': {
+    description: 'Environmental permitting, compliance, and monitoring records for natural resource activity in British Columbia.',
+    image: 'assets/thumbnails/thumbnail_natural-resources.jpg'
+  },
+  'General Research Resources': {
+    description: 'General-purpose search tools, reference databases, and background reading for research beyond this site\u2019s own records.',
+    image: 'assets/thumbnails/thumbnail_general-research.jpg'
+  },
+  'Companies': {
+    description: 'Confirm a company\u2019s registration status, ownership structure, filings, and licensing across federal, provincial, and industry-specific registries.',
+    image: 'assets/thumbnails/thumbnail_companies.jpg'
+  },
+  'Raw Datasets': {
+    description: 'Bulk downloadable datasets (CSV, XLSX, GIS) pulled directly from government data catalogues, for anyone comfortable working with raw files rather than a search interface.',
+    image: 'assets/thumbnails/thumbnail_raw-datasets.jpg'
+  }
+};
+
+// One object per resource, generated from ext-resources-data.csv. category/subcategory
+// drive the accordion grouping -- add a new row to the CSV, regenerate this array, and it
+// slots into the right place automatically. cost/login/difficulty each carry their own
+// label + color class directly (derived from the CSV's own text) rather than being looked
+// up from a fixed vocabulary, so unusual values (e.g. an unconfirmed login requirement)
+// degrade gracefully instead of needing a special case.
+const RESOURCES = [
+  {
+    "category": "Financial Data",
+    "subcategory": "Contracts & Procurement",
+    "name": "CanadaBuys Procurement & Tenders",
+    "url": "https://canadabuys.canada.ca/en/tender-opportunities",
+    "searchLink": "https://www.google.com/search?q=site%3Acanadabuys.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for seeing which contractors have landed federal work, and for how much.",
+    "description": "Federal procurement contract awards, tender notices, and supplier details.",
+    "note": {
+      "label": "NOTE",
+      "text": "Only covers federal contracts — provincial and municipal contract awards are posted separately."
+    }
+  },
+  {
+    "category": "Financial Data",
+    "subcategory": "Government Financial Oversight",
+    "name": "BC Internal Audit Reports",
+    "url": "https://www2.gov.bc.ca/gov/content/governments/services-for-government/internal-corporate-services/internal-audits/audit-reports",
+    "searchLink": "https://www.google.com/search?q=site%3Awww2.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Reports scattered across dated site nav",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if an independent audit ever flagged the ministry involved.",
+    "description": "British Columbia's internal audit branch reviews how well ministries and government programs manage risk, spending, and operations, then publishes the completed reports here.",
+    "note": null
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "Financial Data",
+    "name": "Open Government Canada: Federal Contracts",
+    "url": "open.canada.ca/.../0032ce54...",
+    "searchLink": "https://www.google.com/search?q=site%3Aopen.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Raw dataset",
+      "note": {
+        "label": "NOTE",
+        "text": "Available as downloadable CSV files (current and historical), plus a JSON schema and XLSX data dictionary.",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful for cross-checking a contractor against every federal contract on record.",
+    "description": "Open dataset detailing proactive disclosure of federal contracts over $10,000.",
+    "note": null
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "General Research Resources",
+    "name": "StatCan Linkable Open Data Environment (LODE)",
+    "url": "https://www.statcan.gc.ca/en/lode/databases",
+    "searchLink": "https://www.google.com/search?q=site%3Astatcan.gc.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Raw dataset",
+      "note": {
+        "label": "NOTE",
+        "text": "Available as downloadable GIS and CSV files across roughly a dozen linked databases (addresses, buildings, infrastructure, and more).",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful for cross-referencing a business or address across federal datasets.",
+    "description": "Combined datasets for buildings, business entities, social infrastructure, and land.",
+    "note": null
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Public Officials",
+    "name": "Office of the Registrar of Lobbyists for British Columbia",
+    "url": "https://www.lobbyistsregistrar.bc.ca/app/secure/orl/lrs/do/guest",
+    "searchLink": "https://www.google.com/search?q=site%3Alobbyistsregistrar.bc.ca",
+    "favicon": "assets/authority-icons/fav_or-lobby_2C2C0E.png",
+    "faviconAlt": "Office of the Registrar of Lobbyists for British Columbia icon",
+    "brandColor": "#2C2C0E",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Legal/lobbying terminology",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding out who's been pressuring local officials, and on whose behalf.",
+    "description": "British Columbia's public registry of lobbyists — who they are, which organizations or clients they represent, and what they've been lobbying provincial public office holders about.",
+    "note": null
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Public Officials",
+    "name": "Registry of Federal Lobbyists",
+    "url": "https://lobbycanada.gc.ca/app/secure/ocl/lrs/do/guest",
+    "searchLink": "https://www.google.com/search?q=site%3Alobbycanada.gc.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Multiple search modes",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for the same thing federally — who's lobbying, and for whom.",
+    "description": "The federal counterpart to BC's lobbyist registry — tracks who is registered to lobby federal officials, on whose behalf, and logs of their recorded communications.",
+    "note": null
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Public Officials",
+    "name": "CivicInfo BC Society",
+    "url": "https://www.civicinfo.bc.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Acivicinfo.bc.ca",
+    "favicon": "assets/authority-icons/fav_civic-info_0A215F.png",
+    "faviconAlt": "CivicInfo BC Society icon",
+    "brandColor": "#0A215F",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Many sub-directories to navigate",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding who actually sits on a council or board, and how to reach them.",
+    "description": "A BC nonprofit that centralizes information on local governments across the province — elected officials, local election results, and directories of municipal and regional district contacts.",
+    "note": {
+      "label": "NOTE",
+      "text": "A community-funded nonprofit, not a government body itself."
+    }
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Industry Standards & Regulatory Oversight",
+    "name": "The BC Notaries Association",
+    "url": "https://snpbc.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Asnpbc.ca",
+    "favicon": "assets/authority-icons/fav_bc-notary-assn_004776.png",
+    "faviconAlt": "The BC Notaries Association icon",
+    "brandColor": "#004776",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming a notary is real before trusting a document they signed.",
+    "description": "The professional body for BC notaries public, operating publicly as “BC Notaries.” Its Roll of Notaries tool lets you confirm whether someone claiming to be a notary is currently licensed and in good standing.",
+    "note": {
+      "label": "NOTE",
+      "text": "Officially the Society of Notaries Public of British Columbia — “BC Notaries” is its public-facing name."
+    }
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Industry Standards & Regulatory Oversight",
+    "name": "Chartered Professional Accountants of British Columbia",
+    "url": "https://www.bccpa.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Abccpa.ca",
+    "favicon": "assets/authority-icons/fav_cpabc_015288.png",
+    "faviconAlt": "Chartered Professional Accountants of British Columbia icon",
+    "brandColor": "#015288",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming an accountant's credentials before trusting their numbers.",
+    "description": "The regulatory and professional body for Chartered Professional Accountants in BC. Its public directory lets you confirm whether someone or a firm is a currently licensed CPA.",
+    "note": null
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Industry Standards & Regulatory Oversight",
+    "name": "BC Financial Services Authority (BCFSA)",
+    "url": "https://www.bcfsa.ca/find-professional-or-organization",
+    "searchLink": "https://www.google.com/search?q=site%3Abcfsa.ca",
+    "favicon": "assets/authority-icons/fav_bcfsa_003A5D.png",
+    "faviconAlt": "BC Financial Services Authority icon",
+    "brandColor": "#003A5D",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking whether a realtor, broker, or credit union is actually licensed.",
+    "description": "BC's regulator for the province's financial services sector, including real estate professionals, mortgage brokers, credit unions, and pension plans. Formed in 2021 when the former Real Estate Council of BC and Office of the Superintendent of Real Estate were folded into it.",
+    "note": null
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Industry Standards & Regulatory Oversight",
+    "name": "Association of British Columbia Land Surveyors",
+    "url": "https://www.abcls.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Aabcls.ca",
+    "favicon": "assets/authority-icons/fav_abcls_292561.png",
+    "faviconAlt": "Association of British Columbia Land Surveyors icon",
+    "brandColor": "#292561",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "Login requirement not confirmed",
+      "color": "grey",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Could not confirm direct search tool",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding a licensed surveyor, or checking one's credentials.",
+    "description": "The professional association and regulatory body for BC land surveyors, who prepare the official plans referenced in property boundary and Crown land records.",
+    "note": {
+      "label": "NOTE",
+      "text": "Could not confirm whether a public surveyor-lookup tool exists on this site — may require contacting the association directly."
+    }
+  },
+  {
+    "category": "Legal Records",
+    "subcategory": "Court Cases",
+    "name": "BC Court Services Online (CSO) - Appeals",
+    "url": "https://justice.gov.bc.ca/cso/esearch/appeal/caseSearch.do",
+    "searchLink": "https://www.google.com/search?q=site%3Ajustice.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": {
+        "label": "NOTE",
+        "text": "Searching the database is free; viewing a file summary costs $6, and documents cost $6 (electronic) or $10 (purchase) each.",
+        "color": "orange"
+      }
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Legal case-number search",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for tracking an appeal tied to a company, contractor, or official.",
+    "description": "Search provincial appellate court records and case statuses.",
+    "note": null
+  },
+  {
+    "category": "Legal Records",
+    "subcategory": "Court Cases",
+    "name": "BC Court Services Online (CSO) - Civil",
+    "url": "https://justice.gov.bc.ca/cso/esearch/civil/partySearch.do",
+    "searchLink": "https://www.google.com/search?q=site%3Ajustice.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": {
+        "label": "NOTE",
+        "text": "Searching the database is free; viewing a file summary and each document costs $6.",
+        "color": "orange"
+      }
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Requires exact party/case details",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding a lawsuit involving a specific person, company, or contractor.",
+    "description": "Search civil court filings by individual or corporate party name.",
+    "note": null
+  },
+  {
+    "category": "Legal Records",
+    "subcategory": "Court Cases",
+    "name": "BC Court Services Online (CSO) - Criminal",
+    "url": "https://justice.gov.bc.ca/cso/esearch/criminal/partySearch.do",
+    "searchLink": "https://www.google.com/search?q=site%3Ajustice.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Party-name search",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if someone involved has a criminal court history.",
+    "description": "Public criminal court appearance index by individual name.",
+    "note": {
+      "label": "NOTE",
+      "text": "Covers Provincial Court criminal and traffic files only — unlike the civil and appeal systems above, searching and viewing here is entirely free."
+    }
+  },
+  {
+    "category": "Legal Records",
+    "subcategory": "Court Cases",
+    "name": "CanLII (Canadian Legal Information Institute)",
+    "url": "https://www.canlii.org/",
+    "searchLink": "https://www.google.com/search?q=site%3Acanlii.org",
+    "favicon": "assets/authority-icons/fav_canlii_BB2219.png",
+    "faviconAlt": "Canadian Legal Information Institute icon",
+    "brandColor": "#BB2219",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for reading the actual ruling once a case or citation turns up elsewhere.",
+    "description": "Open-access database of court decisions and provincial/federal legislation.",
+    "note": null
+  },
+  {
+    "category": "Land & Property",
+    "subcategory": "Details & ID Numbers",
+    "name": "BC Assessment (Property Search)",
+    "url": "https://www.bcassessment.ca/",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_bc-assmt_07819A.png",
+    "faviconAlt": "British Columbia Assessment Authority icon",
+    "brandColor": "#07819A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for pulling a property's PID and value to start tracing ownership.",
+    "description": "Property value estimates, roll numbers, and sales histories across British Columbia for the past 3 years. Results include the property's Parcel Identifier (PID), which is useful for other property research tools.",
+    "note": null
+  },
+  {
+    "category": "Land & Property",
+    "subcategory": "Ownership & Leases",
+    "name": "GATOR — Crown Land Registry",
+    "url": "https://a100.gov.bc.ca/pub/pls/gator/gator$queryforms.menu",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Legacy query system and hard to search cold",
+      "note": {
+        "label": "NOTE",
+        "text": "This system needs specific identifying fields (such as a Crown grant or survey number) to search effectively — it's difficult to browse without prior reference information.",
+        "color": "red"
+      }
+    },
+    "badge": null,
+    "useful": "Useful for tracing Crown land history — grants and tenure back to the 1850s.",
+    "description": "GATOR (Government Access Tool for Online Retrieval) is a British Columbia government online system used to search historical Crown land records, original title documents, and Crown grants dating back to the 1850s. It can be helpful for determining whether land is Crown or privately owned, the parcel status, information about the original historical title and parcel, and finding the location of survey field notes and plans.",
+    "note": {
+      "label": "NOTE",
+      "text": "Private parcel ownership is handled separately through land title offices."
+    }
+  },
+  {
+    "category": "Land & Property",
+    "subcategory": "Ownership & Leases",
+    "name": "Land Owner Transparency Registry (LOTR)",
+    "url": "https://apps.ltsa.ca/lotr-search-ui/public-search/search",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_ltsa_282B67.png",
+    "faviconAlt": "Land Title and Survey Authority of British Columbia icon",
+    "brandColor": "#282B67",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "Account required",
+      "color": "dk-purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Easy to use, but requires exact name or PID to search",
+      "note": {
+        "label": "TIP",
+        "text": "Use BC Assessment or Parcelmap to find the Parcel Identification Number (PID)",
+        "color": "orange"
+      }
+    },
+    "badge": null,
+    "useful": "Useful for finding who's really behind a property held by a numbered company.",
+    "description": "Search British Columbia's Land Owner Transparency Registry by person name or parcel identifier to see beneficial (behind-the-scenes) interest holders in a property.",
+    "note": null
+  },
+  {
+    "category": "Land & Property",
+    "subcategory": "Ownership & Leases",
+    "name": "Land Title and Survey Authority (LTSA)",
+    "url": "https://ltsa.ca/",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_ltsa_282B67.png",
+    "faviconAlt": "Land Title and Survey Authority of British Columbia icon",
+    "brandColor": "#282B67",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "Account required",
+      "color": "dk-purple",
+      "note": {
+        "label": "NOTE",
+        "text": "Free to search, but requires a free LTSA account to log in.",
+        "color": "dk-purple"
+      }
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for pulling the official title record once you need it in writing.",
+    "description": "The Land Title and Survey Authority's public portal. A free account gives access to the Land Owner Transparency Registry and ParcelMap BC searches; ordering full property detail products, such as a title search, carries a per-document fee.",
+    "note": {
+      "label": "NOTE",
+      "text": "Available roughly 6 AM–11 PM Monday to Saturday; unavailable overnight and all day Sunday for data updates and maintenance."
+    }
+  },
+  {
+    "category": "Land & Property",
+    "subcategory": "Details & ID Numbers",
+    "name": "Realtor.ca (MLS Listings)",
+    "url": "https://www.realtor.ca/",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_realtor-ca_D0191E.png",
+    "faviconAlt": "Realtor.ca icon",
+    "brandColor": "#D0191E",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "Account required",
+      "color": "dk-purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for pulling an MLS number to cross-reference a listing elsewhere.",
+    "description": "Canada's national multiple listing service search for homes currently for sale.",
+    "note": null
+  },
+  {
+    "category": "Land & Property",
+    "subcategory": "Details & ID Numbers",
+    "name": "ParcelMap BC",
+    "url": "https://parcelmapbc.ltsa.ca/pmsspub/",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_ltsa_282B67.png",
+    "faviconAlt": "Land Title and Survey Authority of British Columbia icon",
+    "brandColor": "#282B67",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Dated interface",
+      "note": null
+    },
+    "badge": "Map",
+    "useful": "Useful for viewing a parcel's actual boundaries, not just its address.",
+    "description": "LTSA's public web map of British Columbia's cadastral (property parcel boundary) data. Search using a Parcel Identifier (PID).",
+    "note": null
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "Land & Property",
+    "name": "Open Government Canada: Federal Real Property",
+    "url": "open.canada.ca/.../d8f85d91...",
+    "searchLink": "https://www.google.com/search?q=site%3Aopen.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Raw dataset",
+      "note": {
+        "label": "NOTE",
+        "text": "Available as an XML dataset with an HTML browsing interface, plus data dictionaries (English/French).",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful for checking whether the feds own or lease property in the area.",
+    "description": "Directory dataset tracking federally owned, leased, or managed real estate assets.",
+    "note": null
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "Natural Resources & Environment",
+    "name": "BC Data Catalogue: Enmods Map Dataset",
+    "url": "https://catalogue.data.gov.bc.ca/dataset/environmental-monitoring-data-system-enmods-spatial-sampling-locations",
+    "searchLink": "https://www.google.com/search?q=site%3Acatalogue.data.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Raw dataset",
+      "note": {
+        "label": "NOTE",
+        "text": "Available as a GIS spatial dataset (shapefile/geodatabase) via the BC Data Catalogue.",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful for raw boundary data on monitoring sites — technical, not a lookup.",
+    "description": "Spatial fabric dataset containing parcel geometry and boundary attributes.",
+    "note": null
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Environmental Information & Records",
+    "name": "StatCan Human Activity & Environment (2021)",
+    "url": "https://www150.statcan.gc.ca/n1/pub/16-201-x/16-201-x2021001-eng.htm",
+    "searchLink": "https://www.google.com/search?q=site%3Awww150.statcan.gc.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Dense statistical report",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for national context when weighing a local environmental claim.",
+    "description": "Analytical statistical publication on environmental and economic relationships.",
+    "note": {
+      "label": "NOTE",
+      "text": "StatCan's “Human Activity and the Environment” series is published irregularly — 2021 is the most recent edition as of this review."
+    }
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Natural Resource Data",
+    "name": "iMapBC",
+    "url": "https://maps.gov.bc.ca/ess/hm/imap4m/",
+    "searchLink": "https://www.google.com/search?q=site%3Amaps.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Dated interface",
+      "note": null
+    },
+    "badge": "Map",
+    "useful": "USEFUL FOR CROWN LAND, RESOURCE TENURE & ENVIRONMENTAL LAYERS",
+    "description": "The Province's general-purpose interactive mapping tool for provincial spatial data layers, including Crown land, resource tenures, and environmental data.",
+    "note": {
+      "label": "NOTE",
+      "text": "This tool also covers environmental and resource-tenure layers beyond property boundaries — worth checking here if an Environmental-category search doesn't turn up what you need."
+    }
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Environmental Regulation & Oversight",
+    "name": "Authorization Management System (AMS)",
+    "url": "https://j200.gov.bc.ca/pub/ams",
+    "searchLink": "https://www.google.com/search?q=site%3Aj200.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Business-name search, dated portal",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking a facility's actual waste discharge permit and limits.",
+    "description": "The British Columbia Ministry of Environment and Parks Authorization Management System (AMS) stores all documentation for waste discharge authorizations including waste discharge permits, approvals, and operational requirements regarding air contaminants, effluent, and waste.",
+    "note": {
+      "label": "TIP",
+      "text": "Enter the company name, individual's name or 'doing business as' name in the 'Applicant' field. Use a % in front of your search term for more results."
+    }
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Environmental Regulation & Oversight",
+    "name": "DFO Fisheries Notices System (FNS)",
+    "url": "https://notices.dfo-mpo.gc.ca/fns-sap/index-eng.cfm",
+    "searchLink": "https://www.google.com/search?q=site%3Anotices.dfo-mpo.gc.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming a fishery opening or closure on a specific date.",
+    "description": "Fisheries and Oceans Canada operational, catch, and opening/closing notices.",
+    "note": null
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Environmental Information & Records",
+    "name": "BC Environment & Climate Change Portal",
+    "url": "https://www2.gov.bc.ca/gov/content/environment",
+    "searchLink": "https://www.google.com/search?q=site%3Awww2.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful as a starting point when you don't know which environmental record you need.",
+    "description": "Main provincial directory for environmental programs, permits, and reporting.",
+    "note": null
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Environmental Information & Records",
+    "name": "EcoCat (Ecological Reports Catalogue)",
+    "url": "https://a100.gov.bc.ca/pub/acat/public/welcome.do",
+    "searchLink": "https://www.google.com/search?q=site%3Aa100.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Dated interface, legacy map tool",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding the ecological assessment filed for a specific project.",
+    "description": "British Columbia's catalogue of ecological assessment reports, environmental studies, and related technical documents — publicly known as EcoCat, though the system's web address still uses its older “ACAT” abbreviation.",
+    "note": null
+  },
+  {
+    "category": "Natural Resources & Environment",
+    "subcategory": "Natural Resource Data",
+    "name": "NRCED (Natural Resource Compliance & Enforcement Database)",
+    "url": "https://nrced.gov.bc.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Anrced.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Searchable but sparse guidance",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if a company's been cited for violations while officials say it's compliant.",
+    "description": "British Columbia's Natural Resource Compliance and Enforcement Database (NRCED) — tracks inspections, violations, and enforcement actions tied to natural resource laws (forestry, mining, environmental, and more), rather than functioning as a general open-data search tool.",
+    "note": null
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "Natural Resources & Environment",
+    "name": "BC Data Catalogue: Dangerous Goods Incident Reports (DGIR)",
+    "url": "https://catalogue.data.gov.bc.ca/dataset/47ab5a8b-d01d-4b34-bd94-34526cc0db01",
+    "searchLink": "https://www.google.com/search?q=site%3Acatalogue.data.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Raw dataset, very large files",
+      "note": {
+        "label": "NOTE",
+        "text": "Available as CSV and XLSX — these files are very large, so expect to need spreadsheet software rather than browsing on a phone or tablet.",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful for bulk spill/incident data — heavy files, not something you browse.",
+    "description": "British Columbia's public record of reported dangerous goods incidents and hazardous material spills, as raw CSV/XLSX data files rather than a browsable list.",
+    "note": null
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Catalogues of Research Databases",
+    "name": "Open Source Intelligence Resources in Canada",
+    "url": "https://start.me/p/aLe0vp/osint-resources-in-canada",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_start-me_2A81AF.png",
+    "faviconAlt": "OSINT Techniques Start.me icon",
+    "brandColor": "#2A81AF",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "USEFUL FOR OSINT RESEARCH AND FINDING PUBLICLY AVAILABLE INFORMATION SOURCES",
+    "description": "An independently maintained list of useful links to publicly available information in Canada.",
+    "note": {
+      "label": "NOTE",
+      "text": "Open-Source Intelligence (OSINT) refers to using legal, unclassified information to answer specific questions or make decisions."
+    }
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Catalogues of Research Databases",
+    "name": "UBC Library Open Collections",
+    "url": "https://open.library.ubc.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Aopen.library.ubc.ca",
+    "favicon": "assets/authority-icons/fav_ubc_002145.png",
+    "faviconAlt": "UBC Library Open Collections icon",
+    "brandColor": "#002145",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Large archive, faceted search",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for old photos or documents that give a site or issue some history.",
+    "description": "UBC Library's platform for searching digitized archival material — historical photographs, newspapers, maps, and documents from BC and beyond.",
+    "note": null
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Catalogues of Research Databases",
+    "name": "Vancouver Island Regional Library Research Databases",
+    "url": "https://virl.bc.ca/learn/research/databases/",
+    "searchLink": "https://www.google.com/search?q=site%3Avirl.bc.ca",
+    "favicon": "assets/authority-icons/fav_virl_0275C8.png",
+    "faviconAlt": "Vancouver Island Regional Library icon",
+    "brandColor": "#0275C8",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": {
+        "label": "NOTE",
+        "text": "Some individual databases linked from this page require a VIRL library card; this landing page itself does not.",
+        "color": "purple"
+      }
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for Local history & General reference",
+    "description": "Vancouver Island Regional Library's catalogue offering regional history, news archives, and databases.",
+    "note": null
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Catalogues of Research Databases",
+    "name": "Open Government Portal (FOI Requests)",
+    "url": "https://open.canada.ca/en/search/ati",
+    "searchLink": "https://www.google.com/search?q=site%3Aopen.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Summaries only, not full documents",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for seeing what others have already gotten released through FOI.",
+    "description": "Database of completed Access to Information (ATI/FOI) request summaries",
+    "note": {
+      "label": "TIP",
+      "text": "Search by department or keyword; if a similar request has already been completed, you may be able to request the same released records directly instead of filing a fresh ATI request."
+    }
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Useful Search Engines",
+    "name": "DuckDuckGo",
+    "url": "https://duckduckgo.com/",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_duck-d-go_F05F2B.png",
+    "faviconAlt": "DuckDuckGo icon",
+    "brandColor": "#F05F2B",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "ALTERNATIVE TO GOOGLE; USEFUL FOR FINDING SPECIFIC OR SCARCE INFORMATION",
+    "description": "Google has recently begun unindexing less popular pages, affecting hyper-local content from smaller communities and returning fewer exact-match results for specific search terms. DuckDuckGo can surface pages that no longer appear in Google's results, which is useful when you're searching for an exact term rather than what an algorithm predicts you meant.",
+    "note": null
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Useful Search Engines",
+    "name": "Google Advanced Search",
+    "url": "https://www.google.ca/advanced_search",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_google.png",
+    "faviconAlt": "Google icon",
+    "brandColor": null,
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "USEFUL FOR REFINING SEARCHES WITH ADVANCED FILTERS AND OPERATORS",
+    "description": "Google's advanced search tool allows more customization in searching, such as words and phrases to include or exclude, searching only within specific websites, date ranges, and even file type.",
+    "note": {
+      "label": "TIP",
+      "text": "Another way to get better results from Google is after you have entered your search, click <b>Tools > All Results > Verbatim</b>. Though not always obeyed, this should help to stop the algorithm from overriding your search terms with generic content."
+    }
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Useful Search Engines",
+    "name": "OSINT Inception Google CSE (Custom Search Engine)",
+    "url": "https://cse.google.com/cse?cx=443e96712f6754517",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_osint-tactical.png",
+    "faviconAlt": "OSINT Tactical icon",
+    "brandColor": null,
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "USEFUL FOR FINDING OPEN SOURCE RESEARCH TOOLS",
+    "description": "A Google Custom Search Engine scoped to a curated list of OSINT (open-source intelligence) tools and resources, instead of the open web — narrower and more targeted than a regular Google search when you're specifically hunting for a research tool rather than an answer.",
+    "note": null
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Useful Search Engines",
+    "name": "PDF Drive",
+    "url": "https://www.pdfdrive.com/",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_pdf-dr_656363.png",
+    "faviconAlt": "PDF Drive icon",
+    "brandColor": "#656363",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "USEFUL FOR FINDING A TERM BURIED INSIDE A REPORT, NOT JUST A WEBPAGE",
+    "description": "A search engine that indexes the contents of PDF documents specifically, rather than webpages — useful when the information you need is buried inside a report, filing, or scanned document rather than sitting on a regular web page.",
+    "note": null
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Contextual Information for Researchers",
+    "name": "Canadian Centre for Cyber Security: National Cyber Threat Assessment",
+    "url": "https://www.canada.ca/en/communications-security/centre-cybersecurity/search.html#q=national-cyber-threat-assessment",
+    "searchLink": null,
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Easy, but dense to navigate",
+      "note": null
+    },
+    "badge": null,
+    "useful": "UNDERSTAND SOURCES OF MISINFORMATION ONLINE",
+    "description": "This official report from the Federal government outlines how external state-sponsored campaigns use misinformation tools such as AI and paid actor accounts to influence Canadian public opinion, restricting access to accurate data and encouraging dissent.",
+    "note": {
+      "label": "TIP",
+      "text": "Choose the most recent report from the pre-filled search for up-to-date information."
+    }
+  },
+  {
+    "category": "General Research Resources",
+    "subcategory": "Contextual Information for Researchers",
+    "name": "Commission of Inquiry into Money Laundering in British Columbia",
+    "url": "https://cullencommission.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Acullencommission.ca",
+    "favicon": "assets/authority-icons/fav_cullen-c_003366.png",
+    "faviconAlt": "Commission of Inquiry into Money Laundering in British Columbia icon",
+    "brandColor": "#003366",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Large volume of exhibits/transcripts",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for background on how money laundering shaped BC real estate and casinos.",
+    "description": "The archived public record of the Cullen Commission, a BC public inquiry into money laundering that concluded in 2022 — hearing transcripts, exhibits, and the final report.",
+    "note": {
+      "label": "NOTE",
+      "text": "This site is archival and no longer updated by the province — treat it as a historical record rather than a current government resource."
+    }
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "General Research Resources",
+    "name": "GitHub: BC Government bcdata R Package",
+    "url": "https://github.com/bcgov/bcdata",
+    "searchLink": "https://www.google.com/search?q=site%3Agithub.com%2Fbcgov%2Fbcdata",
+    "favicon": "assets/authority-icons/fav_git_0F1511.png",
+    "faviconAlt": "GitHub, Inc. icon",
+    "brandColor": "#0F1511",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Requires R programming knowledge",
+      "note": {
+        "label": "NOTE",
+        "text": "This is a programming package, not a dataset or webpage — requires basic R knowledge to use.",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful only if you know R and want to pull BC data programmatically.",
+    "description": "Official R library package for programmatic querying of the BC Data Catalogue.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Regulatory & Compliance",
+    "name": "British Columbia Securities Commission",
+    "url": "https://www.bcsc.bc.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Abcsc.bc.ca",
+    "favicon": "assets/authority-icons/fav_bcsc_0D2B47.png",
+    "faviconAlt": "British Columbia Securities Commission icon",
+    "brandColor": "#0D2B47",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Search spans multiple related tools",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if someone selling investments is actually registered.",
+    "description": "BC's regulator for the securities industry — investigates and enforces against securities fraud, and, through a tool shared with other provinces, lets you check whether a person or firm is registered to sell securities or give investment advice in BC.",
+    "note": {
+      "label": "NOTE",
+      "text": "The registrant-search tool is hosted by the Canadian Securities Administrators (a related but separate body), not on BCSC's own site."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "OpenCorporates",
+    "url": "https://opencorporates.com/",
+    "searchLink": "https://www.google.com/search?q=site%3Aopencorporates.com",
+    "favicon": "assets/authority-icons/fav_open-corp_9F1F34.png",
+    "faviconAlt": "OpenCorporates icon",
+    "brandColor": "#9F1F34",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Built for jurisdiction/legal-entity search",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for tracing a company's officers and its related entities elsewhere.",
+    "description": "Global database of corporate entities and corporate officer networks.",
+    "note": {
+      "label": "NOTE",
+      "text": "Basic search is free; bulk data and API access require a paid plan."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Public Issuer Filings and Disclosure Documents",
+    "name": "SEDAR+ (System for Electronic Document Analysis)",
+    "url": "https://www.sedarplus.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Asedarplus.ca",
+    "favicon": "assets/authority-icons/fav_sedar_0277BF.png",
+    "faviconAlt": "SEDAR+ icon",
+    "brandColor": "#0277BF",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Frequent bot-verification interstitials",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for reading a public company's own filings, in their own words.",
+    "description": "Official portal for Canadian public company filings, financial statements, and prospectuses.",
+    "note": {
+      "label": "NOTE",
+      "text": "The site sometimes shows a bot-check page before loading — a known quirk, not a sign of a broken or unsafe link."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Regulatory & Compliance",
+    "name": "British Columbia Housing Management Commission",
+    "url": "https://www.bchousing.org/",
+    "searchLink": "https://www.google.com/search?q=site%3Abchousing.org",
+    "favicon": "assets/authority-icons/fav_bc-housing_016265.png",
+    "faviconAlt": "British Columbia Housing Management Commission icon",
+    "brandColor": "#016265",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful as a starting point for BC's subsidized housing programs.",
+    "description": "British Columbia's Crown agency for affordable and social housing — administers subsidized housing programs and tenant assistance, and oversees subsidiary systems like new-home builder licensing.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Regulatory & Compliance",
+    "name": "BC New Homes Registry",
+    "url": "https://newhomesregistry.bchousing.org/LicenceRegistry/LicenceSearch/",
+    "searchLink": "https://www.google.com/search?q=site%3Anewhomesregistry.bchousing.org",
+    "favicon": "assets/authority-icons/fav_bc-housing_016265.png",
+    "faviconAlt": "British Columbia Housing Management Commission icon",
+    "brandColor": "#016265",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if a builder is licensed and a home is warranty-covered.",
+    "description": "Verify builder licenses and home warranty coverage details.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Regulatory & Compliance",
+    "name": "Workers' Compensation Board",
+    "url": "https://www.worksafebc.com/en",
+    "searchLink": "https://www.google.com/search?q=site%3Aworksafebc.com",
+    "favicon": "assets/authority-icons/fav_worksafe-bc_6399AE.png",
+    "faviconAlt": "Workers' Compensation Board icon",
+    "brandColor": "#6399AE",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for background on a company's workplace safety record.",
+    "description": "WorkSafeBC (legally the Workers' Compensation Board of British Columbia) administers workplace injury insurance and enforces workplace health and safety rules for BC employers.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Regulatory & Compliance",
+    "name": "WorkSafeBC Clearance Letter System",
+    "url": "https://asmtclr.online.worksafebc.com/search.aspx",
+    "searchLink": "https://www.google.com/search?q=site%3Aasmtclr.online.worksafebc.com",
+    "favicon": "assets/authority-icons/fav_worksafe-bc_6399AE.png",
+    "faviconAlt": "Workers' Compensation Board icon",
+    "brandColor": "#6399AE",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Dated subdomain interface",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if a contractor is actually covered before they're hired.",
+    "description": "Verify contractor WorkSafeBC coverage status and standing via account/portal.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Charity Details",
+    "name": "CharityData.ca",
+    "url": "https://www.charitydata.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Acharitydata.ca",
+    "favicon": "assets/authority-icons/fav_charity-d_095586.png",
+    "faviconAlt": "CharityData.ca icon",
+    "brandColor": "#095586",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for a fast read on a charity's revenue, spending, and staffing.",
+    "description": "Visualized financial historical trends parsed from CRA charity filings.",
+    "note": {
+      "label": "NOTE",
+      "text": "Independently run (not a government site) — rebuilds official CRA charity filing data into an easier-to-read format; cross-check anything important against the CRA's own search below."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Charity Details",
+    "name": "CRA Charities Detail Search",
+    "url": "https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyBscSrch?request_locale=en",
+    "searchLink": "https://www.google.com/search?q=site%3Acra-arc.gc.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Dated government search UI",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming a charity's registration and filings straight from CRA.",
+    "description": "CRA T3010 filings, executive compensation, and charity tax status.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "BC Historical Corporate Records Request",
+    "url": "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/permits-licences/businesses-incorporated-companies/searches-certificates",
+    "searchLink": "https://www.google.com/search?q=site%3Awww2.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Manual request, not self-serve search",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful when a company's too old or too dissolved for the live registry.",
+    "description": "BC Registries' process for requesting archived or historical corporate records — for example, certified copies of an old incorporation document, or records for a company dissolved before the current online registry existed. This is not a self-serve search: staff manually pull the file after you submit a request.",
+    "note": {
+      "label": "NOTE",
+      "text": "Basic inquiries don't need an account; some request paths require a BC OnLine account (has its own signup fee)."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "Corporations Canada Online Search",
+    "url": "https://ised-isde.canada.ca/cc/lgcy/fdrlCrpSrch.html",
+    "searchLink": "https://www.google.com/search?q=site%3Aised-isde.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming who's actually listed as a federal company's director.",
+    "description": "Corporations Canada's official federal corporation search — confirms whether a corporation was created under federal law, and its current status, directors, and filing history. Includes dissolved and inactive corporations via the status filter.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "Canada Company Registry",
+    "url": "https://www.canadacompanyregistry.com/Company-Search/",
+    "searchLink": "https://www.google.com/search?q=site%3Acanadacompanyregistry.com",
+    "favicon": "assets/authority-icons/fav_ccr_304A7F.png",
+    "faviconAlt": "Canada Company Registry icon",
+    "brandColor": "#304A7F",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "Account required for full reports",
+      "color": "dk-purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Commercial site with upsells",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for a quick lookup — not solid enough to cite as a primary source.",
+    "description": "A privately run commercial site (not a government registry) that repackages Corporations Canada's public data into a searchable directory, with paid add-on reports.",
+    "note": {
+      "label": "NOTE",
+      "text": "Not an official government site — cross-check anything important against Corporations Canada's official search or open-data listing above."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "OrgBook BC",
+    "url": "https://orgbook.gov.bc.ca/",
+    "searchLink": "https://www.google.com/search?q=site%3Aorgbook.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Verifiable-credentials concept unfamiliar",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for pulling a BC company's core registry details in one place.",
+    "description": "Verifiable digital credentials and registry records for BC-registered companies.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "BC Registries: Business and Person Search",
+    "url": "https://www.bcregistry.gov.bc.ca/en-CA#bc-registries-account",
+    "searchLink": "https://www.google.com/search?q=site%3Abcregistry.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "Account required",
+      "color": "dk-purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Two similarly named BC Registry systems can cause confusion",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding who's behind a BC company, once you have an account.",
+    "description": "BC Registries' current search tool for incorporated companies, benefit companies, cooperative associations, sole proprietorships, and general partnerships, including the people and roles associated with each business.",
+    "note": {
+      "label": "NOTE",
+      "text": "Sole proprietorship and general partnership records are within this tool's stated scope, but a search may still come up empty — BC OnLine is a secondary option if this tool doesn't return what you're looking for."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Business Licenses & Registrations",
+    "name": "ISED Broadcasting and Telecom Search",
+    "url": "https://ised-isde.canada.ca/site/spectrum-management-system/en/search-sms-data",
+    "searchLink": "https://www.google.com/search?q=site%3Aised-isde.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Multiple sub-tools, domain knowledge helps",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for finding who holds a broadcast or telecom license in the area.",
+    "description": "Federal database of radio frequency, telecom, and broadcasting licenses.",
+    "note": null
+  },
+  {
+    "category": "Raw Datasets",
+    "subcategory": "Companies",
+    "name": "Open Government Canada: Federal Corporations",
+    "url": "https://open.canada.ca/data/en/dataset/0032ce54-c5dd-4b66-99a0-320a7b5e99f2",
+    "searchLink": "https://www.google.com/search?q=site%3Aopen.canada.ca",
+    "favicon": "assets/authority-icons/fav_gov-ca_26374A.png",
+    "faviconAlt": "Government of Canada icon",
+    "brandColor": "#26374A",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Raw dataset",
+      "note": {
+        "label": "NOTE",
+        "text": "Available as 8 separate CSV files (active/inactive, English/French), updated daily under the Open Government Licence – Canada.",
+        "color": "red"
+      }
+    },
+    "badge": "Technical",
+    "useful": "Useful for cross-referencing company names in bulk, not one at a time.",
+    "description": "The federal government's open dataset of all federal corporations — active, inactive, and dissolved — as CSV files, updated daily. This is a bulk download, not a one-at-a-time search tool.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Business Licenses & Registrations",
+    "name": "USPTO Patent & Trademark Assignment Center",
+    "url": "https://assignmentcenter.uspto.gov/",
+    "searchLink": "https://www.google.com/search?q=site%3Aassignmentcenter.uspto.gov",
+    "favicon": "assets/authority-icons/fav_uspto_162E51.png",
+    "faviconAlt": "United States Patent and Trademark Office icon",
+    "brandColor": "#162E51",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Separate patent/trademark search modes",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for tracing a US trademark or patent through its ownership history.",
+    "description": "US trademark ownership history and chain-of-title assignments.",
+    "note": {
+      "label": "NOTE",
+      "text": "A US federal resource, included for cross-border ownership research — not a Canadian registry."
+    }
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "ICIJ Offshore Leaks Database",
+    "url": "https://offshoreleaks.icij.org/",
+    "searchLink": "https://www.google.com/search?q=site%3Aoffshoreleaks.icij.org",
+    "favicon": "assets/authority-icons/fav_offshore-leaks-icij_1E1E1E.png",
+    "faviconAlt": "ICIJ Offshore Leaks Database icon",
+    "brandColor": "#1E1E1E",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for checking if a name or company turns up in the Panama or Pandora Papers.",
+    "description": "Database of off-shore entities, Pandora/Panama Papers records, and beneficial owners.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "BC OnLine",
+    "url": "https://www.bconline.gov.bc.ca/main.html",
+    "searchLink": "https://www.google.com/search?q=site%3Abconline.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$$ Some Fees",
+      "color": "orange",
+      "note": null
+    },
+    "login": {
+      "label": "Account required",
+      "color": "dk-purple",
+      "note": {
+        "label": "NOTE",
+        "text": "Signing up requires mailing or faxing paper forms (including a void cheque) with a $100 minimum opening deposit — there's no self-serve online signup.",
+        "color": "dk-purple"
+      }
+    },
+    "difficulty": {
+      "label": "● ○ ○ Difficult to use",
+      "color": "red",
+      "description": "Dated legacy interface; mail-in account setup",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for sole proprietor or partnership records the newer registry search can't find.",
+    "description": "BC's legacy registry search and filing system, predating BC Registries and Online Services. Despite an ongoing migration to the newer platform, BC OnLine remains the only current way to access some records — including sole proprietorship and general partnership filings — that the newer Business and Person Search doesn't yet reliably surface.",
+    "note": {
+      "label": "NOTE",
+      "text": "Available roughly 6 AM–10 PM Monday to Saturday; unavailable overnight, and Sunday access isn't guaranteed."
+    }
+  },
+  {
+    "category": "Professional & Regulatory Records",
+    "subcategory": "Industry Standards & Regulatory Oversight",
+    "name": "BC Teacher Regulation Branch",
+    "url": "https://teacherregulation.gov.bc.ca/CertificateServices/FindATeacher.aspx",
+    "searchLink": "https://www.google.com/search?q=site%3Ateacherregulation.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ● Easy to Use",
+      "color": "green",
+      "description": null,
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming a person's teaching certification and checking for disciplinary action.",
+    "description": "The Province's regulatory branch for the K-12 teaching profession in British Columbia. Its public certificate search lets you confirm whether someone holds a valid teaching certificate and check for any disciplinary history.",
+    "note": null
+  },
+  {
+    "category": "Companies",
+    "subcategory": "Corporate Registration, Ownership & Relationships",
+    "name": "Corporate Registry Notices | BC Laws",
+    "url": "https://www.bclaws.gov.bc.ca/civix/content/corpreg/corpreg/?xsl=/templates/browse.xsl",
+    "searchLink": "https://www.google.com/search?q=site%3Awww.bclaws.gov.bc.ca",
+    "favicon": "assets/authority-icons/fav_bc-ca_1A5A96.png",
+    "faviconAlt": "Province of British Columbia icon",
+    "brandColor": "#1A5A96",
+    "cost": {
+      "label": "$ Free",
+      "color": "green",
+      "note": null
+    },
+    "login": {
+      "label": "No login required",
+      "color": "purple",
+      "note": null
+    },
+    "difficulty": {
+      "label": "● ● ○ Moderate Difficulty",
+      "color": "orange",
+      "description": "Dated government interface, browse-only",
+      "note": null
+    },
+    "badge": null,
+    "useful": "Useful for confirming a company was formally dissolved, restored, or renamed, and when.",
+    "description": "BC Laws' statutory listing of corporate registry notices — including dissolutions, restorations, and name changes — published as required under provincial corporate legislation.",
+    "note": null
+  }
+]
+;
+
+function escapeHtml(str){
+  return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+// Same as escapeHtml, but leaves a literal <b>/</b> pair in source text as real bold
+// markup instead of escaping it to visible angle brackets. Everything else -- any other
+// tag, any stray < or > -- stays fully escaped, so this can't open up any other HTML.
+function escapeHtmlAllowBold(str){
+  return escapeHtml(str).replace(/&lt;b&gt;/g, '<b>').replace(/&lt;\/b&gt;/g, '</b>');
+}
+function slugify(str){
+  return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+function renderPill(colorClass, label){
+  return `<div class="pill ${colorClass}">${escapeHtml(label)}</div>`;
+}
+function renderDifficulty(diff){
+  const descriptionHtml = diff.description
+    ? `<div class="difficulty-description">${escapeHtml(diff.description)}</div>`
+    : '';
+  // Starred the same way login/cost pills are: a trailing * whenever this field has a
+  // matching colored note below, so the star->note link is consistent across all three.
+  const label = diff.label + (diff.note ? '*' : '');
+  return `<div class="difficulty-card ${diff.color}">
+    <div class="difficulty-title">${escapeHtml(label)}</div>
+    ${descriptionHtml}
+  </div>`;
+}
+function renderBadge(badge){
+  if (!badge) return '';
+  if (badge === 'Technical') return `<span class="badge-technical">\u26a0 Technical</span>`;
+  return `<span class="badge-map">Map</span>`;
+}
+function renderCard(r){
+  // Neutral/grey note (plain NOTE or TIP, no color -- r.note) always sits first, above
+  // the colored field-specific notes. Among those, order follows the same hierarchy as
+  // the action-col pills below: login, then cost, then difficulty.
+  const notes = [];
+  if (r.note) notes.push({ color: '', marker: '', label: r.note.label || 'NOTE', text: r.note.text });
+  if (r.login.note) notes.push({ color: r.login.note.color, marker: '*', label: r.login.note.label, text: r.login.note.text });
+  if (r.cost.note) notes.push({ color: r.cost.note.color, marker: '*', label: r.cost.note.label, text: r.cost.note.text });
+  if (r.difficulty.note) notes.push({ color: r.difficulty.note.color, marker: '*', label: r.difficulty.note.label, text: r.difficulty.note.text });
+
+  const cardBrandStyle = r.brandColor ? ` style="--card-brand:${escapeHtml(r.brandColor)}; --card-brand-text:#fff;"` : '';
+  const notesHtml = notes.map(n =>
+    `<div class="note ${n.color}"><strong>${n.marker}${n.label}:</strong> ${escapeHtmlAllowBold(n.text)}</div>`
+  ).join('');
+  const subtitleHtml = r.useful ? `<div class="card-subtitle">${escapeHtml(r.useful)}</div>` : '';
+  const searchHtml = r.searchLink
+    ? `<a class="search" href="${escapeHtml(r.searchLink)}" target="_blank" rel="noopener noreferrer">Link broken? Search here</a>`
+    : `<a class="search" href="#">Link broken? Search here</a>`;
+  const costLabel = r.cost.label + (r.cost.note ? '*' : '');
+  const loginLabel = r.login.label + (r.login.note ? '*' : '');
+
+  return `
+    <div class="resource-card"${cardBrandStyle}>
+      <div class="card-main">
+        <div class="card-title">
+          ${renderBadge(r.badge)}
+          ${r.favicon ? `<img src="${escapeHtml(r.favicon)}" alt="${escapeHtml(r.faviconAlt || '')}">` : ''}
+          <h2>${escapeHtml(r.name)}</h2>
+          ${searchHtml}
+        </div>
+        ${subtitleHtml}
+        <div class="description">${escapeHtml(r.description)}</div>
+        ${notesHtml}
+      </div>
+      <div class="action-col">
+        <a class="link-button" href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer">
+          ${r.favicon ? `<img class="link-button-icon" src="${escapeHtml(r.favicon)}" alt="">` : ''}
+          View Website \u2192
+        </a>
+        <div class="action-stack">
+          ${renderPill(r.login.color, loginLabel)}
+          ${renderPill(r.cost.color, costLabel)}
+          <div>${renderDifficulty(r.difficulty)}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// Page-level display order for categories -- independent of CSV row order, so re-sorting
+// the sheet doesn't reshuffle the page. Any category not listed here falls in afterward,
+// in whatever order it was first seen (safety net for a new CSV category showing up
+// before this list is updated to include it).
+const CATEGORY_ORDER = [
+  'General Research Resources',
+  'Land & Property',
+  'Companies',
+  'Natural Resources & Environment',
+  'Financial Data',
+  'Legal Records',
+  'Professional & Regulatory Records',
+  'Raw Datasets'
+];
+
+// Group RESOURCES into category -> subcategory -> [resources], preserving first-seen order.
+function groupResources(){
+  const categories = new Map();
+  for (const r of RESOURCES){
+    if (!categories.has(r.category)) categories.set(r.category, new Map());
+    const subs = categories.get(r.category);
+    if (!subs.has(r.subcategory)) subs.set(r.subcategory, []);
+    subs.get(r.subcategory).push(r);
+  }
+  return categories;
+}
+
+function renderCategory(categoryName, subcatMap, catIndex){
+  const meta = CATEGORY_META[categoryName] || { description: '', image: '' };
+  const bodyId = `cat-${catIndex}-body`;
+  const total = [...subcatMap.values()].reduce((n, arr) => n + arr.length, 0);
+
+  const quicklinks = [...subcatMap.keys()].map((sub, i) =>
+    `<button type="button" class="type-quicklink" onclick="jumpToSub('${bodyId}','sub-${catIndex}-${i}')">${escapeHtml(sub)}</button>`
+  ).join('');
+
+  const sections = [...subcatMap.entries()].map(([sub, resources], i) => {
+    const cardsHtml = resources.map((r, ri) =>
+      `<div class="card-group">${renderCard(r)}</div>`
+    ).join('');
+    return `
+      <div class="type-section" id="sub-${catIndex}-${i}">
+        <div class="type-label">${escapeHtml(sub)}</div>
+        ${cardsHtml}
+      </div>`;
+  }).join('');
+
+  const isTechnical = categoryName === 'Raw Datasets';
+  return `
+    <div class="category${isTechnical ? ' category-technical' : ''}">
+      <div class="category-header">
+        <button type="button" class="category-toggle" aria-expanded="false" aria-controls="${bodyId}" onclick="toggleCategory(this)">
+          <span class="category-image-wrap${meta.overlay ? ' overlay' : ''}">
+            <img class="category-image" src="${escapeHtml(meta.image)}" alt="">
+          </span>
+          <span class="category-toggle-text">
+            <h3>${escapeHtml(categoryName)}</h3>
+            <p class="category-desc">${escapeHtml(meta.description)}</p>
+          </span>
+        </button>
+        <div class="category-side">
+          <button type="button" class="category-meta-toggle" aria-expanded="false" aria-controls="${bodyId}" onclick="toggleCategory(this)">
+            <span class="section-count">${total} resource${total === 1 ? '' : 's'}</span>
+            <svg class="chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="category-typelinks-col">${quicklinks}</div>
+        </div>
+      </div>
+      <div class="section-body-wrap" id="${bodyId}">
+        <div class="section-body-inner">
+          <div class="category-body-constrain">
+            ${sections}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderAll(){
+  const categories = groupResources();
+  const orderedNames = [
+    ...CATEGORY_ORDER.filter(name => categories.has(name)),
+    ...[...categories.keys()].filter(name => !CATEGORY_ORDER.includes(name))
+  ];
+  const container = document.getElementById('categories-container');
+  container.innerHTML = orderedNames
+    .map((name, i) => renderCategory(name, categories.get(name), i))
+    .join('');
+}
+
+function toggleCategory(btn){
+  const bodyId = btn.getAttribute('aria-controls');
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll(`[aria-controls="${bodyId}"]`).forEach(b => b.setAttribute('aria-expanded', String(!expanded)));
+  document.getElementById(bodyId).classList.toggle('expanded', !expanded);
+}
+
+// Quicklink: open the category if needed, scroll to the subcategory heading, flash-highlight it.
+function jumpToSub(bodyId, subId){
+  const btn = document.querySelector(`[aria-controls="${bodyId}"]`);
+  if (btn && btn.getAttribute('aria-expanded') !== 'true') toggleCategory(btn);
+  const section = document.getElementById(subId);
+  setTimeout(() => {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    section.classList.add('type-group-highlight');
+    setTimeout(() => section.classList.remove('type-group-highlight'), 1200);
+  }, 280);
+}
+
+renderAll();
+
+</script>
+</body>
+</html>

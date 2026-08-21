@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vancouver Island Regional Database (VIRD)</title>
+    <link rel="icon" type="image/png" href="assets/fav_w.png">
+    <link rel="canonical" href="https://vancouver-island-regional-database.github.io/">
+    <meta name="description" content="A centralized public-information toolkit for finding records, decisions, data, and research resources across Mid-Island jurisdictions and institutions.">
+        
+    <!-- Favicon Shortcut Link -->
+    <link rel="icon" type="image/png" href="assets/fav_w.png">
+    
+    <!-- Premium Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <meta property="og:title" content="Vancouver Island Regional Database" />
+    <meta property="og:description" content="A centralized public-information toolkit for finding records, decisions, data, and research resources across Mid-Island jurisdictions and institutions." />
+    <meta property="og:type" content="website" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "Vancouver Island Regional Database (VIRD)",
+          "url": "https://vancouver-island-regional-database.github.io/",
+          "description": "A centralized public-information toolkit for finding records, decisions, data, and research resources across Mid-Island jurisdictions and institutions."
+        },
+        {
+          "@type": "Organization",
+          "name": "Vancouver Island Regional Database",
+          "url": "https://vancouver-island-regional-database.github.io/",
+          "description": "An independent, non-commercial research archive centralizing public government records for East Coast Central Vancouver Island jurisdictions.",
+          "areaServed": {
+            "@type": "AdministrativeArea",
+            "name": "East Coast Central Vancouver Island, British Columbia, Canada"
+          }
+        }
+      ]
+    }
+    </script>
+
+<style>
+:root{
+    --bc-blue:#003366;
+    --bc-blue-dark:#002244;
+    --bc-gold:#FCBA19;
+    --bc-gold-hover:#E0A50D;
+    --bg-canvas:#F8FAFC;
+    --surface-card:#FFFFFF;
+    --text-main:#1F2933;
+    --text-muted:#64748B;
+    --border-light:#E2E8F0;
+    --accent-blue-soft:#EFF6FF;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+    --shadow-md:0 4px 10px rgba(0,34,68,.08);
+    --shadow-lg:0 12px 28px rgba(0,34,68,.12);
+    --transition:all .22s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+    font-family:'Inter','BCSans','Helvetica Neue',Arial,sans-serif;
+    background:var(--bg-canvas);
+    color:var(--text-main);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+}
+button,input{font:inherit}
+
+/* Header */
+header{
+    background:var(--bc-blue);
+    color:#fff;
+    padding:16px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:4px solid var(--bc-gold);
+    box-shadow:var(--shadow-sm);
+    flex-wrap:wrap;
+    gap:15px;
+}
+.header-brand{display:flex;align-items:center;gap:16px}
+.header-brand img{height:44px;width:auto;display:block}
+.header-title-block{display:flex;flex-direction:column}
+.header-title-block h1{font-size:19px;font-weight:600;letter-spacing:-.02em}
+.header-tagline{
+    font-size:11px;color:#E2E8F0;opacity:.85;
+    text-transform:uppercase;letter-spacing:.05em;font-weight:500
+}
+.header-action-badge{
+    font-size:11px;font-weight:700;background:rgba(255,255,255,.1);
+    padding:6px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,.2);
+    letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
+    color:#fff;text-decoration:none
+}
+
+/* Tooltips */
+.tooltip-trigger{position:relative;display:inline-block;cursor:pointer}
+.project-note-label{
+    font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;
+    letter-spacing:.08em;border-bottom:1px dashed #475569
+}
+.tooltip-content{
+    display:none;position:absolute;bottom:125%;left:50%;transform:translateX(-50%);
+    width:280px;padding:.75rem;background:#1e293b;color:#f8fafc;
+    font-size:13px;font-weight:400;line-height:1.5;text-transform:none;
+    border-radius:6px;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,.15)
+}
+.tooltip-content strong{
+    color:var(--bc-gold);font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.08em;margin-right:.3rem
+}
+.tooltip-date{display:block;margin-top:.5rem;font-size:11px;color:#94a3b8;font-style:italic}
+.tooltip-trigger:hover .tooltip-content,
+.tooltip-trigger.tooltip-active .tooltip-content{display:block}
+.tooltip-content.tooltip-bottom-right{
+    top:125%;bottom:auto;left:auto;right:0;transform:none
+}
+
+/* Hero */
+.hero{
+    height:440px;
+    background:
+        linear-gradient(rgba(0,34,68,.45),rgba(0,34,68,.45)),
+        url('assets/ladysmith-vip703.png');
+    background-size:cover;background-position:center;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;padding:0 20px
+}
+.hero-content{max-width:800px;text-align:center;color:#fff;z-index:2}
+.hero h2{
+    font-size:38px;font-weight:700;margin-bottom:12px;
+    letter-spacing:-.03em;line-height:1.25;text-shadow:0 2px 4px rgba(0,0,0,.3)
+}
+.hero p{
+    font-size:17px;opacity:.95;margin:0 auto 30px;font-weight:400;
+    max-width:650px;text-shadow:0 1px 2px rgba(0,0,0,.2)
+}
+.search-glass-container{
+    background:rgba(255,255,255,.12);backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);padding:10px;border-radius:50px;
+    border:1px solid rgba(255,255,255,.25);max-width:680px;margin:0 auto;
+    display:flex;box-shadow:0 8px 32px rgba(0,34,68,.3)
+}
+.search-glass-container input{
+    flex:1;background:transparent;border:none;padding:14px 24px;
+    font-size:16px;color:#fff;outline:none;font-family:inherit
+}
+.search-glass-container input::placeholder{color:rgba(255,255,255,.75)}
+.search-glass-container button{
+    background:var(--bc-gold);color:var(--bc-blue-dark);border:none;
+    padding:0 32px;font-size:15px;font-weight:700;cursor:pointer;
+    border-radius:50px;transition:var(--transition);
+    text-transform:uppercase;letter-spacing:.03em
+}
+.search-glass-container button:hover{background:var(--bc-gold-hover);transform:scale(1.02)}
+
+/* Stats */
+.stats-outer{max-width:1040px;margin:-40px auto 0;position:relative;z-index:5;padding:0 20px}
+.stats-strip{
+    background:var(--surface-card);border-radius:12px;padding:24px;
+    box-shadow:var(--shadow-lg);border:1px solid var(--border-light);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px
+}
+.stat-box{text-align:center;border-right:1px solid var(--border-light);padding:6px 0}
+.stat-box:last-child{border-right:none}
+.stat-num{
+    font-size:32px;font-weight:700;color:var(--bc-blue);line-height:1.1;
+    margin-bottom:4px;letter-spacing:-.02em
+}
+.stat-label{
+    font-size:12px;font-weight:600;color:var(--text-muted);
+    text-transform:uppercase;letter-spacing:.05em
+}
+
+/* Resource section */
+main{max-width:1120px;margin:0 auto;padding:58px 28px 24px}
+.section-header-block{
+    display:flex;align-items:end;justify-content:space-between;gap:24px;
+    margin-bottom:22px
+}
+.section-title{
+    font-size:30px;font-weight:700;color:var(--bc-blue-dark);
+    letter-spacing:-.025em;line-height:1.15
+}
+.section-intro{
+    margin-top:9px;max-width:1120px;color:var(--text-muted);
+    font-size:14px;line-height:1.55
+}
+
+.resource-carousel{
+    position:relative
+}
+.workspace-grid{
+    display:flex;gap:20px;overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:4px 3px 20px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    scrollbar-color:#B9C6D1 transparent
+}
+.workspace-grid::-webkit-scrollbar{height:7px}
+.workspace-grid::-webkit-scrollbar-track{background:transparent}
+.workspace-grid::-webkit-scrollbar-thumb{background:#B9C6D1;border-radius:8px}
+
+/* Photographic resource cards */
+.workspace-card{
+    position:relative;
+    flex:0 0 350px;
+    min-height:455px;
+    background:var(--surface-card);
+    border:1px solid var(--border-light);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 8px 24px rgba(0,34,68,.10);
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction:column;
+    text-decoration:none;
+    color:inherit;
+    transition:var(--transition)
+}
+.workspace-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 32px rgba(0,34,68,.15)
+}
+.workspace-card:focus-visible{
+    outline:2px solid var(--bc-gold);
+    outline-offset:2px;
+}
+.resource-image{
+    height:210px;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(135deg,rgba(0,51,102,.18),rgba(0,34,68,.62)),
+        var(--resource-image);
+    background-size:cover;
+    background-position:center
+}
+.resource-image::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(to bottom,rgba(0,0,0,.02) 35%,rgba(0,18,35,.62))
+}
+.resource-status{
+    position:absolute;z-index:2;top:14px;left:14px;
+    display:inline-flex;align-items:center;gap:7px;
+    padding:7px 10px;border-radius:7px;
+    background:rgba(255,255,255,.96);color:var(--bc-blue-dark);
+    font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase
+}
+.resource-status.live::before{
+    content:"";width:7px;height:7px;border-radius:50%;background:#2E7D32
+}
+
+.resource-status.dev::before{
+    content:"";width:7px;height:7px;border-radius:50%;background:#3F5263
+}
+
+.resource-title{
+    position:absolute;z-index:2;left:18px;right:18px;bottom:16px;
+    color:#fff;font-size:24px;line-height:1.08;font-weight:750;
+    letter-spacing:-.02em;text-shadow:0 2px 8px rgba(0,0,0,.45)
+}
+.resource-body{
+    padding:19px 20px 18px;display:flex;flex-direction:column;flex:1
+}
+.resource-kicker{
+    color:#687989;font-size:10px;font-weight:800;
+    letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px
+}
+.resource-description{
+    color:#4F6070;font-size:13.5px;line-height:1.55;margin:0 0 17px
+}
+.resource-cues{
+    display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;margin-bottom:17px
+}
+.resource-cue{
+    border:1px solid #DCE4EA;background:#F7F9FB;border-radius:6px;
+    padding:6px 8px;color:#3F5263;font-size:10.5px;font-weight:700
+}
+.resource-meta{
+    border-top:1px solid #E8EDF1;padding-top:13px;
+    display:flex;justify-content:space-between;gap:10px;
+    color:#687989;font-size:10px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.045em
+}
+.resource-meta strong{color:var(--bc-blue-dark)}
+.card-link{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:14px;padding-top:14px;border-top:1px solid #E8EDF1;
+    color:var(--bc-blue);text-decoration:none;font-size:13px;font-weight:800
+}
+.card-link span{font-size:17px;transition:var(--transition)}
+.workspace-card:hover .card-link{color:var(--bc-gold-hover)}
+.workspace-card:hover .card-link span{transform:translateX(4px)}
+.resource-type{
+    color:#7A8996;font-size:9px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.05em
+}
+
+/* Carousel controls */
+.carousel-nav-btn{
+    position:absolute;top:105px;transform:translateY(-50%);
+    width:46px;height:46px;background:#fff;
+    border:2px solid var(--border-light);border-radius:50%;
+    color:var(--bc-blue);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;box-shadow:var(--shadow-md);z-index:10;
+    transition:var(--transition);outline:none
+}
+.carousel-nav-btn svg{width:20px;height:20px;stroke-width:3}
+.carousel-nav-btn:hover,.carousel-nav-btn:focus-visible{
+    background:var(--bc-blue);color:#fff;border-color:var(--bc-blue);
+    box-shadow:var(--shadow-lg)
+}
+.carousel-nav-btn.left{left:-18px}
+.carousel-nav-btn.right{right:-18px}
+.carousel-nav-btn[disabled]{opacity:0;pointer-events:none}
+
+/* Closing FOI quote */
+.quote-section{
+    max-width:780px;
+    margin:52px auto 56px;
+    padding:0 24px;
+    text-align:center;
+}
+
+.quote-logo{
+    display:block;
+    width:88px;
+    height:auto;
+    margin:0 auto 26px;
+}
+
+.quote-content{
+    margin:0 auto;
+    color:#475569;
+    text-align:center;
+}
+
+.quote-content p{
+    margin:0 auto 18px;
+    max-width:760px;
+    font-size:18px;
+    line-height:1.75;
+    font-style:italic;
+}
+
+.quote-content cite{
+    display:block;
+    margin-top:10px;
+    font-size:11px;
+    line-height:1.5;
+    color:#7A8996;
+    font-style:normal;
+}
+
+.quote-link{
+    display:block;
+    color:inherit;
+    text-decoration:none;
+}
+
+/* Footer */
+footer{
+    background:var(--bc-blue-dark);color:#fff;padding:40px 20px;
+    border-top:4px solid var(--bc-gold)
+}
+.footer-inner{max-width:1040px;margin:0 auto;text-align:center}
+.footer-copyright{font-size:13px;font-weight:600;opacity:.9;margin-bottom:12px}
+.footer-disclaimer{font-size:11px;color:#CBD5E1;line-height:1.6;max-width:900px;margin:0 auto;opacity:.75}
+.footer-disclaimer b{color:var(--bc-gold)}
+
+/* Responsive */
+@media(max-width:820px){
+    .stats-strip{grid-template-columns:repeat(2,1fr);gap:16px}
+    .stat-box{border-right:none;border-bottom:1px solid var(--border-light);padding-bottom:12px}
+    .stat-box:nth-child(3),.stat-box:last-child{border-bottom:none;padding-bottom:0}
+    .carousel-nav-btn{display:none}
+}
+@media(max-width:768px){
+    .hero{height:auto;padding:48px 20px}
+    .hero h2{font-size:26px}
+    .hero p{font-size:15px;margin-bottom:22px}
+    .search-glass-container input{padding:12px 14px}
+    .search-glass-container button{padding:0 18px}
+    .tooltip-content,.tooltip-content.tooltip-bottom-right{
+        position:fixed;top:var(--tooltip-top,80px);left:50%;right:auto;bottom:auto;
+        transform:translateX(-50%);width:calc(100vw - 32px);max-width:320px
+    }
+    .section-header-block{align-items:start;flex-direction:column;gap:12px}
+    main{padding-top:46px}
+}
+@media(max-width:520px){
+    .stats-strip{grid-template-columns:1fr}
+    .stat-box{border-bottom:1px solid var(--border-light);padding-bottom:12px}
+    .stat-box:last-child{border-bottom:none}
+    .card-link{font-size:12.5px}
+    .workspace-card{flex-basis:calc(100vw - 48px);min-height:440px}
+    .resource-image{height:200px}
+    .section-title{font-size:26px}
+    main{padding-left:16px;padding-right:16px}
+}
+
+.access-statement {
+    max-width: 1040px;
+    margin: 48px auto 0;
+    padding: 30px 32px;
+    background:
+        radial-gradient(circle at 15% 0%, rgba(255,255,255,.07), transparent 45%),
+        linear-gradient(160deg, rgba(10,30,51,.97) 0%, rgba(4,18,32,.98) 100%);
+    border: 1px solid rgba(255,255,255,.08);
+    border-top: 3px solid var(--bc-gold);
+    border-radius: 12px;
+    box-shadow: 0 14px 34px rgba(0,10,22,.35), inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.access-statement h2 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -.02em;
+}
+
+.access-statement p {
+    color: #C3D2E0;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 16px;
+    max-width: 1120px;
+}
+
+.access-statement .footnote-marker {
+    color: #9FB6CB;
+}
+
+.access-statement .mission {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.65;
+    margin-top: 24px;
+    padding-left: 20px;
+    border-left: 4px solid var(--bc-gold);
+}
+
+.access-sources {
+    max-width: 1040px;
+    margin: 8px auto 0;
+    padding: 0 10px;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.access-sources div {
+    margin-bottom: 4px;
+}
+
+.access-sources.sources a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.access-sources .sources a:hover {
+    color: var(--bc-blue-dark);
+}
+
+.independence-note{
+    margin-top:8px;
+}
+
+.footnote-marker {
+    cursor: help;
+    color: var(--text-muted);
+     font-weight: 700;
+}
+
+.footnote-marker .tooltip-content {
+    top: 100%;
+    bottom: auto;
+    left: auto;
+    right: -8px;
+    transform: none;
+    width: 300px;
+    max-width: 80vw;
+    padding: .6rem .75rem;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.footnote-marker .tooltip-content a {
+    color: #93c5fd;
+}
+
+.footnote-marker .tooltip-content a:hover {
+    color: #bfdbfe;
+}
+
+
+.workspace-card.featured{
+    flex-basis:450px;
+    border-color:rgba(0,51,102,.22);
+    box-shadow:0 12px 30px rgba(0,34,68,.14);
+}
+.workspace-card.featured .resource-image{
+    height:225px;
+}
+.workspace-card.featured .resource-kicker{
+    color:var(--bc-blue);
+}
+.workspace-card.featured .card-link{
+    color:var(--bc-blue-dark);
+}
+.workspace-card.featured .resource-type{
+    color:var(--bc-gold-hover);
+}
+.resource-development-note{
+    margin:10px 3px 0;
+    padding-top:14px;
+    border-top:1px solid var(--border-light);
+    color:var(--text-muted);
+    font-size:11.5px;
+    line-height:1.55;
+}
+.resource-development-note strong{
+    color:#475569;
+}
+@media(max-width:820px){
+    .workspace-card.featured{
+        flex-basis:350px;
+    }
+    .workspace-card.featured .resource-image{
+        height:210px;
+    }
+}
+@media(max-width:520px){
+    .workspace-card.featured{
+        flex-basis:calc(100vw - 48px);
+    }
+    .workspace-card.featured .resource-image{
+        height:200px;
+    }
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+    <!-- Header Frame -->
+    <header>
+        <div class="header-brand">
+            <a href="index.html">
+                <img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';">
+            </a>
+            <div class="header-title-block">
+                <h1>Vancouver Island Regional Database</h1>
+                <span class="header-tagline">Public Access to Public Data</span>
+            </div>
+        </div>
+        <a class="header-action-badge" href="./submissions.html"> CONTRIBUTE A DOCUMENT → </a>
+    </header>
+
+    <!-- Hero Frame (Routes terms directly to the legacy Pagefind search page query slot) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Mid-Island Government, All in One Place</h2>
+            <p>Find public records, decisions, data, and resources across the jurisdictions 
+                and institutions that govern your community on the east coast of Central Vancouver Island.</p>
+                 
+            <!-- <form class="search-glass-container" action="search-page_index.html" method="get">
+                <input type="hidden" name="tab" value="tab-docs">
+                <input type="text" name="q" placeholder="Search minutes, reports, bylaws, developers, resolutions..." required>
+                <button type="submit">Search</button>
+            </form> -->
+        </div>
+    </section>
+
+    <!-- Floating Statistics Strips -->
+    <div class="stats-outer">
+        <div class="stats-strip">
+            <div class="stat-box">
+                <div class="stat-num" id="stat-docs">3,199</div>
+                 <div class="stat-label">Documents Indexed</div>
+            </div>
+            <div class="stat-box">
+                 <div class="stat-num" id="stat-bodies">2</div>
+                <div class="stat-label">Jurisdictions Covered</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" id="stat-update">100%</div>
+                <div class="stat-label">Open Access</div>
+            </div>
+        </div>
+    </div>
+
+    
+<!-- Main Resource Carousel -->
+<main>
+
+            <h2 class="section-title">Tools &amp; Collections</h2>
+            <p class="section-intro">
+                Find government documents, view selected topics in depth, look up motions and votes, or find relevant sources and tools.
+            </p>
+        </div>
+        </div>
+    <div class="resource-carousel">
+        <button id="scrollLeftBtn" class="carousel-nav-btn left"
+                aria-label="Previous resources" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="workspace-grid" id="workspaceGrid" aria-label="Available resources">
+
+            <a class="workspace-card featured" href="search-page_index.html?tab=tab-docs" aria-label="Document Search — Find government documents">
+                <div class="resource-image" style="--resource-image:url('assets/home/vird-home_document-search.jpg')">
+                    <span class="resource-status dev">In development</span>
+                    <div class="resource-title">Document Search</div>
+                </div>
+                <div class="resource-body">
+                    <div class="resource-kicker">Find government documents</div>
+                    <p class="resource-description">
+                        Look up minutes, agendas, reports, bylaws, correspondence,
+                        resolutions, and other government documents from municipal,
+                        regional, school district, and other public bodies in one place.
+                    </p>
+                    <div class="resource-cues" aria-label="Useful for">
+                        <span class="resource-cue">Topics</span>
+                        <span class="resource-cue">Projects</span>
+                        <span class="resource-cue">People</span>
+                        <span class="resource-cue">Decisions</span>
+                    </div>
+                    <div class="resource-meta">
+                        <span><strong>3,199 documents</strong></span>
+                        <span>Primary source index</span>
+                    </div>
+                    <span class="card-link">
+                        <span>Search Documents →</span>
+                    </span>
+                </div>
+            </a>
+
+            <a class="workspace-card" href="catalogues.html" aria-label="Special Collections — View selected topics in depth">
+                <div class="resource-image" style="--resource-image:url('assets/home/vird-home_curated-catalogues.jpg')">
+                    <span class="resource-status live">Available</span>
+                    <div class="resource-title">Special Collections</div>
+                </div>
+                <div class="resource-body">
+                    <div class="resource-kicker">View selected topics in depth</div>
+                    <p class="resource-description">
+                        View the documents, timelines, data, and visualizations that
+                        together show how a selected local issue or system has developed over time.
+                    </p>
+                    <div class="resource-cues" aria-label="Includes">
+                        <span class="resource-cue">Timelines</span>
+                        <span class="resource-cue">Sources</span>
+                        <span class="resource-cue">Data</span>
+                        <span class="resource-cue">Connections</span>
+                    </div>
+                    <div class="resource-meta">
+                        <span><strong>1 collection available</strong></span>
+                        <span>Curated public records</span>
+                    </div>
+                    <span class="card-link">
+                        <span>View Special Collections →</span>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Voting Records card hidden -- page isn't functional yet.
+                 Un-hide by restoring the block below once it's ready.
+            <a class="workspace-card" href="voting-page_index.html" aria-label="Voting Records — Look up motions and votes">
+                <div class="resource-image" style="--resource-image:url('assets/home/vird-home_voting-records.jpg')">
+                    <span class="resource-status dev">In development</span>
+                    <div class="resource-title">Voting Records</div>
+                </div>
+                <div class="resource-body">
+                    <div class="resource-kicker">Look up motions and votes</div>
+                    <p class="resource-description">
+                        Look up motions, resolutions, outcomes, and individual votes
+                        by topic, councillor, jurisdiction, and date.
+                    </p>
+                    <div class="resource-cues" aria-label="Includes">
+                        <span class="resource-cue">Motions</span>
+                        <span class="resource-cue">Councillors</span>
+                        <span class="resource-cue">Outcomes</span>
+                        <span class="resource-cue">Trends</span>
+                    </div>
+                    <div class="resource-meta">
+                        <span><strong>Motions & recorded votes</strong></span>
+                        <span>Decision history</span>
+                    </div>
+                    <span class="card-link">
+                        <span>View Voting Records →</span>
+                    </span>
+                </div>
+            </a>
+            -->
+
+            <a class="workspace-card" href="submissions.html" aria-label="Contribute a Document — Help expand the public archive">
+                <div class="resource-image" style="--resource-image:url('assets/home/vird-home_contribute-a-document.jpg')">
+                    <span class="resource-status live">Available</span>
+                    <div class="resource-title">Contribute a Document</div>
+                </div>
+                <div class="resource-body">
+                    <div class="resource-kicker">Help expand the public archive</div>
+                    <p class="resource-description">
+                        Public documents already obtained by members of the public — FOI releases,
+                        paid records, and archived copies no longer available from their original
+                        source — can be submitted to help make information easier to find, preserve,
+                        and reuse.
+                    </p>
+                    <div class="resource-cues" aria-label="Includes">
+                        <span class="resource-cue">FOI Releases</span>
+                        <span class="resource-cue">Paid Records</span>
+                        <span class="resource-cue">Archived Copies</span>
+                        <span class="resource-cue">Community Submissions</span>
+                    </div>
+                    <div class="resource-meta">
+                        <span><strong>31 community submissions</strong></span>
+                        <span>Public archive contributions</span>
+                    </div>
+                    <span class="card-link">
+                        <span>Contribute a Document →</span>
+                    </span>
+                </div>
+            </a>
+
+            <a class="workspace-card" href="external-resources.html" aria-label="External Resources — Find relevant sources and tools">
+                <div class="resource-image" style="--resource-image:url('assets/home/vird-home_external-resources.jpg')">
+                    <span class="resource-status live">Available</span>
+                    <div class="resource-title">External Resources</div>
+                </div>
+                <div class="resource-body">
+                    <div class="resource-kicker">Find relevant sources and tools</div>
+                    <p class="resource-description">
+                        Public registries, databases, maps, directories, and other
+                        resources organized by what they can help you learn about people,
+                        companies, properties, organizations, and public issues.
+                    </p>
+                    <div class="resource-cues" aria-label="Useful for">
+                        <span class="resource-cue">People</span>
+                        <span class="resource-cue">Companies</span>
+                        <span class="resource-cue">Property</span>
+                        <span class="resource-cue">Registries</span>
+                    </div>
+                    <div class="resource-meta">
+                        <span><strong>60+ research sources</strong></span>
+                        <span>External lookup tools</span>
+                    </div>
+                    <span class="card-link">
+                        <span>Browse External Resources →</span>
+                    </span>
+                </div>
+            </a>
+
+        </div>
+
+        <button id="scrollRightBtn" class="carousel-nav-btn right"
+                aria-label="Next resources" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
+
+    <p class="resource-development-note">
+        <strong>VIRD is an actively developing public research project.</strong>
+        New records, tools, and Special Collections are added over time, and some areas
+        currently cover only selected jurisdictions or subjects. Coverage is identified
+        on individual pages. Last updated: August 2026.
+    </p>
+  
+           <section class="access-statement">
+
+    <h2>You have the right to access information about your own government</h2>
+
+    <p>
+        Access to government information is protected in Canada as a fundamental right because meaningful public debate and free expression on matters of public governance depend on it. But accessibility is not just about availability. It is also about removing barriers like technology, terminology, location, education, and cost, so that all citizens can participate fully and equally in the democratic process.
+        <span class="footnote-marker tooltip-trigger" tabindex="0"><sup>ⓘ</sup><span class="tooltip-content"><em><a href="https://laws-lois.justice.gc.ca/eng/acts/a-1/page-1.html" target="_blank" rel="noopener">Access to Information Act</a></em>, R.S.C., 1985, c. A-1, s. 2(2)(a); <em><a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/21019" target="_blank" rel="noopener">Accessible British Columbia Act</a></em>, SBC 2021, c 19, s 2(1).</span></span>
+    </p>
+
+    <p>
+        <b>Vancouver Island Regional Database is an easy-to-use, centralized online toolkit for finding, understanding, and analyzing public records across jurisdictions and institutions in the Mid-Island region.</b>
+        Created by the public, for the public.*
+    </p>
+
+</section>
+
+<div class="sources access-sources">
+    <div>
+        ⓘ <em><a href="https://laws-lois.justice.gc.ca/eng/acts/a-1/page-1.html" target="_blank" rel="noopener">Access to Information Act</a></em>,
+        R.S.C., 1985, c. A-1, s. 2(2)(a);
+        <em><a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/21019" target="_blank" rel="noopener">Accessible British Columbia Act</a></em>,
+        SBC 2021, c 19, s 2(1).
+        <br>
+        <i>*VIRD is an independent, citizen-led initiative not affiliated with any government agency, corporate sponsor, or political faction.</i>
+    </div>
+</div>
+
+<section class="quote-section">
+    <img
+        src="assets/vird_logo_blue.png"
+        alt=""
+        class="quote-logo"
+    >
+    <a
+        href="https://fipa.bc.ca/library/Public_Education/foiquotes.htm"
+        class="quote-link"
+    >
+    <blockquote class="quote-content">
+        <p>
+            The overarching purpose of access to information legislation … is to facilitate democracy.
+            It does so in two related ways. It helps to ensure first, that citizens have the information
+            required to participate meaningfully in the democratic process, and secondly, that politicians
+            and bureaucrats remain accountable to the citizenry.
+        </p>
+
+        <cite>
+            Gerard LaForest, former Supreme Court of Canada Justice,
+            <em>Dagg v. Canada</em> (1997)
+        </cite>
+    </blockquote> </a>
+</section>
+
+</main>
+
+    <!-- Footer Frame -->
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-copyright">Vancouver Island Regional Database &bull; Centralized Access to Public Records</p>
+            <p class="footer-disclaimer">
+                <b>Fair Dealing & Copyright:</b> Vancouver Island Regional Database is not affiliated with any government agency. It is an independent, non-commercial research archive ensuring regional compliance with public access laws and citizens’ legal right to access open government data. Materials, text extracts, and HTML copies reproduced directly from primary source public records, without commentary or opinion, for the statutory purposes of Research, Criticism, Review, and News Reporting under Section 29 of the Copyright Act (R.S.C., 1985, c. C-42).
+            </p>
+        </div>
+    </footer>
+
+    <!-- Page interactions -->
+    <script>
+    function scrollCarousel(direction) {
+        const grid = document.getElementById('workspaceGrid');
+        const card = grid?.querySelector('.workspace-card');
+        if (!grid || !card) return;
+
+        const gap = parseFloat(getComputedStyle(grid).gap) || 20;
+        grid.scrollBy({
+            left: (card.offsetWidth + gap) * direction,
+            behavior: 'smooth'
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('workspaceGrid');
+        const leftBtn = document.getElementById('scrollLeftBtn');
+        const rightBtn = document.getElementById('scrollRightBtn');
+
+        if (grid && leftBtn && rightBtn) {
+            function updateNavButtons() {
+                const maxScroll = grid.scrollWidth - grid.clientWidth;
+                leftBtn.disabled = grid.scrollLeft <= 2;
+                rightBtn.disabled = grid.scrollLeft >= maxScroll - 2;
+            }
+
+            leftBtn.addEventListener('click', () => scrollCarousel(-1));
+            rightBtn.addEventListener('click', () => scrollCarousel(1));
+            grid.addEventListener('scroll', updateNavButtons, { passive: true });
+            window.addEventListener('resize', updateNavButtons);
+            updateNavButtons();
+        }
+
+        document.querySelectorAll('.stat-num').forEach(stat => {
+            const rawText = stat.textContent.trim();
+            const numericValue = parseInt(rawText.replace(/[^\d]/g, ''), 10);
+            const suffix = rawText.replace(/[\d,]/g, '');
+
+            if (isNaN(numericValue)) return;
+
+            const duration = 1400;
+            const startTime = performance.now();
+
+            function animate(currentTime) {
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                const easeProgress = progress * (2 - progress);
+                const currentValue = Math.floor(easeProgress * numericValue);
+
+                stat.textContent =
+                    currentValue.toLocaleString('en-CA') + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    stat.textContent = rawText;
+                }
+            }
+
+            requestAnimationFrame(animate);
+        });
+
+        document.addEventListener('click', function (e) {
+            const trigger = e.target.closest('.tooltip-trigger');
+
+            document.querySelectorAll('.tooltip-trigger.tooltip-active')
+                .forEach(el => {
+                    if (el !== trigger) el.classList.remove('tooltip-active');
+                });
+
+            if (!trigger) return;
+
+            const wasActive = trigger.classList.contains('tooltip-active');
+            trigger.classList.toggle('tooltip-active');
+
+            if (!wasActive) {
+                const content = trigger.querySelector('.tooltip-content');
+                if (content) {
+                    const rect = trigger.getBoundingClientRect();
+                    content.style.setProperty(
+                        '--tooltip-top',
+                        (rect.bottom + 8) + 'px'
+                    );
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

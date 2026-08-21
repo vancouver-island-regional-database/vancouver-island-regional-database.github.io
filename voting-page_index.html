@@ -1,0 +1,127 @@
+<!-- voting-page_index.html -->
+ <!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting Records & Motions Dashboard</title>
+  <link rel="icon" type="image/png" href="assets/fav_w.png">
+  <link rel="stylesheet" href="core-database_style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="voting-view">
+
+
+  <!-- The layout engine injects the header and sidebar here -->
+  <div id="vird-layout-root"></div>
+
+  <!-- The unique table layout for this page -->
+  <div id="page-content-slot" style="display: none;">
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" style="cursor: default;">Voting Records</button>
+          <button id="clearDateBtn" class="btn-reset-filters" style="display: none; margin-left: 8px;">Reset Filters</button>
+        </div>
+
+        <!-- Researcher Tools bar hidden: buttons not wired up yet.
+        <div class="researcher-action-bar">
+          <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;">Researcher Tools:</span>
+          <button id="csv-export-button" class="tool-btn primary">Download CSV</button>
+          <button id="btnCopyPermalink" class="tool-btn">Copy Share Link</button>
+          <button id="btnPrintFriendly" class="tool-btn">Print Report</button>
+          <button id="btnExportJSON" class="tool-btn">Copy API JSON URL</button>
+        </div>
+        -->
+      </div>
+
+      <div class="decisions-container">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-date" id="thDate" style="width: 90px; cursor: pointer;">Date <span id="sortArrow">↓</span></th>
+              <th class="col-jurisdiction" style="width: 140px; position: relative;">
+                <div class="custom-dropdown" id="headJurDropdown">
+                  <select id="headJurTrigger" class="header-dropdown"><option id="headJurText">Jurisdiction</option></select>
+                  <div class="dropdown-menu" id="headJurMenu" style="display: none;">
+                    <input type="text" id="headJurSearch" placeholder="Filter..." class="dropdown-search">
+                    <div class="dropdown-options" id="headJurOptions"></div>
+                    <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                      <button type="button" id="headJurApply" class="dropdown-btn apply-btn" style="flex:1;">Apply</button>
+                      <button type="button" id="headJurClear" class="dropdown-btn clear-btn" style="flex:1;">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </th>
+              <th class="col-motion-id" style="width: 90px; white-space: nowrap;">Motion ID</th>
+              <th class="col-motion-description" style="width: 350px;">Motion Description</th>
+              <th class="col-motion-status" style="width: 220px; position: relative;">
+                <div class="custom-dropdown" id="headStatusDropdown">
+                  <select id="headStatusTrigger" class="header-dropdown"><option id="headStatusText">Status</option></select>
+                  <div class="dropdown-menu" id="headStatusMenu" style="display: none;">
+                    <input type="text" id="headStatusSearch" placeholder="Filter..." class="dropdown-search">
+                    <div class="dropdown-options" id="headStatusOptions"></div>
+                    <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                      <button type="button" id="headStatusApply" class="dropdown-btn apply-btn">Apply</button>
+                      <button type="button" id="headStatusClear" class="dropdown-btn clear-btn">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </th>
+              <th class="col-recusal" style="width: 80px;">
+                <select id="headRecusalSelect" class="header-dropdown" style="max-width: 80px;">
+                  <option value="">COI</option>
+                  <option value="WITH_COI">Declared COI</option>
+                  <option value="NO_COI">None</option>
+                </select>
+              </th>
+              <th class="col-votes-yea" style="width: 180px;">
+                <div class="custom-dropdown" id="headYeasDropdown">
+                  <select id="headYeasTrigger" class="header-dropdown"><option id="headYeasText">Votes In Favour</option></select>
+                  <div class="dropdown-menu" id="headYeasMenu" style="display: none;">
+                    <div class="dropdown-header" style="padding: 6px; border-bottom: 1px solid var(--border);"><label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.8rem;"><input type="checkbox" id="yeasMoverQualifier"> <span>Mover (Qualifier)</span></label></div>
+                    <input type="text" id="headYeasSearch" placeholder="Filter..." class="dropdown-search">
+                    <div class="dropdown-options" id="headYeasOptions"></div>
+                    <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                      <button type="button" id="headYeasApply" class="dropdown-btn apply-btn">Apply</button>
+                      <button type="button" id="headYeasClear" class="dropdown-btn clear-btn">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </th>
+              <th class="col-votes-nay" style="width: 180px;">
+                <div class="custom-dropdown" id="headNaysDropdown">
+                  <select id="headNaysTrigger" class="header-dropdown"><option id="headNaysText">Votes Opposed</option></select>
+                  <div class="dropdown-menu" id="headNaysMenu" style="display: none;">
+                    <input type="text" id="headNaysSearch" placeholder="Filter..." class="dropdown-search">
+                    <div class="dropdown-options" id="headNaysOptions"></div>
+                    <div class="dropdown-footer" style="padding: 6px; display: flex; gap: 8px;">
+                      <button type="button" id="headNaysApply" class="dropdown-btn apply-btn">Apply</button>
+                      <button type="button" id="headNaysClear" class="dropdown-btn clear-btn">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="decisionsBody">
+            <tr><td colspan="11">Loading voting records...</td></tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+
+  <script src="core-database_layout.js"></script>
+  <script>
+    initializeLayout({
+      title: "Search Voting Records",
+      subtitle: "Official public ledger of voting records, resolutions, and conflict of interest disclosures across Mid-Island regional jurisdictions.",
+      searchPlaceholder: "🔍 Search motions, resolutions, movers, yeas, nays...",
+      heroImage: "assets/voting-records/voting-hero.jpg",
+      heroBreadcrumb: "Voting Records",
+      heroTitle: "Voting Records & Motions",
+      heroSubtitle: "Official public ledger of motions, resolutions, and conflict of interest disclosures — with individual votes by councillor, jurisdiction, and date."
+    });
+  </script>
+  <script src="voting-page_app.js"></script>
+</body>
+</html>
