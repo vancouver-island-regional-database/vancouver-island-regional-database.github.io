@@ -800,7 +800,7 @@ function initApp() {
         : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
 
       const backupLinkBtn = d.html_file_path
-        ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View document index HTML file">View document index HTML file</a>`
+        ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
         : '';
 
       const ftsSnip = currentFtsSnippets && currentFtsSnippets.get(d.id);
@@ -1225,7 +1225,7 @@ function initApp() {
           <span>📁 ${recordTypeDisplay}</span>
           <span>🆔 CE-${row.id}</span>
           <span title="Which website this record was retrieved from">🌐 ${row.source || 'Unknown'}</span>
-          ${row.html_file_path ? `<span><a href="${row.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View document index HTML file">View document index HTML file</a></span>` : ''}
+          ${row.html_file_path ? `<span><a href="${row.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a></span>` : ''}
         </div>
         <div class="closed-card-body">
           <div style="margin-bottom: 8px;">
