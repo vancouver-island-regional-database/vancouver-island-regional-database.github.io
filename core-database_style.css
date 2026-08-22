@@ -1,5 +1,24 @@
 
 
+/* Matches water-systems' existing authority-icon convention exactly (same
+   class name, same dimensions) -- circular jurisdiction favicon shown before
+   the jurisdiction name on colored authority bands. */
+.icon-container {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0px 4px 0px 0px;
+  vertical-align: middle;
+}
+.icon-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 :root {
   
   --bc-blue: #003366;

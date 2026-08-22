@@ -871,6 +871,10 @@ function initApp() {
         : '';
 
       const jurColor = JURISDICTION_COLORS[d.jurisdiction] || DEFAULT_JUR_COLOR;
+      const jurIconSrc = JURISDICTION_ICONS[d.jurisdiction];
+      const jurIcon = jurIconSrc
+        ? `<span class="icon-container"><img src="${jurIconSrc}" alt="${escapeHtml(d.jurisdiction || '')} icon"></span>`
+        : '';
       const docLink = d.url
         ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
         : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
@@ -878,7 +882,7 @@ function initApp() {
       card.innerHTML = `
         <div class="doc-header" style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
           <div>
-            <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${highlightKeywords(d.jurisdiction || '', q)}</span>
+            <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${jurIcon}${highlightKeywords(d.jurisdiction || '', q)}</span>
             ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-style: italic; font-size: 0.74rem; margin-left: 12px;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
           </div>
         </div>
@@ -1363,12 +1367,8 @@ function initApp() {
     'Parks & Community Facilities': '#c4b5fd'
   };
 
-  // Per-jurisdiction color + icon for card headers and the jurisdiction filter
-  // dropdown. Same civic-building icon for every entry deliberately -- these
-  // are all governing bodies (municipal, regional, provincial ministry, school
-  // district, First Nation government) treated as structurally equivalent, so
-  // the icon doesn't vary by "type" of government, only the color does.
-  // Colors are dark enough (WCAG-safe) to hold white header text.
+  // Per-jurisdiction color for card headers and the jurisdiction filter
+  // dropdown. Colors are dark enough (WCAG-safe) to hold white header text.
   // Canonical colors only -- confirmed by Beth, not invented. Where she gave
   // two options (a bright brand color + a darker fallback), the darker one
   // was picked wherever the bright option failed white-text contrast (WCAG
@@ -1394,6 +1394,16 @@ function initApp() {
     'Ministry of Transportation and Infrastructure': '#003366'
   };
   const DEFAULT_JUR_COLOR = '#334155';
+
+  // Real favicon images, matching the existing icon-before-name convention
+  // used elsewhere on the site (water-systems' .doc-card-footer /
+  // .icon-container -- 14x14 circular image, not an emoji). Only Ladysmith
+  // and SD68 have an actual icon file in assets/authority-icons/; no icon is
+  // shown for jurisdictions that don't have one rather than inventing one.
+  const JURISDICTION_ICONS = {
+    'Town of Ladysmith': 'assets/authority-icons/fav_ladysmith_0885AD.png',
+    'School District 68': 'assets/authority-icons/fav_sd68_5F7D3E.png'
+  };
 
   // Lets a document-type pill on a card act as a shortcut into the Document
   // Type filter dropdown -- clicking it toggles that value the same way
