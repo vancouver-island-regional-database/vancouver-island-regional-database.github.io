@@ -81,27 +81,27 @@ function initializeLayout(config) {
               <div class="nav-title">Categories</div>
               <div class="nav-cat-list" id="genCatList">
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Water Systems" class="cat-checkbox" style="cursor:pointer; accent-color:#93c5fd; width:16px; height:16px;">
+                  <input type="checkbox" value="Water Systems" class="cat-checkbox cat-checkbox-water">
                   <span>Water Systems</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Land Use Planning" class="cat-checkbox" style="cursor:pointer; accent-color:#86efac; width:16px; height:16px;">
+                  <input type="checkbox" value="Land Use Planning" class="cat-checkbox cat-checkbox-land">
                   <span>Land Use Planning</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Major Developments" class="cat-checkbox" style="cursor:pointer; accent-color:#fcd34d; width:16px; height:16px;">
+                  <input type="checkbox" value="Major Developments" class="cat-checkbox cat-checkbox-major">
                   <span>Major Developments</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Parks & Community Facilities" class="cat-checkbox" style="cursor:pointer; accent-color:#c4b5fd; width:16px; height:16px;">
+                  <input type="checkbox" value="Parks & Community Facilities" class="cat-checkbox cat-checkbox-parks">
                   <span>Parks & Community Facilities</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Natural Resources" class="cat-checkbox" style="cursor:pointer; accent-color:#d2b48c; width:16px; height:16px;">
+                  <input type="checkbox" value="Natural Resources" class="cat-checkbox cat-checkbox-natural">
                   <span>Natural Resources</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Infrastructure & Services" class="cat-checkbox" style="cursor:pointer; accent-color:#94a3b8; width:16px; height:16px;">
+                  <input type="checkbox" value="Infrastructure & Services" class="cat-checkbox cat-checkbox-infra">
                   <span>Infrastructure & Services</span>
                 </label>
               </div>

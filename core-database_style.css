@@ -799,6 +799,46 @@ body.dragging .side-tab-flap {
   cursor: pointer;
 }
 
+/* Category sidebar checkboxes: custom-rendered (not relying on browser
+   default checkbox styling, which ignores border color in some browsers
+   and only tints accent-color when checked) so the colored border shows
+   at rest, not just when checked. */
+.cat-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  margin: 0;
+}
+.cat-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.cat-checkbox-water { border: 2px solid #93c5fd; }
+.cat-checkbox-water:checked { background: #93c5fd; }
+.cat-checkbox-land { border: 2px solid #86efac; }
+.cat-checkbox-land:checked { background: #86efac; }
+.cat-checkbox-major { border: 2px solid #fcd34d; }
+.cat-checkbox-major:checked { background: #fcd34d; }
+.cat-checkbox-parks { border: 2px solid #c4b5fd; }
+.cat-checkbox-parks:checked { background: #c4b5fd; }
+.cat-checkbox-natural { border: 2px solid #d2b48c; }
+.cat-checkbox-natural:checked { background: #d2b48c; }
+.cat-checkbox-infra { border: 2px solid #94a3b8; }
+.cat-checkbox-infra:checked { background: #94a3b8; }
+
 .link-blue {
   color: #0066cc;
   text-decoration: underline;
