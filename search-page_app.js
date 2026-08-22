@@ -854,7 +854,7 @@ function initApp() {
       const tagsHtml = tags.map(tag => {
         const displayTag = tag.includes(': ') ? tag.split(': ').slice(1).join(': ') : tag;
         const catColor = CATEGORY_OUTLINE_COLORS[displayTag] || '#94a3b8';
-        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px; border:2px solid ${catColor}; color:var(--bc-blue-dark);">${highlightKeywords(displayTag, q)}</span>`;
+        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px; border:2px solid ${catColor};">${highlightKeywords(displayTag, q)}</span>`;
       }).join('');
 
       const footerHtml = tags.length > 0
@@ -1345,12 +1345,12 @@ function initApp() {
   // Category outline colors -- separate system from the document-type pills
   // above (those are filled; these are outline-only), so hue reuse is fine.
   const CATEGORY_OUTLINE_COLORS = {
-    'Water Systems': '#2563eb',
-    'Infrastructure & Services': '#334155',
-    'Major Developments': '#b45309',
-    'Land Use Planning': '#15803d',
-    'Natural Resources': '#78350f',
-    'Parks & Community Facilities': '#7c3aed'
+    'Water Systems': '#93c5fd',
+    'Infrastructure & Services': '#94a3b8',
+    'Major Developments': '#fcd34d',
+    'Land Use Planning': '#86efac',
+    'Natural Resources': '#d2b48c',
+    'Parks & Community Facilities': '#c4b5fd'
   };
 
   // Lets a document-type pill on a card act as a shortcut into the Document
