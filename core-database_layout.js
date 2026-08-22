@@ -81,27 +81,27 @@ function initializeLayout(config) {
               <div class="nav-title">Categories</div>
               <div class="nav-cat-list" id="genCatList">
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Water Systems" class="cat-checkbox" style="cursor:pointer;">
+                  <input type="checkbox" value="Water Systems" class="cat-checkbox" style="cursor:pointer; outline:2px solid #2563eb; outline-offset:2px; border-radius:2px;">
                   <span>Water Systems</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Land Use Planning" class="cat-checkbox" style="cursor:pointer;">
+                  <input type="checkbox" value="Land Use Planning" class="cat-checkbox" style="cursor:pointer; outline:2px solid #15803d; outline-offset:2px; border-radius:2px;">
                   <span>Land Use Planning</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Major Developments" class="cat-checkbox" style="cursor:pointer;">
+                  <input type="checkbox" value="Major Developments" class="cat-checkbox" style="cursor:pointer; outline:2px solid #b45309; outline-offset:2px; border-radius:2px;">
                   <span>Major Developments</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Parks & Community Facilities" class="cat-checkbox" style="cursor:pointer;">
+                  <input type="checkbox" value="Parks & Community Facilities" class="cat-checkbox" style="cursor:pointer; outline:2px solid #7c3aed; outline-offset:2px; border-radius:2px;">
                   <span>Parks & Community Facilities</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Natural Resources" class="cat-checkbox" style="cursor:pointer;">
+                  <input type="checkbox" value="Natural Resources" class="cat-checkbox" style="cursor:pointer; outline:2px solid #78350f; outline-offset:2px; border-radius:2px;">
                   <span>Natural Resources</span>
                 </label>
                 <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="checkbox" value="Infrastructure & Services" class="cat-checkbox" style="cursor:pointer;">
+                  <input type="checkbox" value="Infrastructure & Services" class="cat-checkbox" style="cursor:pointer; outline:2px solid #334155; outline-offset:2px; border-radius:2px;">
                   <span>Infrastructure & Services</span>
                 </label>
               </div>
