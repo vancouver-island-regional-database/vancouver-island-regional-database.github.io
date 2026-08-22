@@ -35,16 +35,19 @@ function initializeLayout(config) {
 
   root.innerHTML = `
     <div class="app-container">
-      <!-- 1. MASTER TOP HEADER (matches header markup used site-wide) -->
+      <!-- 1. MASTER TOP HEADER (matches header markup used site-wide).
+           config.brandName/config.brandBadge/config.brandTagline/config.homeHref
+           let a local-only build rebrand the chrome without forking this file --
+           all default to the public identity below when omitted. -->
       <header>
         <div class="header-brand">
-          <a href="index.html"><img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';"></a>
+          <a href="${config.homeHref || 'index.html'}"><img src="assets/vird_logo_white.png" alt="VIRD Logo" onerror="this.style.display='none';"></a>
           <div class="header-title-block">
-            <h1>Vancouver Island Regional Database</h1>
-            <span class="header-tagline">Public Access to Public Data</span>
+            <h1>${config.brandName || 'Vancouver Island Regional Database'}${config.brandBadge ? ` <span class="header-local-badge">${config.brandBadge}</span>` : ''}</h1>
+            <span class="header-tagline">${config.brandTagline || 'Public Access to Public Data'}</span>
           </div>
         </div>
-        <a class="header-action-badge" href="index.html">HOME</a>
+        <a class="header-action-badge" href="${config.homeHref || 'index.html'}">HOME</a>
       </header>
 
       <div class="main-layout" style="position:relative;">
@@ -56,6 +59,24 @@ function initializeLayout(config) {
             </label>
           </div>
           <div class="nav-sections">
+            ${config.showDbFilter ? `
+            <div class="nav-group">
+              <div class="nav-title">Database</div>
+              <div class="nav-cat-list" id="dbFilterList">
+                <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="radio" name="dbFilter" value="" class="db-filter-radio" checked style="cursor:pointer;">
+                  <span>All</span>
+                </label>
+                <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="radio" name="dbFilter" value="public" class="db-filter-radio" style="cursor:pointer;">
+                  <span>Public Database</span>
+                </label>
+                <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="radio" name="dbFilter" value="private" class="db-filter-radio" style="cursor:pointer;">
+                  <span>Private Database <span class="badge-private-inline">Local-only</span></span>
+                </label>
+              </div>
+            </div>` : ''}
             <div class="nav-group">
               <div class="nav-title">Categories</div>
               <div class="nav-cat-list" id="genCatList">
@@ -85,10 +106,11 @@ function initializeLayout(config) {
                 </label>
               </div>
             </div>
-            <!-- Key Projects hidden: project keyword matching isn't
-                 validated/accurate yet. Re-enable once the project keyword
-                 lists have been checked against real results. -->
-            <div class="nav-group" style="display:none;">
+            <!-- Key Projects: hidden by default (project keyword matching
+                 isn't validated/accurate yet on the public dataset). Pass
+                 config.showKeyProjects: true to un-hide -- used locally while
+                 that validation work is in progress. -->
+            <div class="nav-group"${config.showKeyProjects ? '' : ' style="display:none;"'}>
               <div class="nav-title">Key Projects</div>
               <div class="nav-cat-list" id="projectCatList"></div>
             </div>

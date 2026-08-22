@@ -55,7 +55,7 @@ function initApp() {
     } else {
       banner.style.background = '#eff6ff';
       banner.style.color = 'var(--bc-blue)';
-      banner.innerText = 'Loading full-text search index (one-time download, ~94MB)... results below are basic title/summary matches until this finishes.';
+      banner.innerText = 'The first time you use the search engine there will be a slight delay while the full index content loads (~94MB)... results below are basic title/summary matches until this finishes.';
     }
   }
 
@@ -527,7 +527,11 @@ function initApp() {
     let apiJur = selectedJurs.length === 5 ? 'Mid-Island Region' : (selectedJurs.length === 1 ? selectedJurs[0] : '');
     let apiCat = selectedCategories.length === 1 && selectedProjects.length === 0 ? selectedCategories[0] : (selectedCategories.length === 0 && selectedProjects.length === 1 ? selectedProjects[0] : '');
 
-    fetch(`/api/documents?q=${encodeURIComponent(q)}&cat=${encodeURIComponent(apiCat)}&jur=${encodeURIComponent(apiJur)}&page=${currentPage}`)
+    // window.LOCAL_DB_FILTER is set only by the local-only bootstrap script
+    // (see local-bootstrap.js), when the Database sidebar radio is present --
+    // always undefined/'' on the public site, so this is a no-op there.
+    const dbFilter = (typeof window !== 'undefined' && window.LOCAL_DB_FILTER) || '';
+    fetch(`/api/documents?q=${encodeURIComponent(q)}&cat=${encodeURIComponent(apiCat)}&jur=${encodeURIComponent(apiJur)}&db=${encodeURIComponent(dbFilter)}&page=${currentPage}`)
       .then(res => res.json())
       .then(data => {
         rawDocumentsData = data.documents || [];
@@ -817,6 +821,11 @@ function initApp() {
 
       const card = document.createElement('div');
       card.className = 'doc-card';
+      // d.is_public is only ever false when talking to the local server with
+      // private records included -- undefined on the public site (which never
+      // returns the field), so this attribute is a no-op there. Actual dark
+      // styling lives in local-overrides.css, not here.
+      if (d.is_public === false) card.setAttribute('data-private', 'true');
       card.style.background = 'white';
       card.style.border = '1px solid var(--border)';
       card.style.borderRadius = '8px';
@@ -1305,6 +1314,11 @@ function initApp() {
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
   }
+
+  // Exposed only so the local-only bootstrap script (see local-bootstrap.js)
+  // can trigger a reload when the Database sidebar radio changes -- this
+  // function is otherwise closure-private. Harmless unused global on public.
+  window.__reloadDocuments = () => { currentPage = 1; loadDocuments(); };
 
   updateSidebarProjects();
   loadDocuments();
