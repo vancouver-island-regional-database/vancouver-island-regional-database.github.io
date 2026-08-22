@@ -773,6 +773,32 @@ body.dragging .side-tab-flap {
   cursor: pointer;
 }
 
+.pill-purple {
+  background-color: #ede9fe;
+  color: #5b21b6;
+  border: 1px solid #c4b5fd;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pill-orange {
+  background-color: #ffedd5;
+  color: #9a3412;
+  border: 1px solid #fdba74;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
 .link-blue {
   color: #0066cc;
   text-decoration: underline;

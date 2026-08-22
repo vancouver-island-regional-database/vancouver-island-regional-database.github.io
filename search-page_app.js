@@ -584,7 +584,7 @@ function initApp() {
     return Array.from(s);
   }
   function getLiveDocTypeOptions() {
-    return Array.from(new Set(rawDocumentsData.map(d => getDocType(d.title))));
+    return Array.from(new Set(rawDocumentsData.map(d => getDocTypeLabel(d))));
   }
 
   function getLiveIncameraJurOptions() {
@@ -721,7 +721,7 @@ function initApp() {
     }
 
     if (selectedDocTypeList.length > 0) {
-      docs = docs.filter(d => selectedDocTypeList.includes(getDocType(d.title)));
+      docs = docs.filter(d => selectedDocTypeList.includes(getDocTypeLabel(d)));
     }
 
     const dStart = dateStart ? dateStart.value : '';
@@ -820,7 +820,8 @@ function initApp() {
         snippetDisplay = '<p class="doc-snippet" style="margin: 10px 0; font-size: 0.88rem; line-height: 1.5; color: var(--text-muted);">No preview text available.</p>';
       }
 
-      const docType = getDocType(d.title);
+      const docTypeLabel = getDocTypeLabel(d);
+      const docTypePill = `<span class="pill ${getDocTypePillClass(docTypeLabel)}" style="cursor:default; font-size:10.5px; padding:2px 8px;">${escapeHtml(docTypeLabel)}</span>`;
       const dateFormatted = !isDateValid(d.date)
         ? 'Date not recorded'
         : isFullDate(d.date) ? d.date : `${d.date} (year only)`;
@@ -869,7 +870,7 @@ function initApp() {
         <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-top: 2px; margin-bottom: 8px;">
           <span>📅 ${dateFormatted}</span>
           <span>•</span>
-          <span>${docType}</span>
+          ${docTypePill}
           <span>•</span>
           <span title="Which website this document was retrieved from">🌐 ${d.source || 'Unknown'}</span>
           ${backupLinkBtn ? `<span>•</span><span>${backupLinkBtn}</span>` : ''}
@@ -1278,18 +1279,47 @@ function initApp() {
     return !!str && /^\d{4}-\d{2}-\d{2}$/.test(str);
   }
 
-  function getDocType(title) {
+  // Pill color grouping for document_type -- reuses the site's existing pill-*
+  // classes (same ones used for category tags) rather than emoji, so type is
+  // signaled by color/label instead of an icon that reads as generic AI output.
+  // Ungrouped/unrecognized types fall through to pill-grey.
+  const DOC_TYPE_PILL_GROUPS = {
+    'pill-grey': ['Minutes', 'Agenda', 'Bylaw', 'Staff Report to Council', 'Report'],
+    'pill-blue': ['Correspondence', 'Correspondence from the Public', 'Intergovernmental Correspondence', 'Agreement/Contract'],
+    'pill-green': ['Financial/Budget', 'Tender/RFP', 'Permit/License', 'Application/Form'],
+    'pill-dark-green': ['Plan/Strategy', 'Policy', 'Terms of Reference', 'Map/GIS'],
+    'pill-orange': ['Public Notice/Communication', 'Schedule/Notice', 'Job Posting'],
+    'pill-purple': ['FAQ/Info Sheet', 'Presentation', 'Survey', 'Award/Recognition', 'Public Information/Miscellaneous']
+  };
+  const DOC_TYPE_TO_PILL = {};
+  Object.entries(DOC_TYPE_PILL_GROUPS).forEach(([pillClass, types]) => {
+    types.forEach(t => { DOC_TYPE_TO_PILL[t] = pillClass; });
+  });
+
+  // Legacy fallback for records with no document_type set (e.g. other
+  // jurisdictions not yet run through the type revamp) -- same categories,
+  // no emoji, so the fallback path matches the primary path visually.
+  function legacyDocTypeGuess(title) {
     const lower = (title || '').toLowerCase();
-    if (lower.includes('minutes')) return '📋 Minutes';
-    if (lower.includes('agenda')) return '📅 Agenda';
-    if (lower.includes('notice')) return '🔔 Notice';
-    if (lower.includes('bylaw')) return '📜 Bylaw';
-    if (lower.includes('policy')) return '🛡️ Policy';
-    if (lower.includes('report')) return '📊 Report';
-    if (lower.includes('agreement')) return '🤝 Agreement';
-    if (lower.includes('profile')) return '👤 Profile';
-    if (lower.includes('brochure') || lower.includes('guide')) return '📖 Guide';
-    return '📄 Document';
+    if (lower.includes('minutes')) return 'Minutes';
+    if (lower.includes('agenda')) return 'Agenda';
+    if (lower.includes('notice')) return 'Public Notice/Communication';
+    if (lower.includes('bylaw')) return 'Bylaw';
+    if (lower.includes('policy')) return 'Policy';
+    if (lower.includes('report')) return 'Report';
+    if (lower.includes('agreement')) return 'Agreement/Contract';
+    if (lower.includes('brochure') || lower.includes('guide')) return 'FAQ/Info Sheet';
+    return 'Public Information/Miscellaneous';
+  }
+
+  // Single source of truth for a document's type label: prefer the real
+  // document_type field (populated by the 2026-08-22 type revamp); fall back
+  // to a title guess only when the field is missing.
+  function getDocTypeLabel(d) {
+    return (d && d.document_type) ? d.document_type : legacyDocTypeGuess(d ? d.title : '');
+  }
+  function getDocTypePillClass(label) {
+    return DOC_TYPE_TO_PILL[label] || 'pill-grey';
   }
 
   function getRelevanceScore(doc, query) {
