@@ -817,7 +817,9 @@ function initApp() {
       }
 
       const docType = getDocType(d.title);
-      const dateFormatted = isDateValid(d.date) ? d.date : 'Date not recorded';
+      const dateFormatted = !isDateValid(d.date)
+        ? 'Date not recorded'
+        : isFullDate(d.date) ? d.date : `${d.date} (year only)`;
 
       const card = document.createElement('div');
       card.className = 'doc-card';
@@ -1190,7 +1192,7 @@ function initApp() {
 
       const displayDate = (!row.date || row.date.toLowerCase() === 'historical record' || row.date.toLowerCase() === 'unknown')
         ? '<span class="text-muted">Date not recorded</span>'
-        : row.date;
+        : isFullDate(row.date) ? row.date : `${row.date} (year only)`;
 
       let rowAttendeesList = [];
       if (row.attendees) {
@@ -1257,10 +1259,17 @@ function initApp() {
 
   function isDateValid(str) {
     if (!str) return false;
-    const reg = /^\d{4}-\d{2}-\d{2}$/;
-    if (!reg.test(str)) return false;
+    const fullReg = /^\d{4}-\d{2}-\d{2}$/;
+    const yearOnlyReg = /^\d{4}$/;
+    if (!fullReg.test(str) && !yearOnlyReg.test(str)) return false;
     const year = parseInt(str.substring(0, 4));
     return year >= 1800 && year <= 2100;
+  }
+
+  // True only for a full YYYY-MM-DD date (used to decide whether a specific
+  // day is known, vs. a year-only recovered date from isDateValid()).
+  function isFullDate(str) {
+    return !!str && /^\d{4}-\d{2}-\d{2}$/.test(str);
   }
 
   function getDocType(title) {
