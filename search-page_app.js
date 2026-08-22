@@ -881,7 +881,7 @@ function initApp() {
         <div class="doc-header" style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
           <div>
             <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${jurIcon}${highlightKeywords(d.jurisdiction || '', q)}</span>
-            ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-style: italic; font-size: 0.74rem; margin-left: 12px;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
+            ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-size: 0.74rem; margin-left: 12px;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
           </div>
         </div>
         <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 4px 0 2px 0;">
