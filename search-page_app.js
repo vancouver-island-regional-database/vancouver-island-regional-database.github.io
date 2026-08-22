@@ -821,7 +821,7 @@ function initApp() {
       }
 
       const docTypeLabel = getDocTypeLabel(d);
-      const docTypePill = `<span class="pill ${getDocTypePillClass(docTypeLabel)}" style="cursor:default; font-size:10.5px; padding:2px 8px;">${escapeHtml(docTypeLabel)}</span>`;
+      const docTypePill = `<span class="pill ${getDocTypePillClass(docTypeLabel)} clickable-doctype-pill" data-doctype="${escapeHtml(docTypeLabel)}" title="Filter by this document type" style="cursor:pointer; font-size:10.5px; padding:2px 8px;">${escapeHtml(docTypeLabel)}</span>`;
       const dateFormatted = !isDateValid(d.date)
         ? 'Date not recorded'
         : isFullDate(d.date) ? d.date : `${d.date} (year only)`;
@@ -889,6 +889,13 @@ function initApp() {
             cb.checked = !cb.checked;
             cb.dispatchEvent(new Event('change'));
           }
+        });
+      });
+
+      card.querySelectorAll('.clickable-doctype-pill').forEach(pillEl => {
+        pillEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleDocTypeFilter(pillEl.getAttribute('data-doctype'));
         });
       });
 
@@ -1320,6 +1327,24 @@ function initApp() {
   }
   function getDocTypePillClass(label) {
     return DOC_TYPE_TO_PILL[label] || 'pill-grey';
+  }
+
+  // Lets a document-type pill on a card act as a shortcut into the Document
+  // Type filter dropdown -- clicking it toggles that value the same way
+  // checking it in the dropdown would, then re-applies filters immediately.
+  function toggleDocTypeFilter(label) {
+    if (!label) return;
+    const idx = selectedDocTypeList.indexOf(label);
+    if (idx === -1) {
+      selectedDocTypeList = [...selectedDocTypeList, label];
+    } else {
+      selectedDocTypeList = selectedDocTypeList.filter(v => v !== label);
+    }
+    if (docTypeController) docTypeController.setSelected(selectedDocTypeList);
+    const trigger = document.getElementById('docTypeText');
+    if (trigger) trigger.innerText = selectedDocTypeList.length > 0 ? `Selected (${selectedDocTypeList.length})` : 'Document Type';
+    updateResetFiltersBtnVisibility();
+    applyDocumentFiltersAndRender();
   }
 
   function getRelevanceScore(doc, query) {
