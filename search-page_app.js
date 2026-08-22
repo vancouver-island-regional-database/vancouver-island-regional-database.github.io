@@ -803,6 +803,10 @@ function initApp() {
         ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
         : '';
 
+      const altUrlLinks = (Array.isArray(d.alternate_urls) && d.alternate_urls.length)
+        ? d.alternate_urls.map((u, i) => `<a href="${u}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="Additional source URL for this document">alternate source${d.alternate_urls.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' &middot; ')
+        : '';
+
       const ftsSnip = currentFtsSnippets && currentFtsSnippets.get(d.id);
       let snippetDisplay;
       if (ftsSnip) {
@@ -869,6 +873,7 @@ function initApp() {
           <span>•</span>
           <span title="Which website this document was retrieved from">🌐 ${d.source || 'Unknown'}</span>
           ${backupLinkBtn ? `<span>•</span><span>${backupLinkBtn}</span>` : ''}
+          ${altUrlLinks ? `<span>•</span><span>${altUrlLinks}</span>` : ''}
         </div>
         ${snippetDisplay}
         ${footerHtml}
@@ -1226,6 +1231,7 @@ function initApp() {
           <span>🆔 CE-${row.id}</span>
           <span title="Which website this record was retrieved from">🌐 ${row.source || 'Unknown'}</span>
           ${row.html_file_path ? `<span><a href="${row.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a></span>` : ''}
+          ${Array.isArray(row.alternate_urls) && row.alternate_urls.length ? `<span>${row.alternate_urls.map((u, i) => `<a href="${u}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="Additional source URL for this document">alternate source${row.alternate_urls.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' &middot; ')}</span>` : ''}
         </div>
         <div class="closed-card-body">
           <div style="margin-bottom: 8px;">
