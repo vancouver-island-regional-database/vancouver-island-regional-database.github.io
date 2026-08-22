@@ -826,17 +826,17 @@ body.dragging .side-tab-flap {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-.cat-checkbox-water { border: 2px solid #93c5fd; }
+.cat-checkbox-water { border: 1px solid #93c5fd; }
 .cat-checkbox-water:checked { background: #93c5fd; }
-.cat-checkbox-land { border: 2px solid #86efac; }
+.cat-checkbox-land { border: 1px solid #86efac; }
 .cat-checkbox-land:checked { background: #86efac; }
-.cat-checkbox-major { border: 2px solid #fcd34d; }
+.cat-checkbox-major { border: 1px solid #fcd34d; }
 .cat-checkbox-major:checked { background: #fcd34d; }
-.cat-checkbox-parks { border: 2px solid #c4b5fd; }
+.cat-checkbox-parks { border: 1px solid #c4b5fd; }
 .cat-checkbox-parks:checked { background: #c4b5fd; }
-.cat-checkbox-natural { border: 2px solid #d2b48c; }
+.cat-checkbox-natural { border: 1px solid #d2b48c; }
 .cat-checkbox-natural:checked { background: #d2b48c; }
-.cat-checkbox-infra { border: 2px solid #94a3b8; }
+.cat-checkbox-infra { border: 1px solid #94a3b8; }
 .cat-checkbox-infra:checked { background: #94a3b8; }
 
 .link-blue {
