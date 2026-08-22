@@ -871,17 +871,19 @@ function initApp() {
         : '';
 
       const jurColor = JURISDICTION_COLORS[d.jurisdiction] || DEFAULT_JUR_COLOR;
-      const jurDocLink = d.url
-        ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:#fff; font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
-        : `<span class="link-slate-bold" style="color:#fff; font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
+      const docLink = d.url
+        ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
+        : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
 
       card.innerHTML = `
-        <div class="doc-header" style="display: flex; flex-direction: column; gap: 4px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
-          <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
-            <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${JURISDICTION_ICON} ${highlightKeywords(d.jurisdiction || '', q)}</span>
-            ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-style: italic; font-size: 0.74rem;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
+        <div class="doc-header" style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
+          <div>
+            <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${highlightKeywords(d.jurisdiction || '', q)}</span>
+            ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-style: italic; font-size: 0.74rem; margin-left: 12px;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
           </div>
-          <h4 class="doc-title" style="margin: 0; display: inline-block;">${jurDocLink}</h4>
+        </div>
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 4px 0 2px 0;">
+          <h4 class="doc-title" style="margin: 0; display: inline-block;">${docLink}</h4>
         </div>
         <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-top: 2px; margin-bottom: 8px;">
           <span>📅 ${dateFormatted}</span>
@@ -1367,17 +1369,30 @@ function initApp() {
   // district, First Nation government) treated as structurally equivalent, so
   // the icon doesn't vary by "type" of government, only the color does.
   // Colors are dark enough (WCAG-safe) to hold white header text.
-  // Only Ladysmith and SD68 have a verified canonical color (sourced from
-  // water-systems' existing authority-badge system, also baked into the
-  // authority-icons filenames: fav_ladysmith_0885AD.png / fav_sd68_5F7D3E.png).
-  // No other jurisdiction has a confirmed color anywhere in the project --
-  // do NOT invent one here. Anything not listed falls back to
+  // Canonical colors only -- confirmed by Beth, not invented. Where she gave
+  // two options (a bright brand color + a darker fallback), the darker one
+  // was picked wherever the bright option failed white-text contrast (WCAG
+  // ~4.5:1 against white). Anything not listed falls back to
   // DEFAULT_JUR_COLOR until a real canonical color is confirmed.
   const JURISDICTION_COLORS = {
     'Town of Ladysmith': '#0885AD',
-    'School District 68': '#5F7D3E'
+    'School District 68': '#5F7D3E',
+    // North Cowichan's bright option (#E8941B) contrast-checked at ~2.4:1
+    // against white -- fails. Using the navy alternative instead.
+    'District of North Cowichan': '#183B50',
+    // CVRD's two bright options (#25BBB9 ~2.4:1, #D0E44F far worse) both
+    // fail against white -- using the dark-green fallback Beth gave.
+    'Cowichan Valley Regional District': '#003403',
+    // Stz'uminus' blue passes (~4.6:1) -- used as given.
+    "Stz'uminus First Nation": '#3269FF',
+    // Rossland: picked the darker of the two options (~14.7:1) for a safe
+    // margin; the lighter option (#1C76DE) was right at the ~4.5:1 edge.
+    'City of Rossland': '#062265',
+    'City of Nanaimo': '#004475',
+    // MoTI: Beth said "uses Gov BC styling" -- reusing the site's existing
+    // BC-gov brand blue rather than inventing a MoTI-specific color.
+    'Ministry of Transportation and Infrastructure': '#003366'
   };
-  const JURISDICTION_ICON = '🏛️';
   const DEFAULT_JUR_COLOR = '#334155';
 
   // Lets a document-type pill on a card act as a shortcut into the Document
