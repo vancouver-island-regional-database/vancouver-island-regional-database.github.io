@@ -849,12 +849,12 @@ function initApp() {
       // Categories (Water Systems, Infrastructure & Services, etc.) aren't
       // jurisdiction-specific -- display just the category name, but keep the
       // full "Jurisdiction: Category" in data-tag since that's what matching
-      // logic elsewhere still expects. Regular grey pill, just ringed with a
-      // 2px colored outline sitting outside the pill's own border.
+      // logic elsewhere still expects. Same pill as before, just its own
+      // border bumped from 1px to 2px and colored per category.
       const tagsHtml = tags.map(tag => {
         const displayTag = tag.includes(': ') ? tag.split(': ').slice(1).join(': ') : tag;
         const catColor = CATEGORY_OUTLINE_COLORS[displayTag] || '#94a3b8';
-        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px; outline:2px solid ${catColor}; outline-offset:2px;">${highlightKeywords(displayTag, q)}</span>`;
+        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px; border:2px solid ${catColor};">${highlightKeywords(displayTag, q)}</span>`;
       }).join('');
 
       const footerHtml = tags.length > 0
