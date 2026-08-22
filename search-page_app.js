@@ -884,7 +884,11 @@ function initApp() {
         tagEl.addEventListener('click', (e) => {
           e.stopPropagation();
           const clickedTag = tagEl.getAttribute('data-tag');
-          const cb = Array.from(document.querySelectorAll('.cat-checkbox')).find(el => el.value === clickedTag);
+          // Card tags carry a "Jurisdiction: " prefix (e.g. "Town of Ladysmith:
+          // Infrastructure & Services"), but the sidebar checkboxes only store
+          // the bare category name -- strip the prefix before matching.
+          const bareTag = clickedTag.includes(': ') ? clickedTag.split(': ').slice(1).join(': ') : clickedTag;
+          const cb = Array.from(document.querySelectorAll('.cat-checkbox')).find(el => el.value === bareTag);
           if (cb) {
             cb.checked = !cb.checked;
             cb.dispatchEvent(new Event('change'));
