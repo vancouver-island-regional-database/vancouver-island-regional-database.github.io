@@ -69,7 +69,7 @@ function initApp() {
         const SQL = await initSqlJs({
           locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js-fts5@1.4.0/dist/${file}`
         });
-        const resp = await fetch('./data/ladysmith_search.db.gz');
+        const resp = await fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_search.db.gz');
         if (!resp.ok) throw new Error(`fetch failed: ${resp.status}`);
         const compressedBuf = await resp.arrayBuffer();
         const decompressedStream = new Blob([compressedBuf]).stream().pipeThrough(new DecompressionStream('gzip'));
@@ -152,7 +152,7 @@ function initApp() {
   }
 
   const PROJECT_ADDITIVE_JUR = {
-    "City Hall Redevelopment": { jurisdiction: "City of Rossland", dataFile: "./data/rossland_documents.json" }
+    "City Hall Redevelopment": { jurisdiction: "City of Rossland", dataFile: "https://vancouver-island-regional-database.github.io/document-index/site-data/rossland_documents.json" }
   };
   let cachedAdditiveData = {}; // { "City of Rossland": [...] }
 
@@ -539,7 +539,7 @@ function initApp() {
       })
       .catch(err => {
         console.warn("Backend server offline. Automatically loading local JSON fallback dataset...");
-        fetch('./data/ladysmith_documents.json')
+        fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_documents.json')
           .then(res => res.json())
           .then(data => {
             rawDocumentsData = data.documents || [];
@@ -799,8 +799,8 @@ function initApp() {
         ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
         : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
 
-      const backupLinkBtn = d.backup_path
-        ? `<a href="${d.backup_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
+      const backupLinkBtn = d.html_file_path
+        ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View document index HTML file">View document index HTML file</a>`
         : '';
 
       const ftsSnip = currentFtsSnippets && currentFtsSnippets.get(d.id);
@@ -962,7 +962,7 @@ function initApp() {
       })
       .catch(err => {
         console.warn("Backend closed session API offline. Automatically loading local JSON fallback dataset...");
-        fetch('./data/ladysmith_incamera.json')
+        fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_incamera.json')
           .then(res => res.json())
           .then(data => {
             rawIncameraData = data.items || data.incamera || [];
@@ -1223,7 +1223,7 @@ function initApp() {
           <span>📁 ${recordTypeDisplay}</span>
           <span>🆔 CE-${row.id}</span>
           <span title="Which website this record was retrieved from">🌐 ${row.source || 'Unknown'}</span>
-          ${row.backup_path ? `<span><a href="${row.backup_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a></span>` : ''}
+          ${row.html_file_path ? `<span><a href="${row.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View document index HTML file">View document index HTML file</a></span>` : ''}
         </div>
         <div class="closed-card-body">
           <div style="margin-bottom: 8px;">

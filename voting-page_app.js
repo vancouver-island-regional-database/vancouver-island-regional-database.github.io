@@ -304,14 +304,14 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(err => {
         console.warn("Backend decision API server offline. Re-routing requests to local fallbacks...");
-        fetch('./data/ladysmith_decisions.json')
+        fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_decisions.json')
           .then(res => res.json())
           .then(data => {
             rawDecisionsData = data.decisions || [];
             processAndRenderDecisions();
           })
           .catch(localErr => {
-            console.error("Fatal: Failed to load local JSON fallbacks for Voting Matrix!", localErr);
+            console.error("Fatal: Failed to load local JSON fallbacks for Voting Records!", localErr);
             const body = document.getElementById('decisionsBody');
             if (body) {
               body.innerHTML = `<tr><td colspan="11" style="padding:16px; text-align:center; color:#ef4444; font-family:monospace;">
