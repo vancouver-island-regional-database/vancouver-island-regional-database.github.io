@@ -809,7 +809,7 @@ body.dragging .side-tab-flap {
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  background: #fff;
+  background: #f1f5f9;
   cursor: pointer;
   position: relative;
   vertical-align: middle;
