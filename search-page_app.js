@@ -846,7 +846,14 @@ function initApp() {
       card.style.overflow = 'hidden';
 
       const tags = d.category ? d.category.split(',').map(t => t.trim()).filter(Boolean) : [];
-      const tagsHtml = tags.map(tag => `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px;">${highlightKeywords(tag, q)}</span>`).join('');
+      // Categories (Water Systems, Infrastructure & Services, etc.) aren't
+      // jurisdiction-specific -- display just the category name, but keep the
+      // full "Jurisdiction: Category" in data-tag since that's what matching
+      // logic elsewhere still expects.
+      const tagsHtml = tags.map(tag => {
+        const displayTag = tag.includes(': ') ? tag.split(': ').slice(1).join(': ') : tag;
+        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px;">${highlightKeywords(displayTag, q)}</span>`;
+      }).join('');
 
       const footerHtml = tags.length > 0
         ? `<div class="doc-footer" style="margin-top: 8px; padding-top: 10px; border-top: 1px solid #f1f5f9; display: flex; flex-direction: column; gap: 6px; text-align: left;">
