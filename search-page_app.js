@@ -285,7 +285,7 @@ function initApp() {
   }
 
   function setupMultiSelectPopup(config) {
-    const { headerBtn, menu, searchInput, applyBtn, clearBtn, checkboxList, getOptions, onApply } = config;
+    const { headerBtn, menu, searchInput, applyBtn, clearBtn, checkboxList, getOptions, onApply, colorMap } = config;
     if (!headerBtn) return null;
     if (headerBtn.dataset.popupBound) return null;
     headerBtn.dataset.popupBound = "true";
@@ -302,7 +302,13 @@ function initApp() {
         const isChecked = selectedItems.includes(opt);
         const label = document.createElement('label');
         label.className = 'dropdown-option';
-        label.innerHTML = `<input type="checkbox" value="${opt}" ${isChecked ? 'checked' : ''}> <span>${opt}</span>`;
+        // Optional colored swatch so jurisdiction checkboxes match the color
+        // used on the card headers -- other filters (doc type, category tags,
+        // etc.) don't pass colorMap and render as plain text as before.
+        const swatch = colorMap && colorMap[opt]
+          ? `<span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:${colorMap[opt]}; margin-right:4px; vertical-align:middle;"></span>`
+          : '';
+        label.innerHTML = `<input type="checkbox" value="${opt}" ${isChecked ? 'checked' : ''}> <span>${swatch}${opt}</span>`;
         checkboxList.appendChild(label);
       });
     }
@@ -613,6 +619,7 @@ function initApp() {
       clearBtn: document.getElementById('docJurClear'),
       checkboxList: document.getElementById('docJurOptions'),
       getOptions: getLiveJurisdictionOptions,
+      colorMap: JURISDICTION_COLORS,
       onApply: (selected) => {
         selectedDocJurList = selected;
         const trigger = document.getElementById('docJurText');
@@ -636,6 +643,7 @@ function initApp() {
       clearBtn: document.getElementById('docAppJurClear'),
       checkboxList: document.getElementById('docAppJurOptions'),
       getOptions: getLiveAppJurisdictionOptions,
+      colorMap: JURISDICTION_COLORS,
       onApply: (selected) => {
         selectedDocAppJurList = selected;
         const trigger = document.getElementById('docAppJurText');
@@ -795,10 +803,6 @@ function initApp() {
       const displayTitleRaw = d.display_title || d.title || '';
       const highlightedTitle = highlightKeywords(displayTitleRaw, q);
 
-      const docLink = d.url
-        ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
-        : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
-
       const backupLinkBtn = d.html_file_path
         ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
         : '';
@@ -866,22 +870,25 @@ function initApp() {
            </div>`
         : '';
 
+      const jurColor = JURISDICTION_COLORS[d.jurisdiction] || DEFAULT_JUR_COLOR;
+      const jurDocLink = d.url
+        ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:#fff; font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
+        : `<span class="link-slate-bold" style="color:#fff; font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
+
       card.innerHTML = `
-        <div class="doc-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: #e2e8f0; border-bottom: 1px solid #cbd5e1; margin: -18px -18px 10px -18px; padding: 10px 18px;">
-          <div>
-            <span class="doc-jur" style="font-weight: 700; color: var(--bc-blue); margin-right: 12px; font-size: 0.82rem;">${highlightKeywords(d.jurisdiction || '', q)}</span>
-            <span style="color: #64748b; font-weight: 600; font-size: 0.78rem;">${highlightKeywords(d.applicable_jurisdictions || '', q)}</span>
+        <div class="doc-header" style="display: flex; flex-direction: column; gap: 4px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
+          <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+            <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${JURISDICTION_ICON} ${highlightKeywords(d.jurisdiction || '', q)}</span>
+            ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-style: italic; font-size: 0.74rem;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
           </div>
-        </div>
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 4px 0 2px 0;">
-          <h4 class="doc-title" style="margin: 0; display: inline-block;">${docLink}</h4>
+          <h4 class="doc-title" style="margin: 0; display: inline-block;">${jurDocLink}</h4>
         </div>
         <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-top: 2px; margin-bottom: 8px;">
           <span>📅 ${dateFormatted}</span>
           <span>•</span>
-          ${docTypePill}
-          <span>•</span>
           <span title="Which website this document was retrieved from">🌐 ${d.source || 'Unknown'}</span>
+          <span>•</span>
+          ${docTypePill}
           ${backupLinkBtn ? `<span>•</span><span>${backupLinkBtn}</span>` : ''}
           ${altUrlLinks ? `<span>•</span><span>${altUrlLinks}</span>` : ''}
         </div>
@@ -1014,6 +1021,7 @@ function initApp() {
       clearBtn: document.getElementById('incameraJurClear'),
       checkboxList: document.getElementById('incameraJurOptions'),
       getOptions: getLiveIncameraJurOptions,
+      colorMap: JURISDICTION_COLORS,
       onApply: (selected) => {
         selectedIncameraJurList = selected;
         document.getElementById('incameraJurText').innerText = selected.length > 0 ? `Selected (${selected.length})` : `Jurisdiction`;
@@ -1352,6 +1360,25 @@ function initApp() {
     'Natural Resources': '#d2b48c',
     'Parks & Community Facilities': '#c4b5fd'
   };
+
+  // Per-jurisdiction color + icon for card headers and the jurisdiction filter
+  // dropdown. Same civic-building icon for every entry deliberately -- these
+  // are all governing bodies (municipal, regional, provincial ministry, school
+  // district, First Nation government) treated as structurally equivalent, so
+  // the icon doesn't vary by "type" of government, only the color does.
+  // Colors are dark enough (WCAG-safe) to hold white header text.
+  // Only Ladysmith and SD68 have a verified canonical color (sourced from
+  // water-systems' existing authority-badge system, also baked into the
+  // authority-icons filenames: fav_ladysmith_0885AD.png / fav_sd68_5F7D3E.png).
+  // No other jurisdiction has a confirmed color anywhere in the project --
+  // do NOT invent one here. Anything not listed falls back to
+  // DEFAULT_JUR_COLOR until a real canonical color is confirmed.
+  const JURISDICTION_COLORS = {
+    'Town of Ladysmith': '#0885AD',
+    'School District 68': '#5F7D3E'
+  };
+  const JURISDICTION_ICON = '🏛️';
+  const DEFAULT_JUR_COLOR = '#334155';
 
   // Lets a document-type pill on a card act as a shortcut into the Document
   // Type filter dropdown -- clicking it toggles that value the same way
