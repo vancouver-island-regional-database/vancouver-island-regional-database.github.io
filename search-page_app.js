@@ -849,10 +849,13 @@ function initApp() {
       // Categories (Water Systems, Infrastructure & Services, etc.) aren't
       // jurisdiction-specific -- display just the category name, but keep the
       // full "Jurisdiction: Category" in data-tag since that's what matching
-      // logic elsewhere still expects.
+      // logic elsewhere still expects. Outline-only (2px border, no fill) so
+      // this reads as a distinct visual system from the filled document-type
+      // pills, even where a hue is reused.
       const tagsHtml = tags.map(tag => {
         const displayTag = tag.includes(': ') ? tag.split(': ').slice(1).join(': ') : tag;
-        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px;">${highlightKeywords(displayTag, q)}</span>`;
+        const catColor = CATEGORY_OUTLINE_COLORS[displayTag] || '#64748b';
+        return `<span class="clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size:11px; font-weight:600; padding:2px 9px; border-radius:12px; background:transparent; border:2px solid ${catColor}; color:${catColor};">${highlightKeywords(displayTag, q)}</span>`;
       }).join('');
 
       const footerHtml = tags.length > 0
@@ -1339,6 +1342,17 @@ function initApp() {
   function getDocTypePillClass(label) {
     return DOC_TYPE_TO_PILL[label] || 'pill-grey';
   }
+
+  // Category outline colors -- separate system from the document-type pills
+  // above (those are filled; these are outline-only), so hue reuse is fine.
+  const CATEGORY_OUTLINE_COLORS = {
+    'Water Systems': '#2563eb',
+    'Infrastructure & Services': '#334155',
+    'Major Developments': '#b45309',
+    'Land Use Planning': '#15803d',
+    'Natural Resources': '#78350f',
+    'Parks & Community Facilities': '#7c3aed'
+  };
 
   // Lets a document-type pill on a card act as a shortcut into the Document
   // Type filter dropdown -- clicking it toggles that value the same way
