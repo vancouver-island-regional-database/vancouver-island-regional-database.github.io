@@ -854,7 +854,7 @@ function initApp() {
       const tagsHtml = tags.map(tag => {
         const displayTag = tag.includes(': ') ? tag.split(': ').slice(1).join(': ') : tag;
         const catColor = CATEGORY_OUTLINE_COLORS[displayTag] || '#94a3b8';
-        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px; border:2px solid ${catColor};">${highlightKeywords(displayTag, q)}</span>`;
+        return `<span class="pill pill-grey clickable-category-tag" data-tag="${tag}" style="cursor:pointer; margin-right:4px; margin-bottom:4px; display:inline-block; font-size: 11px; border:2px solid ${catColor}; color:var(--bc-blue-dark);">${highlightKeywords(displayTag, q)}</span>`;
       }).join('');
 
       const footerHtml = tags.length > 0
