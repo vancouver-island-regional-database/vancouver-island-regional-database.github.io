@@ -302,13 +302,11 @@ function initApp() {
         const isChecked = selectedItems.includes(opt);
         const label = document.createElement('label');
         label.className = 'dropdown-option';
-        // Optional colored swatch so jurisdiction checkboxes match the color
-        // used on the card headers -- other filters (doc type, category tags,
-        // etc.) don't pass colorMap and render as plain text as before.
-        const swatch = colorMap && colorMap[opt]
-          ? `<span style="display:inline-block; width:10px; height:10px; border-radius:2px; background:${colorMap[opt]}; margin-right:4px; vertical-align:middle;"></span>`
-          : '';
-        label.innerHTML = `<input type="checkbox" value="${opt}" ${isChecked ? 'checked' : ''}> <span>${swatch}${opt}</span>`;
+        // Same pattern as the category checkboxes (.cat-checkbox): the
+        // checkbox itself gets a colored border/fill via a CSS custom
+        // property, not a separate swatch element next to it.
+        const colorAttr = colorMap && colorMap[opt] ? ` class="jur-checkbox" style="--jur-color:${colorMap[opt]}"` : '';
+        label.innerHTML = `<input type="checkbox" value="${opt}"${colorAttr} ${isChecked ? 'checked' : ''}> <span>${opt}</span>`;
         checkboxList.appendChild(label);
       });
     }

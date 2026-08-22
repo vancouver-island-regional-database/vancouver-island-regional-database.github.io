@@ -845,6 +845,38 @@ body.dragging .side-tab-flap {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+/* Same structure as .cat-checkbox, but for the jurisdiction filter
+   dropdowns, where colors are per-document-data (not a fixed set of
+   category classes) -- color comes from a --jur-color custom property set
+   inline per-option in JS instead of a dedicated class per value. */
+.jur-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: #f1f5f9;
+  border: 1px solid var(--jur-color, #94a3b8);
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  margin: 0;
+}
+.jur-checkbox:checked {
+  background: var(--jur-color, #94a3b8);
+}
+.jur-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
 .cat-checkbox-water { border: 1px solid #93c5fd; }
 .cat-checkbox-water:checked { background: #93c5fd; }
 .cat-checkbox-land { border: 1px solid #86efac; }
