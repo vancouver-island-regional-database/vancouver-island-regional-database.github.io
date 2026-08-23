@@ -18,6 +18,7 @@ function initApp() {
   let selectedDocAppJurList = [];
   let selectedDocTagsList = [];
   let selectedDocTypeList = [];
+  let selectedLinkStatusList = [];
 
   let selectedIncameraJurList = [];
   let selectedIncameraTypeList = [];
@@ -224,7 +225,7 @@ function initApp() {
     ]
   };
 
-  let docJurController, docAppJurController, docTypeController;
+  let docJurController, docAppJurController, docTypeController, linkStatusController;
   let incameraJurController, incameraStatutoryController, incameraAttendeesController, incameraRecordTypeController;
 
   const catCheckboxes = document.querySelectorAll('.cat-checkbox');
@@ -285,7 +286,7 @@ function initApp() {
   }
 
   function setupMultiSelectPopup(config) {
-    const { headerBtn, menu, searchInput, applyBtn, clearBtn, checkboxList, getOptions, onApply, colorMap } = config;
+    const { headerBtn, menu, searchInput, applyBtn, clearBtn, checkboxList, getOptions, onApply, colorMap, labelMap } = config;
     if (!headerBtn) return null;
     if (headerBtn.dataset.popupBound) return null;
     headerBtn.dataset.popupBound = "true";
@@ -306,7 +307,8 @@ function initApp() {
         // checkbox itself gets a colored border/fill via a CSS custom
         // property, not a separate swatch element next to it.
         const colorAttr = colorMap && colorMap[opt] ? ` class="jur-checkbox" style="--jur-color:${colorMap[opt]}"` : '';
-        label.innerHTML = `<input type="checkbox" value="${opt}"${colorAttr} ${isChecked ? 'checked' : ''}> <span>${opt}</span>`;
+        const displayText = labelMap && labelMap[opt] ? labelMap[opt] : opt;
+        label.innerHTML = `<input type="checkbox" value="${opt}"${colorAttr} ${isChecked ? 'checked' : ''}> <span>${displayText}</span>`;
         checkboxList.appendChild(label);
       });
     }
@@ -448,6 +450,7 @@ function initApp() {
       selectedDocAppJurList = [];
       selectedDocTagsList = [];
       selectedDocTypeList = [];
+      selectedLinkStatusList = [];
 
       selectedIncameraJurList = [];
       selectedIncameraTypeList = [];
@@ -459,6 +462,7 @@ function initApp() {
       if (docJurController) docJurController.setSelected([]);
       if (docAppJurController) docAppJurController.setSelected([]);
       if (docTypeController) docTypeController.setSelected([]);
+      if (linkStatusController) linkStatusController.setSelected([]);
       if (incameraJurController) incameraJurController.setSelected([]);
       if (incameraStatutoryController) incameraStatutoryController.setSelected([]);
       if (incameraAttendeesController) incameraAttendeesController.setSelected([]);
@@ -470,6 +474,8 @@ function initApp() {
       if (docAppJurText) docAppJurText.innerText = 'Applicable Jurisdictions';
       const docTypeText = document.getElementById('docTypeText');
       if (docTypeText) docTypeText.innerText = 'Document Type';
+      const linkStatusText = document.getElementById('linkStatusText');
+      if (linkStatusText) linkStatusText.innerText = 'Link Status';
 
       const incameraJurText = document.getElementById('incameraJurText');
       if (incameraJurText) incameraJurText.innerText = 'Jurisdiction';
@@ -512,6 +518,7 @@ function initApp() {
       selectedDocAppJurList.length > 0 ||
       selectedDocTagsList.length > 0 ||
       selectedDocTypeList.length > 0 ||
+      selectedLinkStatusList.length > 0 ||
       selectedIncameraJurList.length > 0 ||
       selectedStatutoryList.length > 0 ||
       selectedAttendeesList.length > 0 ||
@@ -668,7 +675,28 @@ function initApp() {
       }
     });
 
+    linkStatusController = setupMultiSelectPopup({
+      headerBtn: document.getElementById('linkStatusTrigger'),
+      menu: document.getElementById('linkStatusMenu'),
+      applyBtn: document.getElementById('linkStatusApply'),
+      clearBtn: document.getElementById('linkStatusClear'),
+      checkboxList: document.getElementById('linkStatusOptions'),
+      getOptions: getLiveLinkStatusOptions,
+      labelMap: Object.fromEntries(Object.entries(LINK_STATUS_META).map(([k, v]) => [k, v.text])),
+      onApply: (selected) => {
+        selectedLinkStatusList = selected;
+        const trigger = document.getElementById('linkStatusText');
+        if (trigger) trigger.innerText = selected.length > 0 ? `Selected (${selected.length})` : 'Link Status';
+        updateResetFiltersBtnVisibility();
+        applyDocumentFiltersAndRender();
+      }
+    });
+
     applyDocumentFiltersAndRender();
+  }
+
+  function getLiveLinkStatusOptions() {
+    return Array.from(new Set(rawDocumentsData.map(d => d.link_status_code || '200').filter(Boolean)));
   }
 
   function applyDocumentFiltersAndRender() {
@@ -728,6 +756,10 @@ function initApp() {
 
     if (selectedDocTypeList.length > 0) {
       docs = docs.filter(d => selectedDocTypeList.includes(getDocTypeLabel(d)));
+    }
+
+    if (selectedLinkStatusList.length > 0) {
+      docs = docs.filter(d => selectedLinkStatusList.includes(d.link_status_code || '200'));
     }
 
     const dStart = dateStart ? dateStart.value : '';
@@ -887,7 +919,7 @@ function initApp() {
       const statusTooltip = d.link_checked_date
         ? `Checked ${d.link_checked_date}: ${statusPill.label}`
         : statusPill.label;
-      const statusBadge = `<span class="status-badge ${statusPill.cls} has-tooltip" data-tooltip="${escapeHtml(statusTooltip)}">${statusPill.text}</span>`;
+      const statusBadge = `<span class="status-badge ${statusPill.cls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span>`;
 
       card.innerHTML = `
         <div class="doc-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
@@ -933,6 +965,13 @@ function initApp() {
         pillEl.addEventListener('click', (e) => {
           e.stopPropagation();
           toggleDocTypeFilter(pillEl.getAttribute('data-doctype'));
+        });
+      });
+
+      card.querySelectorAll('.clickable-status-badge').forEach(badgeEl => {
+        badgeEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleLinkStatusFilter(badgeEl.getAttribute('data-status'));
         });
       });
 
@@ -1443,6 +1482,21 @@ function initApp() {
     if (docTypeController) docTypeController.setSelected(selectedDocTypeList);
     const trigger = document.getElementById('docTypeText');
     if (trigger) trigger.innerText = selectedDocTypeList.length > 0 ? `Selected (${selectedDocTypeList.length})` : 'Document Type';
+    updateResetFiltersBtnVisibility();
+    applyDocumentFiltersAndRender();
+  }
+
+  function toggleLinkStatusFilter(code) {
+    if (!code) return;
+    const idx = selectedLinkStatusList.indexOf(code);
+    if (idx === -1) {
+      selectedLinkStatusList = [...selectedLinkStatusList, code];
+    } else {
+      selectedLinkStatusList = selectedLinkStatusList.filter(v => v !== code);
+    }
+    if (linkStatusController) linkStatusController.setSelected(selectedLinkStatusList);
+    const trigger = document.getElementById('linkStatusText');
+    if (trigger) trigger.innerText = selectedLinkStatusList.length > 0 ? `Selected (${selectedLinkStatusList.length})` : 'Link Status';
     updateResetFiltersBtnVisibility();
     applyDocumentFiltersAndRender();
   }
