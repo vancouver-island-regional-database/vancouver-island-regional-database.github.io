@@ -44,7 +44,7 @@
 .has-tooltip::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 125%;
+  top: 125%;
   left: 50%;
   transform: translateX(-50%);
   background: #1F2933;
