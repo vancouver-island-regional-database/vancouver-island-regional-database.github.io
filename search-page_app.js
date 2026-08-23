@@ -801,8 +801,13 @@ function initApp() {
       const displayTitleRaw = d.display_title || d.title || '';
       const highlightedTitle = highlightKeywords(displayTitleRaw, q);
 
+      const linkStatus = d.link_status_code || '200';
+      const isLinkBroken = linkStatus !== '200';
+
       const backupLinkBtn = d.html_file_path
-        ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
+        ? (isLinkBroken
+            ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.7rem; color:#C5221F; font-weight:700; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
+            : `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`)
         : '';
 
       const altUrlLinks = (Array.isArray(d.alternate_urls) && d.alternate_urls.length)
@@ -873,16 +878,24 @@ function initApp() {
       const jurIcon = jurIconSrc
         ? `<span class="icon-container"><img src="${jurIconSrc}" alt="${escapeHtml(d.jurisdiction || '')} icon"></span>`
         : '';
+      const strikeStyle = isLinkBroken ? ' text-decoration:line-through;' : '';
       const docLink = d.url
-        ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none; color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
-        : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;" title="No original source link recorded">${highlightedTitle}</span>`;
+        ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none;${strikeStyle} color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
+        : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;${strikeStyle}" title="No original source link recorded">${highlightedTitle}</span>`;
+
+      const statusPill = LINK_STATUS_META[linkStatus] || LINK_STATUS_META['200'];
+      const statusTooltip = d.link_checked_date
+        ? `Checked ${d.link_checked_date}: ${statusPill.label}`
+        : statusPill.label;
+      const statusBadge = `<span class="status-badge ${statusPill.cls} has-tooltip" data-tooltip="${escapeHtml(statusTooltip)}">${statusPill.text}</span>`;
 
       card.innerHTML = `
-        <div class="doc-header" style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
+        <div class="doc-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
           <div>
             <span class="doc-jur" style="font-weight: 700; color: #fff; font-size: 0.82rem;">${jurIcon}${highlightKeywords(d.jurisdiction || '', q)}</span>
             ${d.applicable_jurisdictions ? `<span style="color: rgba(255,255,255,0.75); font-weight: 400; font-size: 0.74rem; margin-left: 12px;">${highlightKeywords(d.applicable_jurisdictions, q)}</span>` : ''}
           </div>
+          ${statusBadge}
         </div>
         <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 4px 0 2px 0;">
           <h4 class="doc-title" style="margin: 0; display: inline-block;">${docLink}</h4>
@@ -1392,6 +1405,19 @@ function initApp() {
     'Ministry of Transportation and Infrastructure': '#003366'
   };
   const DEFAULT_JUR_COLOR = '#334155';
+
+  // Link-status pill, reusing water-systems' existing .status-badge system
+  // (same CSS classes/tooltip pattern) rather than inventing a new one.
+  // Data comes from Antigravity's broken-link recheck -- see
+  // link_status_code / link_checked_date on each document.
+  const LINK_STATUS_META = {
+    '200': { cls: 'live-200', text: '✓ LIVE (200)', label: 'Live -- link resolves normally' },
+    '307': { cls: 'hidden-200', text: '↪ REDIRECTED (307)', label: 'Redirected away from the original PDF' },
+    '403': { cls: 'restricted-403', text: '🔒 RESTRICTED (403)', label: 'Access restricted (403 Forbidden)' },
+    '404': { cls: 'absent-404', text: '✕ ABSENT (404)', label: 'Not found (404)' },
+    '429': { cls: 'hidden-200', text: '⏳ RATE LIMITED (429)', label: 'Rate-limited by the source site at last check' },
+    'Error': { cls: 'absent-404', text: '⚠ ERROR', label: 'Unresolved connection error at last check' }
+  };
 
   // Real favicon images, matching the existing icon-before-name convention
   // used elsewhere on the site (water-systems' .doc-card-footer /
