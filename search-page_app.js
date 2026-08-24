@@ -696,7 +696,7 @@ function initApp() {
   }
 
   function getLiveLinkStatusOptions() {
-    return Array.from(new Set(rawDocumentsData.map(d => d.link_status_code || '200').filter(Boolean)));
+    return Array.from(new Set(rawDocumentsData.map(d => d.link_status_code || 'unchecked').filter(Boolean)));
   }
 
   function applyDocumentFiltersAndRender() {
@@ -759,7 +759,7 @@ function initApp() {
     }
 
     if (selectedLinkStatusList.length > 0) {
-      docs = docs.filter(d => selectedLinkStatusList.includes(d.link_status_code || '200'));
+      docs = docs.filter(d => selectedLinkStatusList.includes(d.link_status_code || 'unchecked'));
     }
 
     const dStart = dateStart ? dateStart.value : '';
@@ -833,8 +833,8 @@ function initApp() {
       const displayTitleRaw = d.display_title || d.title || '';
       const highlightedTitle = highlightKeywords(displayTitleRaw, q);
 
-      const linkStatus = d.link_status_code || '200';
-      const isLinkBroken = linkStatus !== '200';
+      const linkStatus = d.link_status_code || 'unchecked';
+      const isLinkBroken = linkStatus !== '200' && linkStatus !== 'unchecked';
 
       const backupLinkBtn = d.html_file_path
         ? (isLinkBroken
@@ -1455,7 +1455,8 @@ function initApp() {
     '403': { cls: 'restricted-403', text: '🔒 RESTRICTED (403)', label: 'Access restricted (403 Forbidden)' },
     '404': { cls: 'absent-404', text: '✕ ABSENT (404)', label: 'Not found (404)' },
     '429': { cls: 'hidden-200', text: '⏳ RATE LIMITED (429)', label: 'Rate-limited by the source site at last check' },
-    'Error': { cls: 'absent-404', text: '⚠ ERROR', label: 'Unresolved connection error at last check' }
+    'Error': { cls: 'absent-404', text: '⚠ ERROR', label: 'Unresolved connection error at last check' },
+    'unchecked': { cls: 'unchecked-pending', text: '◌ NOT YET VERIFIED', label: 'Link has not been checked yet -- status unknown' }
   };
 
   // Real favicon images, matching the existing icon-before-name convention
