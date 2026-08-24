@@ -943,7 +943,7 @@ function initApp() {
       // the small number of documents with neither a real check nor a
       // capture date on file.
       const statusDateLabel = isoDate
-        ? `<span style="color:rgba(255,255,255,0.55); font-weight:600; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.02em; margin-right:3px;">${isoDate}:</span>`
+        ? `<span style="display:inline-block; vertical-align:middle; color:rgba(255,255,255,0.55); font-weight:600; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.02em; margin-right:3px;">${isoDate}:</span>`
         : '';
 
       const indexedIso = formatIsoDate(d.indexed_date);
@@ -1496,13 +1496,13 @@ function initApp() {
   // whether a live recheck has ever succeeded. The badge leads with
   // indexed_date (always true, never stale-looking) and only adds a live
   // status on top of it when we actually have a real, current HTTP result.
-  // No emoji/symbol prefixes -- plain text only.
+  // Plain unicode symbols are fine (✓ ✕ ↪ ⊘ ◌); full-color emoji (🔒 etc.) are not.
   const LINK_STATUS_META = {
-    '200': { cls: 'live-200', text: 'LIVE (200)' },
-    '307': { cls: 'hidden-200', text: 'REDIRECTED (307)' },
-    '403': { cls: 'restricted-403', text: 'RESTRICTED (403)' },
-    '404': { cls: 'absent-404', text: 'ABSENT (404)' },
-    'unchecked': { cls: 'unchecked-pending', text: 'UNCHECKED' }
+    '200': { cls: 'live-200', text: '✓ LIVE (200)' },
+    '307': { cls: 'hidden-200', text: '↪ REDIRECTED (307)' },
+    '403': { cls: 'restricted-403', text: '⊘ RESTRICTED (403)' },
+    '404': { cls: 'absent-404', text: '✕ ABSENT (404)' },
+    'unchecked': { cls: 'unchecked-pending', text: '◌ UNCHECKED' }
   };
 
   // 429/Error just mean *our* check failed -- fold them into 'unchecked'

@@ -24,6 +24,8 @@
    .status-badge / .has-tooltip system (same class names, same colors) so the
    two sites stay visually consistent instead of inventing a second system. */
 .status-badge {
+  display: inline-block;
+  vertical-align: middle;
   font-family: 'Inter', sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -31,6 +33,7 @@
   border-radius: 9999px;
   text-transform: uppercase;
   border: 1px solid transparent;
+  line-height: 1.4;
 }
 .status-badge.live-200 { background: #E6F4EA; color: #137333; border-color: #A8DAB5; }
 .status-badge.hidden-200 { background: #FEF7E0; color: #B06000; border-color: #FAD28C; }
@@ -52,7 +55,9 @@
      nowrap tooltip runs past the card's right edge and gets clipped by
      .doc-card's overflow:hidden. Right-anchoring + wrapping keeps it inside
      the card regardless of how long the text is. */
-  max-width: 240px;
+  width: max-content;
+  max-width: 230px;
+  min-width: 150px;
   white-space: normal;
   text-align: left;
   background: #1F2933;
