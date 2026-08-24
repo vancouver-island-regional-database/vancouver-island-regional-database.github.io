@@ -834,7 +834,9 @@ function initApp() {
       const highlightedTitle = highlightKeywords(displayTitleRaw, q);
 
       const linkStatus = d.link_status_code || 'unchecked';
-      const isLinkBroken = linkStatus !== '200' && linkStatus !== 'unchecked';
+      // Only a confirmed live recheck result counts as "broken" -- 429/Error
+      // mean our check failed, not that the document is gone.
+      const isLinkBroken = linkStatus === '403' || linkStatus === '404';
 
       const backupLinkBtn = d.html_file_path
         ? (isLinkBroken
@@ -915,11 +917,27 @@ function initApp() {
         ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none;${strikeStyle} color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
         : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;${strikeStyle}" title="No original source link recorded">${highlightedTitle}</span>`;
 
-      const statusPill = LINK_STATUS_META[linkStatus] || LINK_STATUS_META['200'];
-      const statusTooltip = d.link_checked_date
-        ? `Checked ${d.link_checked_date}: ${statusPill.label}`
-        : statusPill.label;
-      const statusBadge = `<span class="status-badge ${statusPill.cls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span>`;
+      const statusPill = LINK_STATUS_META[linkStatus] || LINK_STATUS_META['unchecked'];
+      const hasRealCheck = ['200','307','403','404'].includes(linkStatus) && d.link_checked_date;
+      // Prefer the real live-check date; fall back to the archived capture
+      // date so most cards still show *something* dated, just not a fake one.
+      const dateForLabel = hasRealCheck ? d.link_checked_date : d.indexed_date;
+      const slashDate = formatSlashDate(dateForLabel);
+
+      // Subtle grey "Status, YYYY/MM/DD:" prefix, kept out of the pill itself
+      // so the pill stays short. Left blank when we have no date at all.
+      const statusDateLabel = slashDate
+        ? `<span style="color:#94A3B8; font-weight:400; font-size:0.7rem; margin-right:4px;">Status, ${slashDate}:</span>`
+        : '';
+
+      const tooltipParts = [];
+      if (d.indexed_date) tooltipParts.push(`Captured/indexed ${d.indexed_date} (from the archived backup)`);
+      if (hasRealCheck) tooltipParts.push(`Live recheck ${d.link_checked_date}: ${statusPill.label}`);
+      else if (linkStatus === '429' || linkStatus === 'Error') tooltipParts.push(statusPill.label);
+      const statusTooltip = tooltipParts.length ? tooltipParts.join(' — ') : 'No capture date or live check on record';
+
+      const badgeCls = hasRealCheck ? statusPill.cls : 'unchecked-pending';
+      const statusBadge = `${statusDateLabel}<span class="status-badge ${badgeCls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span>`;
 
       card.innerHTML = `
         <div class="doc-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
@@ -1447,17 +1465,30 @@ function initApp() {
 
   // Link-status pill, reusing water-systems' existing .status-badge system
   // (same CSS classes/tooltip pattern) rather than inventing a new one.
-  // Data comes from Antigravity's broken-link recheck -- see
-  // link_status_code / link_checked_date on each document.
+  // link_status_code/link_checked_date come from live HTTP rechecks, which are
+  // slow, rate-limited, and cover only part of the corpus at any given time.
+  // indexed_date comes from the backup HTML filename (the date the document
+  // was actually captured, months/years ago in most cases -- like a Wayback
+  // snapshot timestamp) and is known for ~88% of documents regardless of
+  // whether a live recheck has ever succeeded. The badge leads with
+  // indexed_date (always true, never stale-looking) and only adds a live
+  // status on top of it when we actually have a real, current HTTP result.
   const LINK_STATUS_META = {
-    '200': { cls: 'live-200', text: '✓ LIVE (200)', label: 'Live -- link resolves normally' },
-    '307': { cls: 'hidden-200', text: '↪ REDIRECTED (307)', label: 'Redirected away from the original PDF' },
-    '403': { cls: 'restricted-403', text: '🔒 RESTRICTED (403)', label: 'Access restricted (403 Forbidden)' },
-    '404': { cls: 'absent-404', text: '✕ ABSENT (404)', label: 'Not found (404)' },
-    '429': { cls: 'hidden-200', text: '⏳ RATE LIMITED (429)', label: 'Rate-limited by the source site at last check' },
-    'Error': { cls: 'absent-404', text: '⚠ ERROR', label: 'Unresolved connection error at last check' },
-    'unchecked': { cls: 'unchecked-pending', text: '◌ NOT YET VERIFIED', label: 'Link has not been checked yet -- status unknown' }
+    '200': { cls: 'live-200', text: '✓ LIVE', label: 'Confirmed working via a live recheck -- not a real-time guarantee' },
+    '307': { cls: 'hidden-200', text: '↪ REDIRECTED', label: 'Redirected away from the original PDF at last live recheck' },
+    '403': { cls: 'restricted-403', text: '🔒 RESTRICTED', label: 'Access restricted (403) at last live recheck' },
+    '404': { cls: 'absent-404', text: '✕ GONE', label: 'Not found (404) at last live recheck' },
+    '429': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'Source rate-limited our check -- not a confirmed status' },
+    'Error': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'Connection failed during check -- not a confirmed status' },
+    'unchecked': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'No live recheck has succeeded yet' }
   };
+
+  // Formats an ISO date (YYYY-MM-DD) as "2026/06/24" for the subtle
+  // "Status, YYYY/MM/DD:" label shown before the pill.
+  function formatSlashDate(iso) {
+    if (!iso || iso.length < 10) return '';
+    return iso.slice(0, 10).replace(/-/g, '/');
+  }
 
   // Real favicon images, matching the existing icon-before-name convention
   // used elsewhere on the site (water-systems' .doc-card-footer /

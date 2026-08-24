@@ -46,14 +46,21 @@
   content: attr(data-tooltip);
   position: absolute;
   top: 125%;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 0;
+  /* Anchored to the badge's right edge and wrapped, not centered+nowrap --
+     the badge sits at the far right of the card header, so a centered
+     nowrap tooltip runs past the card's right edge and gets clipped by
+     .doc-card's overflow:hidden. Right-anchoring + wrapping keeps it inside
+     the card regardless of how long the text is. */
+  max-width: 240px;
+  white-space: normal;
+  text-align: left;
   background: #1F2933;
   color: #fff;
   font-size: 11px;
   font-weight: 400;
   text-transform: none;
-  white-space: nowrap;
+  line-height: 1.4;
   padding: 6px 10px;
   border-radius: 4px;
   opacity: 0;
