@@ -946,9 +946,18 @@ function initApp() {
         ? `<span style="color:rgba(255,255,255,0.55); font-weight:600; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.02em; margin-right:3px;">${isoDate}:</span>`
         : '';
 
-      const statusTooltip = hasRealCheck
-        ? `Checked ${d.link_checked_date}`
-        : (isoDate ? `Captured ${isoDate}` : 'Never captured or checked');
+      const indexedIso = formatIsoDate(d.indexed_date);
+      const checkedIso = hasRealCheck ? formatIsoDate(d.link_checked_date) : '';
+      let statusTooltip;
+      if (indexedIso && checkedIso) {
+        statusTooltip = `Originally indexed ${indexedIso}, last verified ${checkedIso}`;
+      } else if (indexedIso) {
+        statusTooltip = `Originally indexed ${indexedIso}`;
+      } else if (checkedIso) {
+        statusTooltip = `Last verified ${checkedIso}`;
+      } else {
+        statusTooltip = 'Never captured or checked';
+      }
 
       const badgeCls = linkStatus === 'unchecked' ? 'unchecked-pending' : statusPill.cls;
       const statusBadge = `${statusDateLabel}<span class="status-badge ${badgeCls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span>`;
@@ -1487,12 +1496,13 @@ function initApp() {
   // whether a live recheck has ever succeeded. The badge leads with
   // indexed_date (always true, never stale-looking) and only adds a live
   // status on top of it when we actually have a real, current HTTP result.
+  // No emoji/symbol prefixes -- plain text only.
   const LINK_STATUS_META = {
-    '200': { cls: 'live-200', text: '✓ LIVE (200)', label: 'Live' },
-    '307': { cls: 'hidden-200', text: '↪ REDIRECTED (307)', label: 'Redirected' },
-    '403': { cls: 'restricted-403', text: '🔒 RESTRICTED (403)', label: 'Access restricted' },
-    '404': { cls: 'absent-404', text: '✕ GONE (404)', label: 'Not found' },
-    'unchecked': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'Never captured or checked' }
+    '200': { cls: 'live-200', text: 'LIVE (200)' },
+    '307': { cls: 'hidden-200', text: 'REDIRECTED (307)' },
+    '403': { cls: 'restricted-403', text: 'RESTRICTED (403)' },
+    '404': { cls: 'absent-404', text: 'ABSENT (404)' },
+    'unchecked': { cls: 'unchecked-pending', text: 'UNCHECKED' }
   };
 
   // 429/Error just mean *our* check failed -- fold them into 'unchecked'
