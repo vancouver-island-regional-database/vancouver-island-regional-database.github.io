@@ -695,8 +695,20 @@ function initApp() {
     applyDocumentFiltersAndRender();
   }
 
+  // Same rule the card badge uses: a real recheck wins; otherwise a
+  // successful capture counts as LIVE (it couldn't have been archived if it
+  // were down); otherwise unchecked. Shared so the filter and the badge
+  // never disagree with each other.
+  function getEffectiveLinkStatus(d) {
+    const rawStatus = normalizeLinkStatus(d.link_status_code);
+    const hasRealCheck = ['200', '307', '403', '404'].includes(rawStatus) && d.link_checked_date;
+    if (hasRealCheck) return rawStatus;
+    if (d.indexed_date) return '200';
+    return 'unchecked';
+  }
+
   function getLiveLinkStatusOptions() {
-    return Array.from(new Set(rawDocumentsData.map(d => d.link_status_code || 'unchecked').filter(Boolean)));
+    return Array.from(new Set(rawDocumentsData.map(d => getEffectiveLinkStatus(d)).filter(Boolean)));
   }
 
   function applyDocumentFiltersAndRender() {
@@ -759,7 +771,7 @@ function initApp() {
     }
 
     if (selectedLinkStatusList.length > 0) {
-      docs = docs.filter(d => selectedLinkStatusList.includes(d.link_status_code || 'unchecked'));
+      docs = docs.filter(d => selectedLinkStatusList.includes(getEffectiveLinkStatus(d)));
     }
 
     const dStart = dateStart ? dateStart.value : '';
@@ -833,9 +845,15 @@ function initApp() {
       const displayTitleRaw = d.display_title || d.title || '';
       const highlightedTitle = highlightKeywords(displayTitleRaw, q);
 
-      const linkStatus = d.link_status_code || 'unchecked';
-      // Only a confirmed live recheck result counts as "broken" -- 429/Error
-      // mean our check failed, not that the document is gone.
+      // A real recheck result wins if we have one. Otherwise, a successful
+      // capture is itself proof the source was live on that date (you can't
+      // archive a page that returned a 404), so treat indexed_date as a
+      // LIVE result rather than showing an alarming "unchecked" state for
+      // the ~88% of documents that were never rechecked but were clearly
+      // reachable when we captured them.
+      const linkStatus = getEffectiveLinkStatus(d);
+      const hasRealCheck = ['200', '307', '403', '404'].includes(normalizeLinkStatus(d.link_status_code)) && d.link_checked_date;
+      const effectiveDate = hasRealCheck ? d.link_checked_date : (d.indexed_date || null);
       const isLinkBroken = linkStatus === '403' || linkStatus === '404';
 
       const backupLinkBtn = d.html_file_path
@@ -918,25 +936,21 @@ function initApp() {
         : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;${strikeStyle}" title="No original source link recorded">${highlightedTitle}</span>`;
 
       const statusPill = LINK_STATUS_META[linkStatus] || LINK_STATUS_META['unchecked'];
-      const hasRealCheck = ['200','307','403','404'].includes(linkStatus) && d.link_checked_date;
-      // Prefer the real live-check date; fall back to the archived capture
-      // date so most cards still show *something* dated, just not a fake one.
-      const dateForLabel = hasRealCheck ? d.link_checked_date : d.indexed_date;
-      const slashDate = formatSlashDate(dateForLabel);
+      const isoDate = formatIsoDate(effectiveDate);
 
-      // Subtle grey "Status, YYYY/MM/DD:" prefix, kept out of the pill itself
-      // so the pill stays short. Left blank when we have no date at all.
-      const statusDateLabel = slashDate
-        ? `<span style="color:#94A3B8; font-weight:400; font-size:0.7rem; margin-right:4px;">Status, ${slashDate}:</span>`
+      // Flush against the pill's left edge, translucent white (paler than
+      // the applicable-jurisdictions text), all caps. Left blank only for
+      // the small number of documents with neither a real check nor a
+      // capture date on file.
+      const statusDateLabel = isoDate
+        ? `<span style="color:rgba(255,255,255,0.55); font-weight:600; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.02em; margin-right:3px;">${isoDate}:</span>`
         : '';
 
-      const tooltipParts = [];
-      if (d.indexed_date) tooltipParts.push(`Captured/indexed ${d.indexed_date} (from the archived backup)`);
-      if (hasRealCheck) tooltipParts.push(`Live recheck ${d.link_checked_date}: ${statusPill.label}`);
-      else if (linkStatus === '429' || linkStatus === 'Error') tooltipParts.push(statusPill.label);
-      const statusTooltip = tooltipParts.length ? tooltipParts.join(' — ') : 'No capture date or live check on record';
+      const statusTooltip = hasRealCheck
+        ? `Checked ${d.link_checked_date}`
+        : (isoDate ? `Captured ${isoDate}` : 'Never captured or checked');
 
-      const badgeCls = hasRealCheck ? statusPill.cls : 'unchecked-pending';
+      const badgeCls = linkStatus === 'unchecked' ? 'unchecked-pending' : statusPill.cls;
       const statusBadge = `${statusDateLabel}<span class="status-badge ${badgeCls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span>`;
 
       card.innerHTML = `
@@ -1474,20 +1488,25 @@ function initApp() {
   // indexed_date (always true, never stale-looking) and only adds a live
   // status on top of it when we actually have a real, current HTTP result.
   const LINK_STATUS_META = {
-    '200': { cls: 'live-200', text: '✓ LIVE', label: 'Confirmed working via a live recheck -- not a real-time guarantee' },
-    '307': { cls: 'hidden-200', text: '↪ REDIRECTED', label: 'Redirected away from the original PDF at last live recheck' },
-    '403': { cls: 'restricted-403', text: '🔒 RESTRICTED', label: 'Access restricted (403) at last live recheck' },
-    '404': { cls: 'absent-404', text: '✕ GONE', label: 'Not found (404) at last live recheck' },
-    '429': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'Source rate-limited our check -- not a confirmed status' },
-    'Error': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'Connection failed during check -- not a confirmed status' },
-    'unchecked': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'No live recheck has succeeded yet' }
+    '200': { cls: 'live-200', text: '✓ LIVE (200)', label: 'Live' },
+    '307': { cls: 'hidden-200', text: '↪ REDIRECTED (307)', label: 'Redirected' },
+    '403': { cls: 'restricted-403', text: '🔒 RESTRICTED (403)', label: 'Access restricted' },
+    '404': { cls: 'absent-404', text: '✕ GONE (404)', label: 'Not found' },
+    'unchecked': { cls: 'unchecked-pending', text: '◌ UNCHECKED', label: 'Never captured or checked' }
   };
 
-  // Formats an ISO date (YYYY-MM-DD) as "2026/06/24" for the subtle
-  // "Status, YYYY/MM/DD:" label shown before the pill.
-  function formatSlashDate(iso) {
+  // 429/Error just mean *our* check failed -- fold them into 'unchecked'
+  // rather than giving them their own alarming-looking pill.
+  function normalizeLinkStatus(code) {
+    if (code === '429' || code === 'Error') return 'unchecked';
+    return code || 'unchecked';
+  }
+
+  // Formats an ISO date (YYYY-MM-DD) unchanged -- kept as its own function
+  // so the display format only needs to change in one place.
+  function formatIsoDate(iso) {
     if (!iso || iso.length < 10) return '';
-    return iso.slice(0, 10).replace(/-/g, '/');
+    return iso.slice(0, 10);
   }
 
   // Real favicon images, matching the existing icon-before-name convention
