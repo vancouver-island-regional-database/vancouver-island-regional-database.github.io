@@ -960,7 +960,12 @@ function initApp() {
       }
 
       const badgeCls = linkStatus === 'unchecked' ? 'unchecked-pending' : statusPill.cls;
-      const statusBadge = `${statusDateLabel}<span class="status-badge ${badgeCls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span>`;
+      // Wrapped in one span so doc-header's justify-content:space-between
+      // treats the date label + pill as a single flex item -- without this
+      // wrapper they're two separate top-level children and space-between
+      // pushes the date label into the middle of the header instead of
+      // next to the pill.
+      const statusBadge = `<span style="display:inline-flex; align-items:center; flex-shrink:0;">${statusDateLabel}<span class="status-badge ${badgeCls} has-tooltip clickable-status-badge" data-tooltip="${escapeHtml(statusTooltip)}" data-status="${escapeHtml(linkStatus)}" style="cursor:pointer;">${statusPill.text}</span></span>`;
 
       card.innerHTML = `
         <div class="doc-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; background: ${jurColor}; margin: -18px -18px 10px -18px; padding: 10px 18px;">
