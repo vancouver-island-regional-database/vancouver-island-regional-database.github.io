@@ -703,8 +703,12 @@ function initApp() {
     const rawStatus = normalizeLinkStatus(d.link_status_code);
     const hasRealCheck = ['200', '307', '403', '404'].includes(rawStatus) && d.link_checked_date;
     if (hasRealCheck) return rawStatus;
-    if (d.indexed_date) return '200';
-    return 'unchecked';
+    // Every row in this table has a real original_url it was fetched from --
+    // being in the database at all is proof it was captured. There's no
+    // "unchecked"/"never captured" state: if we have no better information,
+    // the honest default is LIVE (it had to be reachable to end up here),
+    // just without a date attached to that claim.
+    return '200';
   }
 
   function getLiveLinkStatusOptions() {
@@ -860,7 +864,12 @@ function initApp() {
         ? (isLinkBroken
             ? `<a href="${d.html_file_path}" target="_blank" style="font-size:.7rem; color:#C5221F; font-weight:700; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`
             : `<a href="${d.html_file_path}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="View local HTML backup of this document">Link broken? view html backup</a>`)
-        : '';
+        // No matched local backup file. For a confirmed-dead link this means
+        // there is no fallback at all -- say so plainly instead of silently
+        // showing nothing, which reads as if there's simply no issue.
+        : (isLinkBroken
+            ? `<span style="font-size:.7rem; color:#C5221F; font-weight:700;" title="No local HTML backup was matched for this document">No backup on file -- source unavailable</span>`
+            : '');
 
       const altUrlLinks = (Array.isArray(d.alternate_urls) && d.alternate_urls.length)
         ? d.alternate_urls.map((u, i) => `<a href="${u}" target="_blank" style="font-size:.64rem; color:#94A3B8; font-weight:400; text-decoration:underline;" title="Additional source URL for this document">alternate source${d.alternate_urls.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(' &middot; ')
@@ -935,7 +944,7 @@ function initApp() {
         ? `<a class="link-slate-bold" href="${d.url}" target="_blank" style="text-decoration:none;${strikeStyle} color:var(--bc-blue); font-size:1.1rem; font-weight:700;" title="Open original source">${highlightedTitle}</a>`
         : `<span class="link-slate-bold" style="color:var(--text); font-size:1.1rem; font-weight:700;${strikeStyle}" title="No original source link recorded">${highlightedTitle}</span>`;
 
-      const statusPill = LINK_STATUS_META[linkStatus] || LINK_STATUS_META['unchecked'];
+      const statusPill = LINK_STATUS_META[linkStatus] || LINK_STATUS_META['200'];
       const isoDate = formatIsoDate(effectiveDate);
 
       // Flush against the pill's left edge, translucent white (paler than
@@ -956,10 +965,10 @@ function initApp() {
       } else if (checkedIso) {
         statusTooltip = `Last verified ${checkedIso}`;
       } else {
-        statusTooltip = 'Never captured or checked';
+        statusTooltip = 'Captured from a live source -- exact date not on file';
       }
 
-      const badgeCls = linkStatus === 'unchecked' ? 'unchecked-pending' : statusPill.cls;
+      const badgeCls = statusPill.cls;
       // Wrapped in one span so doc-header's justify-content:space-between
       // treats the date label + pill as a single flex item -- without this
       // wrapper they're two separate top-level children and space-between
@@ -1506,15 +1515,16 @@ function initApp() {
     '200': { cls: 'live-200', text: '✓ LIVE (200)' },
     '307': { cls: 'hidden-200', text: '↪ REDIRECTED (307)' },
     '403': { cls: 'restricted-403', text: '⊘ RESTRICTED (403)' },
-    '404': { cls: 'absent-404', text: '✕ ABSENT (404)' },
-    'unchecked': { cls: 'unchecked-pending', text: '◌ UNCHECKED' }
+    '404': { cls: 'absent-404', text: '✕ ABSENT (404)' }
   };
 
-  // 429/Error just mean *our* check failed -- fold them into 'unchecked'
-  // rather than giving them their own alarming-looking pill.
+  // 429/Error mean *our* check attempt failed (rate-limited/connection
+  // error) -- not a real status, so they fall through to whatever
+  // getEffectiveLinkStatus decides (indexed_date -> LIVE, or LIVE by
+  // default since every row was fetched from a real URL to exist here).
   function normalizeLinkStatus(code) {
-    if (code === '429' || code === 'Error') return 'unchecked';
-    return code || 'unchecked';
+    if (code === '429' || code === 'Error' || !code) return null;
+    return code;
   }
 
   // Formats an ISO date (YYYY-MM-DD) unchanged -- kept as its own function
