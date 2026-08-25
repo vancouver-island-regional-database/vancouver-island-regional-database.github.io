@@ -60,30 +60,57 @@ function initApp() {
     }
   }
 
+  const SEARCH_DB_URL = 'https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_search.db.gz';
+  const SEARCH_DB_MAX_ATTEMPTS = 4;
+  const SEARCH_DB_RETRY_DELAYS_MS = [1500, 4000, 9000]; // between attempts 1->2, 2->3, 3->4
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function fetchSearchDbOnce() {
+    // cache: 'no-store' -- a large file that failed mid-transfer can leave a
+    // partial/broken entry in some browser caches; force a clean re-fetch on
+    // every attempt rather than risk retrying against a cached failure.
+    const resp = await fetch(SEARCH_DB_URL, { cache: 'no-store' });
+    if (!resp.ok) throw new Error(`fetch failed: HTTP ${resp.status}`);
+    const compressedBuf = await resp.arrayBuffer();
+    const decompressedStream = new Blob([compressedBuf]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const decompressedBuf = await new Response(decompressedStream).arrayBuffer();
+    return decompressedBuf;
+  }
+
   function ensureSearchDbLoaded() {
     if (searchDbInstance) return Promise.resolve(searchDbInstance);
     if (searchDbLoadingPromise) return searchDbLoadingPromise;
 
     showSearchDbLoadingBanner(true);
     searchDbLoadingPromise = (async () => {
-      try {
-        const SQL = await initSqlJs({
-          locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js-fts5@1.4.0/dist/${file}`
-        });
-        const resp = await fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_search.db.gz');
-        if (!resp.ok) throw new Error(`fetch failed: ${resp.status}`);
-        const compressedBuf = await resp.arrayBuffer();
-        const decompressedStream = new Blob([compressedBuf]).stream().pipeThrough(new DecompressionStream('gzip'));
-        const decompressedBuf = await new Response(decompressedStream).arrayBuffer();
-        searchDbInstance = new SQL.Database(new Uint8Array(decompressedBuf));
-        showSearchDbLoadingBanner(false);
-        return searchDbInstance;
-      } catch (err) {
-        console.error('Failed to load full-text search database:', err);
-        searchDbLoadFailed = true;
-        showSearchDbLoadingBanner(true, true);
-        return null;
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js-fts5@1.4.0/dist/${file}`
+      });
+
+      let lastErr = null;
+      for (let attempt = 1; attempt <= SEARCH_DB_MAX_ATTEMPTS; attempt++) {
+        try {
+          const decompressedBuf = await fetchSearchDbOnce();
+          searchDbInstance = new SQL.Database(new Uint8Array(decompressedBuf));
+          showSearchDbLoadingBanner(false);
+          return searchDbInstance;
+        } catch (err) {
+          lastErr = err;
+          console.warn(`Full-text search database load attempt ${attempt}/${SEARCH_DB_MAX_ATTEMPTS} failed:`, err);
+          if (attempt < SEARCH_DB_MAX_ATTEMPTS) {
+            await sleep(SEARCH_DB_RETRY_DELAYS_MS[attempt - 1]);
+          }
+        }
       }
+
+      console.error('Failed to load full-text search database after retries:', lastErr);
+      searchDbLoadFailed = true;
+      searchDbLoadingPromise = null; // allow a later manual retry (e.g. a fresh search) to try again, rather than staying permanently stuck for the rest of this page session
+      showSearchDbLoadingBanner(true, true);
+      return null;
     })();
     return searchDbLoadingPromise;
   }
