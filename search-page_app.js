@@ -551,6 +551,12 @@ function initApp() {
     }
   }
 
+  // Optional data API (window.DATA_API); without one, the published JSON files are used
+  function dataApiFetch(endpoint, params) {
+    const api = window.DATA_API;
+    return api ? fetch(api.url(endpoint, params)) : Promise.reject(new Error('No data API'));
+  }
+
   function loadDocuments() {
     if (documentsBody) {
       documentsBody.innerHTML = '<div style="padding:16px; text-align:center; color:var(--text-muted);">Loading documents...</div>';
@@ -559,15 +565,13 @@ function initApp() {
     let apiJur = selectedJurs.length === 5 ? 'Mid-Island Region' : (selectedJurs.length === 1 ? selectedJurs[0] : '');
     let apiCat = selectedCategories.length === 1 && selectedProjects.length === 0 ? selectedCategories[0] : (selectedCategories.length === 0 && selectedProjects.length === 1 ? selectedProjects[0] : '');
 
-    const dbFilter = (typeof window !== 'undefined' && window.LOCAL_DB_FILTER) || '';
-    fetch(`/api/documents?q=${encodeURIComponent(q)}&cat=${encodeURIComponent(apiCat)}&jur=${encodeURIComponent(apiJur)}&db=${encodeURIComponent(dbFilter)}&page=${currentPage}`)
+    dataApiFetch('documents', { q, cat: apiCat, jur: apiJur, page: currentPage })
       .then(res => res.json())
       .then(data => {
         rawDocumentsData = data.documents || [];
         finishLoadingDocuments(data.total, data.page);
       })
       .catch(err => {
-        console.warn("Backend server offline. Automatically loading local JSON fallback dataset...");
         fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_documents.json')
           .then(res => res.json())
           .then(data => {
@@ -575,7 +579,7 @@ function initApp() {
             finishLoadingDocuments(rawDocumentsData.length, 1);
           })
           .catch(localErr => {
-            console.error("Critical Error: Failed to load local JSON fallback data!", localErr);
+            console.error("Failed to load document data", localErr);
             if (documentsBody) {
               documentsBody.innerHTML = '<div style="padding:16px; text-align:center; color:#991b1b;">Failed to load documents dataset.</div>';
             }
@@ -896,7 +900,7 @@ function initApp() {
 
       const card = document.createElement('div');
       card.className = 'doc-card';
-      if (d.is_public === false) card.setAttribute('data-private', 'true');
+      if (window.DATA_API && window.DATA_API.decorateCard) window.DATA_API.decorateCard(card, d);
       card.style.background = 'white';
       card.style.border = '1px solid var(--border)';
       card.style.borderRadius = '8px';
@@ -1079,14 +1083,13 @@ function initApp() {
     if (incameraBody) {
       incameraBody.innerHTML = '<tr><td colspan="8" style="padding:16px; text-align:center; color:var(--text-muted);">Loading closed sessions...</td></tr>';
     }
-    fetch('/api/incamera')
+    dataApiFetch('incamera', {})
       .then(res => res.json())
       .then(data => {
         rawIncameraData = data.incamera || [];
         processAndRenderIncamera();
       })
       .catch(err => {
-        console.warn("Backend closed session API offline. Automatically loading local JSON fallback dataset...");
         fetch('https://vancouver-island-regional-database.github.io/document-index/site-data/ladysmith_incamera.json')
           .then(res => res.json())
           .then(data => {
@@ -1094,7 +1097,7 @@ function initApp() {
             processAndRenderIncamera();
           })
           .catch(localErr => {
-            console.error("Critical Error: Failed to load closed session local fallback!", localErr);
+            console.error("Failed to load closed session data", localErr);
             if (incameraBody) {
               incameraBody.innerHTML = '<tr><td colspan="8" style="padding:16px; text-align:center; color:#991b1b;">Failed to load closed session dataset.</td></tr>';
             }

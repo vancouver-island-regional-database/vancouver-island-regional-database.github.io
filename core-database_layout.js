@@ -40,7 +40,7 @@ function initializeLayout(config) {
         <div class="header-brand">
           <a href="${config.homeHref || 'index.html'}"><img src="assets/vird_logo_white.png" alt="Vancouver Island Regional Database home" onerror="this.style.display='none';"></a>
           <div class="header-title-block">
-            <h1>${config.brandName || 'Vancouver Island Regional Database'}${config.brandBadge ? ` <span class="header-local-badge">${config.brandBadge}</span>` : ''}</h1>
+            <h1>${config.brandName || 'Vancouver Island Regional Database'}</h1>
             <span class="header-tagline">${config.brandTagline || 'Public Access to Public Data'}</span>
           </div>
         </div>
@@ -56,24 +56,6 @@ function initializeLayout(config) {
             </label>
           </div>
           <div class="nav-sections">
-            ${config.showDbFilter ? `
-            <div class="nav-group">
-              <div class="nav-title">Database</div>
-              <div class="nav-cat-list" id="dbFilterList">
-                <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="radio" name="dbFilter" value="" class="db-filter-radio" checked style="cursor:pointer;">
-                  <span>All</span>
-                </label>
-                <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="radio" name="dbFilter" value="public" class="db-filter-radio" style="cursor:pointer;">
-                  <span>Public Database</span>
-                </label>
-                <label class="nav-item" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                  <input type="radio" name="dbFilter" value="private" class="db-filter-radio" style="cursor:pointer;">
-                  <span>Private Database <span class="badge-private-inline">Local-only</span></span>
-                </label>
-              </div>
-            </div>` : ''}
             <div class="nav-group">
               <div class="nav-title">Categories</div>
               <div class="nav-cat-list" id="genCatList">
