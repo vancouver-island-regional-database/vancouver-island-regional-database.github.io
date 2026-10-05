@@ -12,3 +12,4 @@ Allow: /
 
 # Directs all search engines to the clean data map
 Sitemap: https://vancouver-island-regional-database.github.io/sitemap.xml
+Sitemap: https://vancouver-island-regional-database.github.io/sitemap.txt
