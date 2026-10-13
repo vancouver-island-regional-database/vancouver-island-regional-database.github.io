@@ -16,7 +16,7 @@ Geographic and governance scope: East Coast Central Vancouver Island regional ju
 
 ## Directory
 Pages for organizations that appear in public documents. Each page compiles what the documents state, with links to the official sources and locally preserved copies.
-- [Ladysmith Harbour Economic Development Corporation](https://vancouver-island-regional-database.github.io/directory/ladysmith-harbour-economic-development-corporation.html): Wholly owned subsidiary of the Town of Ladysmith, formerly DL2016 Holdings Corporation. Stated purpose, directors, financial information, lease history and an index of 174 documents that mention it.
+- [Ladysmith Harbour Economic Development Corporation](https://vancouver-island-regional-database.github.io/directory/ladysmith-harbour-economic-development-corporation.html): Wholly owned subsidiary of the Town of Ladysmith, formerly DL2016 Holdings Corporation. Stated purpose, directors, financial information, lease history and an index of 179 documents that mention it.
 
 ## External Resources
 - [External Resources](https://vancouver-island-regional-database.github.io/external-resources.html): Directory of government registries, open data portals, and independent research tools for verifying public records, organized by category (land & property, companies, legal records, financial data, natural resources & environment, professional & regulatory records, raw datasets, general research resources). Each entry notes cost, login requirement, and difficulty of use.
